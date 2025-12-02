@@ -1,0 +1,117 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="securityBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7f1d1d;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b91c1c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="securityCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#fef2f2;stop-opacity:0.95" />
+    </linearGradient>
+    <linearGradient id="shield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#securityBg)"/>
+  
+  <!-- Security pattern background -->
+  <g opacity="0.1">
+    <!-- Lock icons -->
+    <g transform="translate(50, 50)">
+      <rect x="0" y="8" width="16" height="12" rx="2" fill="white"/>
+      <path d="M4 8 V6 A4 4 0 0 1 12 6 V8" stroke="white" stroke-width="2" fill="none"/>
+    </g>
+    <g transform="translate(700, 300)">
+      <rect x="0" y="8" width="16" height="12" rx="2" fill="white"/>
+      <path d="M4 8 V6 A4 4 0 0 1 12 6 V8" stroke="white" stroke-width="2" fill="none"/>
+    </g>
+    
+    <!-- Binary code -->
+    <text x="600" y="80" font-family="monospace" font-size="10" fill="white">1010110010</text>
+    <text x="100" y="350" font-family="monospace" font-size="10" fill="white">0110100101</text>
+  </g>
+  
+  <!-- Main card -->
+  <rect x="80" y="60" width="640" height="280" rx="20" fill="url(#securityCard)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  
+  <!-- Shield icon -->
+  <g transform="translate(120, 100)">
+    <path d="M30 10 L50 20 L50 45 Q50 55 30 60 Q10 55 10 45 L10 20 Z" fill="url(#shield)"/>
+    <path d="M20 35 L27 42 L42 27" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="130" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1e293b">Web Security</text>
+  <text x="200" y="155" font-family="Arial, sans-serif" font-size="24" fill="#1e293b">أمان تطبيقات الويب</text>
+  
+  <!-- Security threats -->
+  <g transform="translate(200, 180)">
+    <!-- SQL Injection -->
+    <circle cx="8" cy="8" r="4" fill="#dc2626"/>
+    <text x="20" y="12" font-family="Arial, sans-serif" font-size="14" fill="#374151">SQL Injection</text>
+    
+    <!-- XSS -->
+    <circle cx="8" cy="28" r="4" fill="#ea580c"/>
+    <text x="20" y="32" font-family="Arial, sans-serif" font-size="14" fill="#374151">Cross-Site Scripting (XSS)</text>
+    
+    <!-- CSRF -->
+    <circle cx="8" cy="48" r="4" fill="#d97706"/>
+    <text x="20" y="52" font-family="Arial, sans-serif" font-size="14" fill="#374151">CSRF Attacks</text>
+    
+    <!-- Data Breach -->
+    <circle cx="8" cy="68" r="4" fill="#b91c1c"/>
+    <text x="20" y="72" font-family="Arial, sans-serif" font-size="14" fill="#374151">Data Breaches</text>
+  </g>
+  
+  <!-- Security code example -->
+  <g transform="translate(450, 180)">
+    <rect x="0" y="0" width="240" height="120" rx="8" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+    <text x="10" y="20" font-family="monospace" font-size="12" fill="#10b981"># Security Best Practice</text>
+    <text x="10" y="40" font-family="monospace" font-size="11" fill="#e5e7eb">@csrf_protect</text>
+    <text x="10" y="55" font-family="monospace" font-size="11" fill="#e5e7eb">def secure_view(request):</text>
+    <text x="10" y="70" font-family="monospace" font-size="11" fill="#e5e7eb">  # Validate input</text>
+    <text x="10" y="85" font-family="monospace" font-size="11" fill="#e5e7eb">  data = escape(request.POST['data'])</text>
+    <text x="10" y="100" font-family="monospace" font-size="11" fill="#e5e7eb">  return render(request, 'safe.html')</text>
+  </g>
+  
+  <!-- Security badges -->
+  <g transform="translate(550, 100)">
+    <!-- HTTPS -->
+    <rect x="0" y="0" width="50" height="20" rx="10" fill="#10b981"/>
+    <text x="25" y="14" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">HTTPS</text>
+    
+    <!-- SSL -->
+    <rect x="60" y="0" width="40" height="20" rx="10" fill="#3b82f6"/>
+    <text x="80" y="14" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">SSL</text>
+    
+    <!-- 2FA -->
+    <rect x="110" y="0" width="35" height="20" rx="10" fill="#8b5cf6"/>
+    <text x="127" y="14" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white" text-anchor="middle">2FA</text>
+  </g>
+  
+  <!-- Warning indicators -->
+  <g transform="translate(600, 250)">
+    <!-- Warning triangle -->
+    <path d="M15 5 L25 20 L5 20 Z" fill="#f59e0b" stroke="#d97706" stroke-width="1"/>
+    <text x="15" y="17" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">!</text>
+  </g>
+  
+  <!-- Security layers visualization -->
+  <g transform="translate(100, 250)">
+    <rect x="0" y="0" width="80" height="8" rx="4" fill="#ef4444" opacity="0.7"/>
+    <text x="85" y="7" font-family="Arial, sans-serif" font-size="10" fill="#374151">Threats</text>
+    
+    <rect x="0" y="15" width="60" height="8" rx="4" fill="#f59e0b" opacity="0.7"/>
+    <text x="65" y="22" font-family="Arial, sans-serif" font-size="10" fill="#374151">Firewall</text>
+    
+    <rect x="0" y="30" width="40" height="8" rx="4" fill="#10b981" opacity="0.7"/>
+    <text x="45" y="37" font-family="Arial, sans-serif" font-size="10" fill="#374151">Application</text>
+  </g>
+  
+  <!-- Bottom security wave -->
+  <path d="M0 320 Q200 300 400 320 T800 320 L800 400 L0 400 Z" fill="rgba(16, 185, 129, 0.1)"/>
+</svg>

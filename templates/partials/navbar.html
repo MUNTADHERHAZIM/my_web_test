@@ -1,0 +1,607 @@
+{% load static %}
+{% load i18n %}
+
+<nav class="navbar bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 transition-all duration-300"
+    id="navbar">
+    <div class="container-responsive">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="{% url 'core:home' %}" class="flex items-center space-x-2 rtl:space-x-reverse">
+                    {% if site_settings.site_logo %}
+                    <img src="{{ site_settings.site_logo.url }}" alt="{{ site_settings.site_name }}"
+                        class="h-8 w-8 rounded-full">
+                    {% else %}
+                    <div
+                        class="h-8 w-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">{{ site_settings.site_name|default:"MH"|slice:":2"
+                            }}</span>
+                    </div>
+                    {% endif %}
+                    <span class="font-bold text-xl text-gray-900 dark:text-white gradient-text hidden sm:block">
+                        {{ site_settings.site_name|default:"منتظر حازم ثامر" }}
+                    </span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="nav-desktop hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4 rtl:space-x-reverse">
+                    <a href="{% url 'core:home' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                        <i class="fas fa-home mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Home" %}
+                    </a>
+                    <a href="{% url 'core:about' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                        <i class="fas fa-user mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "About" %}
+                    </a>
+                    <a href="{% url 'core:projects' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'projects' %}active{% endif %}">
+                        <i class="fas fa-briefcase mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Projects" %}
+                    </a>
+                    <a href="{% url 'blog:post_list' %}"
+                        class="nav-link {% if 'blog' in request.resolver_match.namespace %}active{% endif %}">
+                        <i class="fas fa-blog mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Blog" %}
+                    </a>
+                    <a href="{% url 'books:book_list' %}"
+                        class="nav-link {% if 'books' in request.resolver_match.namespace %}active{% endif %}">
+                        <i class="fas fa-book mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Books" %}
+                    </a>
+                    <a href="{% url 'core:global_search' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'global_search' %}active{% endif %}">
+                        <i class="fas fa-search mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Search" %}
+                    </a>
+                    <a href="{% url 'core:contact' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                        <i class="fas fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Contact" %}
+                    </a>
+                </div>
+            </div>
+
+            <!-- User Menu & Mobile Menu Button -->
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <!-- Search Button -->
+                <button id="search-toggle"
+                    class="p-2 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                    aria-label="{% trans 'Search' %}">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <!-- User Menu -->
+                {% if user.is_authenticated %}
+                <div class="relative" id="user-menu">
+                    <button
+                        class="flex items-center space-x-2 rtl:space-x-reverse p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                        id="user-menu-button" aria-expanded="false">
+                        {% if user.userprofile.avatar %}
+                        <img src="{{ user.userprofile.avatar.url }}"
+                            alt="{{ user.get_full_name|default:user.username }}"
+                            class="h-8 w-8 rounded-full object-cover">
+                        {% else %}
+                        <div class="h-8 w-8 bg-primary-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-medium text-sm">{{
+                                user.first_name|default:user.username|slice:":1" }}{{ user.last_name|slice:":1"
+                                }}</span>
+                        </div>
+                        {% endif %}
+                        <span class="hidden sm:block font-medium">{{ user.get_full_name|default:user.username }}</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown"
+                        class="absolute right-0 rtl:right-auto rtl:left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible transition-all duration-200 transform scale-95">
+                        <div class="py-1">
+                            <a href="{% url 'accounts:dashboard' %}" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt mr-3 rtl:ml-3 rtl:mr-0"></i>
+                                {% trans "Dashboard" %}
+                            </a>
+                            <a href="{% url 'accounts:profile' %}" class="dropdown-item">
+                                <i class="fas fa-user mr-3 rtl:ml-3 rtl:mr-0"></i>
+                                {% trans "Profile" %}
+                            </a>
+                            <a href="{% url 'accounts:profile_edit' %}" class="dropdown-item">
+                                <i class="fas fa-edit mr-3 rtl:ml-3 rtl:mr-0"></i>
+                                {% trans "Edit Profile" %}
+                            </a>
+                            <a href="{% url 'accounts:password_change' %}" class="dropdown-item">
+                                <i class="fas fa-key mr-3 rtl:ml-3 rtl:mr-0"></i>
+                                {% trans "Change Password" %}
+                            </a>
+                            {% if user.is_staff %}
+                            <div class="border-t border-gray-200 dark:border-gray-600 my-1"></div>
+                            <a href="{% url 'admin:index' %}" class="dropdown-item" target="_blank">
+                                <i class="fas fa-cog mr-3 rtl:ml-3 rtl:mr-0"></i>
+                                {% trans "Admin Panel" %}
+                            </a>
+                            {% endif %}
+                            <div class="border-t border-gray-200 dark:border-gray-600 my-1"></div>
+                            <form method="post" action="{% url 'accounts:logout' %}" class="inline">
+                                {% csrf_token %}
+                                <button type="submit"
+                                    class="dropdown-item w-full text-left text-red-600 dark:text-red-400">
+                                    <i class="fas fa-sign-out-alt mr-3 rtl:ml-3 rtl:mr-0"></i>
+                                    {% trans "Logout" %}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="hidden sm:flex items-center space-x-2 rtl:space-x-reverse">
+                    <a href="{% url 'accounts:login' %}" class="btn-secondary">
+                        <i class="fas fa-sign-in-alt mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Login" %}
+                    </a>
+                    <a href="{% url 'accounts:register' %}" class="btn-primary">
+                        <i class="fas fa-user-plus mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Register" %}
+                    </a>
+                </div>
+                {% endif %}
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button"
+                    class="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                    aria-label="{% trans 'Open menu' %}">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                    <i class="fas fa-times hidden" id="close-icon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu"
+        class="nav-mobile md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 opacity-0 invisible transition-all duration-300 transform -translate-y-2">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="{% url 'core:home' %}"
+                class="mobile-nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                <i class="fas fa-home mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Home" %}
+            </a>
+            <a href="{% url 'core:about' %}"
+                class="mobile-nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                <i class="fas fa-user mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "About" %}
+            </a>
+            <a href="{% url 'core:projects' %}"
+                class="mobile-nav-link {% if request.resolver_match.url_name == 'projects' %}active{% endif %}">
+                <i class="fas fa-briefcase mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Projects" %}
+            </a>
+            <a href="{% url 'blog:post_list' %}"
+                class="mobile-nav-link {% if 'blog' in request.resolver_match.namespace %}active{% endif %}">
+                <i class="fas fa-blog mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Blog" %}
+            </a>
+            <a href="{% url 'books:book_list' %}"
+                class="mobile-nav-link {% if 'books' in request.resolver_match.namespace %}active{% endif %}">
+                <i class="fas fa-book mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Books" %}
+            </a>
+            <a href="{% url 'core:global_search' %}"
+                class="mobile-nav-link {% if request.resolver_match.url_name == 'global_search' %}active{% endif %}">
+                <i class="fas fa-search mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Search" %}
+            </a>
+            <a href="{% url 'core:contact' %}"
+                class="mobile-nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                <i class="fas fa-envelope mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Contact" %}
+            </a>
+
+            {% if not user.is_authenticated %}
+            <div class="border-t border-gray-200 dark:border-gray-600 my-3"></div>
+            <a href="{% url 'accounts:login' %}" class="mobile-nav-link">
+                <i class="fas fa-sign-in-alt mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Login" %}
+            </a>
+            <a href="{% url 'accounts:register' %}" class="mobile-nav-link">
+                <i class="fas fa-user-plus mr-3 rtl:ml-3 rtl:mr-0"></i>
+                {% trans "Register" %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay"
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 invisible transition-all duration-300">
+        <div class="flex items-start justify-center pt-20">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 transform scale-95 transition-transform duration-300"
+                id="search-modal">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{% trans "Search" %}</h3>
+                        <button id="search-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <form action="{% url 'core:global_search' %}" method="get" class="space-y-4">
+                        <div class="relative">
+                            <input type="text" name="q" placeholder="{% trans 'Search posts, projects...' %}"
+                                class="w-full px-4 py-3 pl-12 rtl:pr-12 rtl:pl-4 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                autofocus>
+                            <i
+                                class="fas fa-search absolute left-4 rtl:right-4 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div class="flex justify-end space-x-3 rtl:space-x-reverse">
+                            <button type="button" id="search-cancel" class="btn-secondary">{% trans "Cancel" %}</button>
+                            <button type="submit" class="btn-primary">{% trans "Search" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Navigation Styles (no Tailwind @apply) */
+    .nav-link {
+        padding: 0.5rem 0.75rem;
+        /* py-2 px-3 */
+        border-radius: 0.375rem;
+        /* rounded-md */
+        font-size: 0.875rem;
+        /* text-sm */
+        font-weight: 500;
+        /* font-medium */
+        color: #374151;
+        /* gray-700 */
+        transition: all 200ms ease-in-out;
+        /* transition-all duration-200 */
+    }
+
+    .dark .nav-link {
+        color: #D1D5DB;
+        /* gray-300 */
+    }
+
+    .nav-link:hover {
+        color: #2563eb;
+        /* primary-600 (blue-600) */
+        background-color: #f3f4f6;
+        /* gray-100 */
+    }
+
+    .dark .nav-link:hover {
+        color: #60a5fa;
+        /* primary-400 (blue-400) */
+        background-color: #1f2937;
+        /* gray-800 */
+    }
+
+    .nav-link.active {
+        color: #2563eb;
+        /* primary-600 */
+        background-color: #EFF6FF;
+        /* primary-50 (blue-50) */
+    }
+
+    .dark .nav-link.active {
+        color: #60a5fa;
+        /* primary-400 */
+        background-color: rgba(30, 58, 138, 0.2);
+        /* primary-900/20 (blue-900 at 20%) */
+    }
+
+    .mobile-nav-link {
+        display: block;
+        /* block */
+        padding: 0.5rem 0.75rem;
+        /* py-2 px-3 */
+        border-radius: 0.375rem;
+        /* rounded-md */
+        font-size: 1rem;
+        /* text-base */
+        font-weight: 500;
+        /* font-medium */
+        color: #374151;
+        /* gray-700 */
+        transition: all 200ms ease-in-out;
+        /* transition-all duration-200 */
+    }
+
+    .dark .mobile-nav-link {
+        color: #D1D5DB;
+        /* gray-300 */
+    }
+
+    .mobile-nav-link:hover {
+        color: #2563eb;
+        /* primary-600 */
+        background-color: #f3f4f6;
+        /* gray-100 */
+    }
+
+    .dark .mobile-nav-link:hover {
+        color: #60a5fa;
+        /* primary-400 */
+        background-color: #1f2937;
+        /* gray-800 */
+    }
+
+    .mobile-nav-link.active {
+        color: #2563eb;
+        /* primary-600 */
+        background-color: #EFF6FF;
+        /* primary-50 */
+    }
+
+    .dark .mobile-nav-link.active {
+        color: #60a5fa;
+        /* primary-400 */
+        background-color: rgba(30, 58, 138, 0.2);
+        /* primary-900/20 */
+    }
+
+    .dropdown-item {
+        display: block;
+        /* block */
+        padding: 0.5rem 1rem;
+        /* py-2 px-4 */
+        font-size: 0.875rem;
+        /* text-sm */
+        color: #374151;
+        /* gray-700 */
+        transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+        /* transition-colors duration-200 */
+    }
+
+    .dark .dropdown-item {
+        color: #D1D5DB;
+        /* gray-300 */
+    }
+
+    .dropdown-item:hover {
+        background-color: #f3f4f6;
+        /* gray-100 */
+    }
+
+    .dark .dropdown-item:hover {
+        background-color: #374151;
+        /* gray-700 */
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        /* inline-flex */
+        align-items: center;
+        /* items-center */
+        padding: 0.5rem 1rem;
+        /* py-2 px-4 */
+        border: 1px solid transparent;
+        /* border border-transparent */
+        font-size: 0.875rem;
+        /* text-sm */
+        font-weight: 500;
+        /* font-medium */
+        border-radius: 0.375rem;
+        /* rounded-md */
+        color: #ffffff;
+        /* text-white */
+        background-color: #2563eb;
+        /* primary-600 */
+        transition: background-color 200ms ease-in-out, box-shadow 200ms ease-in-out, color 200ms ease-in-out;
+        /* transition-colors duration-200 */
+        outline: none;
+        /* focus:outline-none */
+    }
+
+    .btn-primary:hover {
+        background-color: #1d4ed8;
+        /* primary-700 */
+    }
+
+    .btn-primary:focus {
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        /* focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 (approx) */
+    }
+
+    .btn-secondary {
+        display: inline-flex;
+        /* inline-flex */
+        align-items: center;
+        /* items-center */
+        padding: 0.5rem 1rem;
+        /* py-2 px-4 */
+        border: 1px solid #D1D5DB;
+        /* border-gray-300 */
+        font-size: 0.875rem;
+        /* text-sm */
+        font-weight: 500;
+        /* font-medium */
+        border-radius: 0.375rem;
+        /* rounded-md */
+        color: #374151;
+        /* text-gray-700 */
+        background-color: #ffffff;
+        /* bg-white */
+        transition: background-color 200ms ease-in-out, box-shadow 200ms ease-in-out, color 200ms ease-in-out, border-color 200ms ease-in-out;
+        /* transition-colors duration-200 */
+        outline: none;
+        /* focus:outline-none */
+    }
+
+    .dark .btn-secondary {
+        border-color: #4B5563;
+        /* dark:border-gray-600 */
+        color: #D1D5DB;
+        /* dark:text-gray-300 */
+        background-color: #1F2937;
+        /* dark:bg-gray-800 */
+    }
+
+    .btn-secondary:hover {
+        background-color: #f9fafb;
+        /* hover:bg-gray-50 */
+    }
+
+    .dark .btn-secondary:hover {
+        background-color: #374151;
+        /* dark:hover:bg-gray-700 */
+    }
+
+    .btn-secondary:focus {
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        /* focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 */
+    }
+
+    /* Navbar scroll effect */
+    .navbar-scrolled {
+        background-color: rgba(255, 255, 255, 0.95);
+        /* bg-white/95 */
+        backdrop-filter: blur(4px);
+        /* backdrop-blur-sm */
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    .dark .navbar-scrolled {
+        background-color: rgba(17, 24, 39, 0.95);
+        /* dark:bg-gray-900/95 */
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        mobileMenuButton.addEventListener('click', function () {
+            const isOpen = !mobileMenu.classList.contains('invisible');
+
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            } else {
+                // Open menu
+                mobileMenu.classList.remove('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            }
+        });
+
+        // User menu toggle
+        const userMenuButton = document.getElementById('user-menu-button');
+        const userDropdown = document.getElementById('user-dropdown');
+
+        if (userMenuButton && userDropdown) {
+            userMenuButton.addEventListener('click', function () {
+                const isOpen = !userDropdown.classList.contains('invisible');
+
+                if (isOpen) {
+                    userDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    userMenuButton.setAttribute('aria-expanded', 'false');
+                } else {
+                    userDropdown.classList.remove('opacity-0', 'invisible', 'scale-95');
+                    userMenuButton.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Close user menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
+                    userDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    userMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // Search overlay
+        const searchToggle = document.getElementById('search-toggle');
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchModal = document.getElementById('search-modal');
+        const searchClose = document.getElementById('search-close');
+        const searchCancel = document.getElementById('search-cancel');
+
+        function openSearch() {
+            searchOverlay.classList.remove('opacity-0', 'invisible');
+            searchModal.classList.remove('scale-95');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSearch() {
+            searchOverlay.classList.add('opacity-0', 'invisible');
+            searchModal.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        searchToggle.addEventListener('click', openSearch);
+        searchClose.addEventListener('click', closeSearch);
+        searchCancel.addEventListener('click', closeSearch);
+
+        // Close search when clicking overlay
+        searchOverlay.addEventListener('click', function (event) {
+            if (event.target === searchOverlay) {
+                closeSearch();
+            }
+        });
+
+        // Close search with Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeSearch();
+                // Also close mobile menu and user menu
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+
+                if (userDropdown) {
+                    userDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    if (userMenuButton) {
+                        userMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            }
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function () {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > 100) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+
+            // Hide navbar on scroll down, show on scroll up
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+    });
+</script>

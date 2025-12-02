@@ -1,0 +1,213 @@
+/* Custom CKEditor Styles */
+
+/* Code snippet enhancements */
+.cke_codesnippet {
+    position: relative;
+    margin: 1em 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Language label */
+.cke_codesnippet::before {
+    content: attr(data-cke-codesnippet-lang);
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    border-bottom-left-radius: 4px;
+    z-index: 10;
+}
+
+/* Copy button */
+.cke_codesnippet .copy-btn {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #007cba;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.cke_codesnippet:hover .copy-btn {
+    opacity: 1;
+}
+
+.cke_codesnippet .copy-btn:hover {
+    background: #005a87;
+}
+
+/* Enhanced RTL support */
+.cke_contents_rtl {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.cke_contents_rtl p {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+.cke_contents_rtl h1,
+.cke_contents_rtl h2,
+.cke_contents_rtl h3,
+.cke_contents_rtl h4,
+.cke_contents_rtl h5,
+.cke_contents_rtl h6 {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+.cke_contents_rtl ul,
+.cke_contents_rtl ol {
+    padding-right: 40px;
+    padding-left: 0;
+    text-align: right;
+    direction: rtl;
+}
+
+.cke_contents_rtl li {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Force RTL for CKEditor body */
+body.cke_editable {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+/* RTL for editor iframe */
+.cke_wysiwyg_frame {
+    direction: rtl !important;
+}
+
+/* RTL toolbar adjustments */
+.cke_rtl .cke_toolbar {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.cke_rtl .cke_toolbar_break {
+    clear: right;
+}
+
+/* RTL button alignment */
+.cke_rtl .cke_button {
+    float: right;
+}
+
+/* RTL dialog adjustments */
+.cke_rtl .cke_dialog_contents {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Force RTL for all editor content */
+.cke_editable {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.cke_editable * {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+/* Image upload improvements */
+.cke_dialog_contents .cke_dialog_ui_fileButton {
+    width: 100%;
+}
+
+.cke_dialog_contents .cke_dialog_ui_fileButton input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 2px dashed #ccc;
+    border-radius: 4px;
+    background: #f9f9f9;
+}
+
+.cke_dialog_contents .cke_dialog_ui_fileButton input[type="file"]:hover {
+    border-color: #007cba;
+    background: #f0f8ff;
+}
+
+/* Enhanced toolbar for RTL */
+.cke_rtl .cke_toolbar {
+    direction: rtl;
+}
+
+.cke_rtl .cke_toolbar_break {
+    clear: right;
+}
+
+/* Code snippet container improvements */
+pre.cke_codesnippet {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    line-height: 1.5;
+    position: relative;
+}
+
+/* Syntax highlighting theme adjustments */
+.hljs {
+    background: #2d3748 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Copy functionality */
+.code-block-wrapper {
+    position: relative;
+}
+
+.code-block-wrapper .copy-success {
+    position: absolute;
+    top: 8px;
+    left: 60px;
+    background: #48bb78;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.code-block-wrapper .copy-success.show {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .cke_codesnippet .copy-btn {
+        opacity: 1;
+        position: static;
+        display: block;
+        margin-bottom: 8px;
+    }
+    
+    .cke_codesnippet::before {
+        position: static;
+        display: block;
+        background: #4a5568;
+        border-radius: 4px 4px 0 0;
+        text-align: center;
+    }
+}

@@ -1,0 +1,441 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Search" %} - {{ block.super }}{% endblock %}
+
+{% block meta_description %}{% trans "Search for blog posts and projects" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .search-result-card {
+        transition: all 0.3s ease;
+    }
+    
+    .search-result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .search-highlight {
+        background: linear-gradient(120deg, #fbbf24 0%, #f59e0b 100%);
+        padding: 2px 4px;
+        border-radius: 4px;
+        color: #1f2937;
+        font-weight: 600;
+    }
+    
+    .filter-tab {
+        transition: all 0.3s ease;
+    }
+    
+    .filter-tab.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        transform: scale(1.05);
+    }
+    
+    .result-type-badge {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .project-badge {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    }
+    
+    .search-stats {
+        background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+        border-left: 4px solid #667eea;
+    }
+    
+    .dark .search-stats {
+        background: linear-gradient(135deg, #374151, #4b5563);
+        border-left-color: #818cf8;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Search Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                <i class="fas fa-search mr-3 text-primary-600 dark:text-primary-400"></i>
+                {% trans "Global Search" %}
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300" data-aos="fade-up" data-aos-delay="200">
+                {% trans "Search across blog posts and projects" %}
+            </p>
+        </div>
+
+        <!-- Search Form -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 shadow-lg" data-aos="fade-up" data-aos-delay="300">
+            <form method="get" class="space-y-6">
+                <!-- Main Search Input -->
+                <div class="relative">
+                    <input type="text" name="q" value="{{ query }}" 
+                           placeholder="{% trans 'Search for posts, projects, technologies...' %}"
+                           class="w-full px-6 py-4 pl-14 rtl:pr-14 rtl:pl-6 text-lg border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                    <i class="fas fa-search absolute left-5 rtl:right-5 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
+                </div>
+                
+                <!-- Filter Options -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Search Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {% trans "Search In" %}
+                        </label>
+                        <div class="flex space-x-2 rtl:space-x-reverse">
+                            <button type="button" class="filter-tab px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 {% if search_type == 'all' or not search_type %}active{% endif %}" data-type="all">
+                                {% trans "All" %}
+                            </button>
+                            <button type="button" class="filter-tab px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 {% if search_type == 'posts' %}active{% endif %}" data-type="posts">
+                                {% trans "Posts" %}
+                            </button>
+                            <button type="button" class="filter-tab px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 {% if search_type == 'projects' %}active{% endif %}" data-type="projects">
+                                {% trans "Projects" %}
+                            </button>
+                        </div>
+                        <input type="hidden" name="type" value="{{ search_type|default:'all' }}" id="search-type-input">
+                    </div>
+                    
+                    <!-- Category Filter -->
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {% trans "Category" %}
+                        </label>
+                        <select name="category" id="category" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            <option value="">{% trans "All Categories" %}</option>
+                            {% for category in categories %}
+                                <option value="{{ category.slug }}" {% if category.slug == category_slug %}selected{% endif %}>
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <!-- Search Button -->
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full btn-primary">
+                            <i class="fas fa-search mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            {% trans "Search" %}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Search Results -->
+        {% if query %}
+            <!-- Search Statistics -->
+            <div class="search-stats p-4 rounded-lg mb-8" data-aos="fade-up">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            {% blocktrans with query=query count=total_results %}{{ count }} result{{ count|pluralize }} found for "{{ query }}"{% endblocktrans %}
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            {% if posts_count and projects_count %}
+                                {% blocktrans with posts=posts_count projects=projects_count %}{{ posts }} post{{ posts|pluralize }} and {{ projects }} project{{ projects|pluralize }}{% endblocktrans %}
+                            {% elif posts_count %}
+                                {% blocktrans with posts=posts_count %}{{ posts }} post{{ posts|pluralize }}{% endblocktrans %}
+                            {% elif projects_count %}
+                                {% blocktrans with projects=projects_count %}{{ projects }} project{{ projects|pluralize }}{% endblocktrans %}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="flex space-x-2 rtl:space-x-reverse">
+                        {% if posts_count %}
+                            <span class="result-type-badge">
+                                <i class="fas fa-blog mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                {{ posts_count }} {% trans "Posts" %}
+                            </span>
+                        {% endif %}
+                        {% if projects_count %}
+                            <span class="result-type-badge project-badge">
+                                <i class="fas fa-briefcase mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                {{ projects_count }} {% trans "Projects" %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if posts or projects %}
+                <!-- Blog Posts Results -->
+                {% if posts %}
+                    <section class="mb-12" data-aos="fade-up">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                                <i class="fas fa-blog mr-2 text-green-600"></i>
+                                {% trans "Blog Posts" %}
+                            </h2>
+                            {% if posts_count > 6 %}
+                                <a href="{% url 'blog:search' %}?q={{ query|urlencode }}" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                                    {% trans "View All Posts" %}
+                                    <i class="fas fa-arrow-right ml-1 rtl:mr-1 rtl:ml-0"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {% for post in posts %}
+                                <article class="search-result-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                                    <!-- Post Image -->
+                                    <div class="relative h-48 overflow-hidden">
+                                        {% if post.cover_image %}
+                                            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+                                        {% else %}
+                                            <div class="w-full h-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                                                <i class="fas fa-blog text-white text-4xl opacity-50"></i>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <!-- Category Badge -->
+                                        {% if post.category %}
+                                            <div class="absolute top-4 left-4">
+                                                <span class="result-type-badge">
+                                                    {{ post.category.name }}
+                                                </span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Post Content -->
+                                    <div class="p-6">
+                                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                                            <a href="{{ post.get_absolute_url }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                                {{ post.title }}
+                                            </a>
+                                        </h3>
+                                        
+                                        <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                                            {{ post.excerpt|truncatewords:15 }}
+                                        </p>
+                                        
+                                        <!-- Post Meta -->
+                                        <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                                            <span class="flex items-center">
+                                                <i class="far fa-calendar mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                                {{ post.published_at|date:"M d, Y" }}
+                                            </span>
+                                            <span class="flex items-center">
+                                                <i class="far fa-clock mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                                {{ post.reading_time }} {% trans "min read" %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
+
+                <!-- Projects Results -->
+                {% if projects %}
+                    <section class="mb-12" data-aos="fade-up">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                                <i class="fas fa-briefcase mr-2 text-purple-600"></i>
+                                {% trans "Projects" %}
+                            </h2>
+                            {% if projects_count > 6 %}
+                                <a href="{% url 'core:projects' %}" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
+                                    {% trans "View All Projects" %}
+                                    <i class="fas fa-arrow-right ml-1 rtl:mr-1 rtl:ml-0"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {% for project in projects %}
+                                <article class="search-result-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+                                    <!-- Project Image -->
+                                    <div class="relative h-48 overflow-hidden">
+                                        {% if project.image %}
+                                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+                                        {% else %}
+                                            <div class="w-full h-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                                                <i class="fas fa-code text-white text-4xl opacity-50"></i>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <!-- Project Badge -->
+                                        <div class="absolute top-4 left-4">
+                                            <span class="result-type-badge project-badge">
+                                                {% trans "Project" %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Project Content -->
+                                    <div class="p-6">
+                                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
+                                            <a href="{{ project.get_absolute_url }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                                {{ project.title }}
+                                            </a>
+                                        </h3>
+                                        
+                                        <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                                            {{ project.short_description|truncatewords:15 }}
+                                        </p>
+                                        
+                                        <!-- Technologies -->
+                                        {% if project.technologies %}
+                                            <div class="flex flex-wrap gap-2 mb-4">
+                                                {% for tech in project.technologies|slice:":3" %}
+                                                    <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">
+                                                        {{ tech }}
+                                                    </span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <!-- Project Links -->
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex space-x-2 rtl:space-x-reverse">
+                                                {% if project.github_url %}
+                                                    <a href="{{ project.github_url }}" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                                                        <i class="fab fa-github"></i>
+                                                    </a>
+                                                {% endif %}
+                                                {% if project.live_url %}
+                                                    <a href="{{ project.live_url }}" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                                                        <i class="fas fa-external-link-alt"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <span class="text-sm text-gray-500 dark:text-gray-400">
+                                                {{ project.created_at|date:"Y" }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
+            {% else %}
+                <!-- No Results -->
+                <div class="text-center py-16" data-aos="fade-up">
+                    <div class="max-w-md mx-auto">
+                        <i class="fas fa-search text-6xl text-gray-300 dark:text-gray-600 mb-6"></i>
+                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                            {% trans "No results found" %}
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-8">
+                            {% blocktrans with query=query %}Sorry, no content matches your search for "{{ query }}". Try different keywords or browse our content.{% endblocktrans %}
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="{% url 'blog:post_list' %}" class="btn-primary">
+                                <i class="fas fa-blog mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "Browse Posts" %}
+                            </a>
+                            <a href="{% url 'core:projects' %}" class="btn-outline">
+                                <i class="fas fa-briefcase mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "View Projects" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <!-- Search Suggestions -->
+            <div class="text-center py-16" data-aos="fade-up">
+                <div class="max-w-2xl mx-auto">
+                    <i class="fas fa-lightbulb text-6xl text-yellow-400 mb-6"></i>
+                    <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                        {% trans "Start your search" %}
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-8">
+                        {% trans "Enter keywords to search across blog posts and projects. You can search by title, content, technologies, or categories." %}
+                    </p>
+                    
+                    <!-- Quick Search Suggestions -->
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <a href="?q=Django" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                            Django
+                        </a>
+                        <a href="?q=React" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                            React
+                        </a>
+                        <a href="?q=Python" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                            Python
+                        </a>
+                        <a href="?q=JavaScript" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                            JavaScript
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Filter tab functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const searchTypeInput = document.getElementById('search-type-input');
+        
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Update hidden input value
+                const type = this.getAttribute('data-type');
+                searchTypeInput.value = type;
+            });
+        });
+        
+        // Auto-submit form on filter change
+        const categorySelect = document.getElementById('category');
+        if (categorySelect) {
+            categorySelect.addEventListener('change', function() {
+                this.form.submit();
+            });
+        }
+        
+        // Highlight search terms in results
+        const query = '{{ query|escapejs }}';
+        if (query && query.length > 2) {
+            highlightSearchTerms(query);
+        }
+    });
+    
+    function highlightSearchTerms(query) {
+        const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 2);
+        const resultCards = document.querySelectorAll('.search-result-card');
+        
+        resultCards.forEach(card => {
+            const textElements = card.querySelectorAll('h3, p');
+            
+            textElements.forEach(element => {
+                let html = element.innerHTML;
+                
+                searchTerms.forEach(term => {
+                    const regex = new RegExp(`(${term})`, 'gi');
+                    html = html.replace(regex, '<span class="search-highlight">$1</span>');
+                });
+                
+                element.innerHTML = html;
+            });
+        });
+    }
+</script>
+{% endblock %}

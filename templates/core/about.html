@@ -1,0 +1,602 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "About" %} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block meta_description %}{% trans "Learn more about Muntazir Hazim, a passionate full-stack developer specializing in Django and React development." %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .timeline-item {
+        position: relative;
+    }
+    
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #667eea, #764ba2);
+    }
+    
+    .timeline-item:last-child::before {
+        display: none;
+    }
+    
+    .timeline-dot {
+        position: absolute;
+        left: 12px;
+        top: 24px;
+        width: 18px;
+        height: 18px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+    
+    .skill-card {
+        transition: all 0.3s ease;
+    }
+    
+    .skill-card:hover {
+        transform: translateY(-5px) scale(1.02);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .certification-badge {
+        transition: all 0.3s ease;
+    }
+    
+    .certification-badge:hover {
+        transform: rotate(5deg) scale(1.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-700 dark:to-primary-900 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="text-white" data-aos="fade-right">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    {% trans "About Me" %}
+                </h1>
+                <p class="text-xl text-primary-100 mb-8 leading-relaxed">
+                    {% trans "I'm a passionate full-stack developer with a love for creating innovative digital solutions. With years of experience in web development, I specialize in building scalable applications that make a real impact." %}
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <i class="fas fa-map-marker-alt text-primary-200"></i>
+                        <span class="text-primary-100">{% trans "Iraq, Baghdad" %}</span>
+                    </div>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <i class="fas fa-envelope text-primary-200"></i>
+                        <span class="text-primary-100">{{ site_settings.email|default:"contact@muntazirhazim.com" }}</span>
+                    </div>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <i class="fas fa-phone text-primary-200"></i>
+                        <span class="text-primary-100">{{ site_settings.phone|default:"+964 XXX XXX XXXX" }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center" data-aos="fade-left">
+                <div class="relative">
+                    {% if user_profile.avatar %}
+                        <img src="{{ user_profile.avatar.url }}" alt="{{ site_settings.site_name }}" class="w-80 h-80 rounded-full object-cover border-8 border-white shadow-2xl" loading="lazy" decoding="async" width="320" height="320">
+                    {% else %}
+                        <div class="w-80 h-80 bg-white bg-opacity-20 rounded-full flex items-center justify-center border-8 border-white shadow-2xl">
+                            <i class="fas fa-user text-8xl text-white"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Floating elements -->
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg animate-bounce">
+                        <i class="fas fa-code text-primary-600 text-xl"></i>
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                        <i class="fas fa-laptop-code text-primary-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-number" data-count="50">0</div>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">{% trans "Projects Completed" %}</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-number" data-count="3">0</div>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">{% trans "Years Experience" %}</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-number" data-count="25">0</div>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">{% trans "Happy Clients" %}</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-number" data-count="100">0</div>
+                <p class="text-gray-600 dark:text-gray-300 font-medium">{% trans "Code Commits" %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Technical Skills" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                {% trans "Here are the technologies and tools I work with" %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Frontend Skills -->
+            <div class="skill-card bg-white dark:bg-gray-900 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-palette text-2xl text-primary-600 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">{% trans "Frontend" %}</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">HTML5/CSS3</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">JavaScript</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">React.js</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">Tailwind CSS</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Backend Skills -->
+            <div class="skill-card bg-white dark:bg-gray-900 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-server text-2xl text-primary-600 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">{% trans "Backend" %}</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">Python</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">Django</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">Django REST</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">PostgreSQL</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tools & DevOps -->
+            <div class="skill-card bg-white dark:bg-gray-900 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="600">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-tools text-2xl text-primary-600 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">{% trans "Tools & DevOps" %}</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">Git/GitHub</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">Docker</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">AWS</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-700 dark:text-gray-300">Linux</span>
+                        <div class="flex space-x-1 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Timeline -->
+<section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Experience & Education" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                {% trans "My journey in web development and continuous learning" %}
+            </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-12">
+                <!-- Experience Item 1 -->
+                <div class="timeline-item pl-16 relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{% trans "Full-Stack Developer" %}</h3>
+                            <span class="text-primary-600 dark:text-primary-400 font-medium">2022 - {% trans "Present" %}</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-3">{% trans "Freelance" %}</p>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                            {% trans "Developing custom web applications for clients using Django, React, and modern web technologies. Focus on creating scalable, maintainable solutions that meet business requirements." %}
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">Django</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">React</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">AWS</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience Item 2 -->
+                <div class="timeline-item pl-16 relative" data-aos="fade-up" data-aos-delay="400">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{% trans "Web Developer" %}</h3>
+                            <span class="text-primary-600 dark:text-primary-400 font-medium">2021 - 2022</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-3">{% trans "Local Tech Company" %}</p>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                            {% trans "Worked on various web development projects, gaining experience in both frontend and backend technologies. Collaborated with design and development teams to deliver high-quality solutions." %}
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">HTML/CSS</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Education Item -->
+                <div class="timeline-item pl-16 relative" data-aos="fade-up" data-aos-delay="600">
+                    <div class="timeline-dot"></div>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">{% trans "Computer Science Degree" %}</h3>
+                            <span class="text-primary-600 dark:text-primary-400 font-medium">2018 - 2022</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-3">{% trans "University of Baghdad" %}</p>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                            {% trans "Bachelor's degree in Computer Science with focus on software engineering, algorithms, and database systems. Graduated with honors and completed several projects in web development." %}
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">{% trans "Software Engineering" %}</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">{% trans "Algorithms" %}</span>
+                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-sm rounded-full">{% trans "Database Systems" %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Certifications & Achievements" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                {% trans "Continuous learning and professional development" %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="certification-badge bg-white dark:bg-gray-900 rounded-lg p-6 text-center shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fab fa-python text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{% trans "Python Developer" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">{% trans "Advanced Python Programming" %}</p>
+            </div>
+            
+            <div class="certification-badge bg-white dark:bg-gray-900 rounded-lg p-6 text-center shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fab fa-react text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{% trans "React Developer" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">{% trans "Modern React Development" %}</p>
+            </div>
+            
+            <div class="certification-badge bg-white dark:bg-gray-900 rounded-lg p-6 text-center shadow-lg" data-aos="fade-up" data-aos-delay="600">
+                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fab fa-aws text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{% trans "AWS Practitioner" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">{% trans "Cloud Computing Fundamentals" %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Personal Interests -->
+<section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Beyond Coding" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                {% trans "When I'm not coding, here's what I enjoy doing" %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-book text-3xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{% trans "Reading" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">{% trans "Tech blogs, books, and staying updated with industry trends" %}</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-gamepad text-3xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{% trans "Gaming" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">{% trans "Strategy games and exploring virtual worlds" %}</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="600">
+                <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-camera text-3xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{% trans "Photography" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">{% trans "Capturing moments and exploring creative perspectives" %}</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="800">
+                <div class="w-20 h-20 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-3xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">{% trans "Community" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm">{% trans "Contributing to open source and helping fellow developers" %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-primary-600 dark:bg-primary-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up">
+            {% trans "Let's Work Together" %}
+        </h2>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            {% trans "I'm always interested in new opportunities and exciting projects. Let's discuss how we can bring your ideas to life." %}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'core:contact' %}" class="btn-white">
+                <i class="fas fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Get In Touch" %}
+            </a>
+            <a href="{% url 'core:projects' %}" class="btn-outline-white">
+                <i class="fas fa-briefcase mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "View My Work" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Counter animation
+        const counters = document.querySelectorAll('.stat-number');
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-count'));
+                    let current = 0;
+                    const increment = target / 50;
+                    
+                    const updateCounter = () => {
+                        if (current < target) {
+                            current += increment;
+                            counter.textContent = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    
+                    updateCounter();
+                    observer.unobserve(counter);
+                }
+            });
+        }, observerOptions);
+        
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+        
+        // Skill cards hover effect
+        const skillCards = document.querySelectorAll('.skill-card');
+        skillCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Certification badges animation
+        const certBadges = document.querySelectorAll('.certification-badge');
+        certBadges.forEach(badge => {
+            badge.addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(5deg) scale(1.1)';
+            });
+            
+            badge.addEventListener('mouseleave', function() {
+                this.style.transform = 'rotate(0deg) scale(1)';
+            });
+        });
+        
+        // Timeline animation on scroll
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        timelineItems.forEach(item => {
+            timelineObserver.observe(item);
+        });
+    });
+</script>
+
+<style>
+    .animate-fade-in {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .btn-white {
+        @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200;
+    }
+    
+    .btn-outline-white {
+        @apply inline-flex items-center px-6 py-3 border-2 border-white text-base font-medium rounded-md text-white bg-transparent hover:bg-white hover:text-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200;
+    }
+</style>
+{% endblock %}

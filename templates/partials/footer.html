@@ -1,0 +1,299 @@
+{% load static %}
+{% load i18n %}
+
+<footer class="footer bg-gray-900 dark:bg-gray-950 text-white">
+    <!-- Main Footer Content -->
+    <div class="container-responsive py-12">
+        <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- About Section -->
+            <div class="col-span-1 lg:col-span-2">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+                    {% if site_settings.site_logo %}
+                    <img src="{{ site_settings.site_logo.url }}" alt="{{ site_settings.site_name }}"
+                        class="h-10 w-10 rounded-full">
+                    {% else %}
+                    <div
+                        class="h-10 w-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold">{{ site_settings.site_name|default:"MH"|slice:":2" }}</span>
+                    </div>
+                    {% endif %}
+                    <h3 class="text-xl font-bold gradient-text">{{ site_settings.site_name|default:"منتظر حازم ثامر" }}
+                    </h3>
+                </div>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    {{ site_settings.site_description|default:"مطور ويب متخصص في تطوير التطبيقات الحديثة باستخدام Django
+                    و React. أقدم حلول تقنية مبتكرة ومتطورة." }}
+                </p>
+
+                <!-- Social Media Links -->
+                <div class="flex space-x-4 rtl:space-x-reverse">
+                    {% if site_settings.github_url %}
+                    <a href="{{ site_settings.github_url }}" target="_blank" rel="noopener noreferrer"
+                        class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+                    {% if site_settings.linkedin_url %}
+                    <a href="{{ site_settings.linkedin_url }}" target="_blank" rel="noopener noreferrer"
+                        class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    {% endif %}
+                    {% if site_settings.twitter_url %}
+                    <a href="{{ site_settings.twitter_url }}" target="_blank" rel="noopener noreferrer"
+                        class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    {% endif %}
+                    {% if site_settings.instagram_url %}
+                    <a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener noreferrer"
+                        class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    {% endif %}
+                    {% if site_settings.youtube_url %}
+                    <a href="{{ site_settings.youtube_url }}" target="_blank" rel="noopener noreferrer"
+                        class="social-link" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    {% endif %}
+                    {% if site_settings.email %}
+                    <a href="mailto:{{ site_settings.email }}" class="social-link" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">{% trans "Quick Links" %}</h4>
+                <ul class="space-y-2">
+                    <li><a href="{% url 'core:home' %}" class="footer-link">{% trans "Home" %}</a></li>
+                    <li><a href="{% url 'core:about' %}" class="footer-link">{% trans "About" %}</a></li>
+                    <li><a href="{% url 'core:projects' %}" class="footer-link">{% trans "Projects" %}</a></li>
+                    <li><a href="{% url 'blog:post_list' %}" class="footer-link">{% trans "Blog" %}</a></li>
+                    <li><a href="{% url 'core:contact' %}" class="footer-link">{% trans "Contact" %}</a></li>
+                    {% if not user.is_authenticated %}
+                    <li><a href="{% url 'accounts:login' %}" class="footer-link">{% trans "Login" %}</a></li>
+                    <li><a href="{% url 'accounts:register' %}" class="footer-link">{% trans "Register" %}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <!-- Blog Categories -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">{% trans "Categories" %}</h4>
+                <ul class="space-y-2">
+                    {% for category in footer_categories %}
+                    <li>
+                        <a href="{% url 'blog:category_posts' category.slug %}" class="footer-link">
+                            {{ category.name }}
+                            <span class="text-xs text-gray-400 ml-1 rtl:mr-1 rtl:ml-0">({{
+                                category.posts.published.count }})</span>
+                        </a>
+                    </li>
+                    {% empty %}
+                    <li><a href="{% url 'blog:post_list' %}" class="footer-link">{% trans "Web Development" %}</a></li>
+                    <li><a href="{% url 'blog:post_list' %}" class="footer-link">{% trans "Programming" %}</a></li>
+                    <li><a href="{% url 'blog:post_list' %}" class="footer-link">{% trans "Technology" %}</a></li>
+                    <li><a href="{% url 'blog:post_list' %}" class="footer-link">{% trans "Tutorials" %}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Newsletter Subscription - Coming Soon -->
+        <div class="mt-12 pt-8 border-t border-gray-800">
+            <div class="max-w-md mx-auto text-center">
+                <h4 class="text-lg font-semibold mb-2 text-white">{% trans "Stay Updated" %}</h4>
+                <p class="text-gray-300 mb-4">{% trans "Newsletter subscription coming soon!" %}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div
+                    class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse text-sm text-gray-400">
+                    <p>&copy; {% now "Y" %} {{ site_settings.site_name|default:"منتظر حازم ثامر" }}. {% trans "All
+                        rights reserved." %}</p>
+                    <div class="flex space-x-4 rtl:space-x-reverse">
+                        <a href="{% url 'core:privacy_policy' %}"
+                            class="hover:text-white transition-colors duration-200">{% trans "Privacy Policy" %}</a>
+                        <a href="{% url 'core:terms_of_service' %}"
+                            class="hover:text-white transition-colors duration-200">{% trans "Terms of Service" %}</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4 rtl:space-x-reverse text-sm text-gray-400">
+                    <!-- RSS Feed -->
+                    <a href="{% url 'blog:rss_feed' %}" class="hover:text-white transition-colors duration-200"
+                        title="{% trans 'RSS Feed' %}">
+                        <i class="fas fa-rss mr-1 rtl:ml-1 rtl:mr-0"></i>
+                        {% trans "RSS" %}
+                    </a>
+
+                    <!-- Sitemap -->
+                    <a href="/sitemap.xml" class="hover:text-white transition-colors duration-200"
+                        title="{% trans 'Sitemap' %}">
+                        <i class="fas fa-sitemap mr-1 rtl:ml-1 rtl:mr-0"></i>
+                        {% trans "Sitemap" %}
+                    </a>
+
+                    <!-- Made with Django -->
+                    <span class="flex items-center">
+                        {% trans "Made with" %}
+                        <i class="fas fa-heart text-red-500 mx-1"></i>
+                        {% trans "using" %}
+                        <a href="https://djangoproject.com" target="_blank" rel="noopener noreferrer"
+                            class="ml-1 rtl:mr-1 rtl:ml-0 text-primary-400 hover:text-primary-300 transition-colors duration-200">
+                            Django
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .social-link {
+        @apply w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300 transform hover:scale-110;
+    }
+
+    .footer-link {
+        @apply text-gray-300 hover:text-white transition-colors duration-200 text-sm;
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Newsletter form submission
+        const newsletterForm = document.getElementById('newsletter-form');
+
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+                const submitButton = this.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+
+                // Show loading state
+                submitButton.textContent = '{% trans "Subscribing..." %}';
+                submitButton.disabled = true;
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show success message
+                            const emailInput = this.querySelector('input[type="email"]');
+                            emailInput.value = '';
+                            emailInput.placeholder = '{% trans "Thank you for subscribing!" %}';
+                            emailInput.classList.add('border-green-500');
+
+                            // Show success notification
+                            showNotification('{% trans "Successfully subscribed to newsletter!" %}', 'success');
+                        } else {
+                            // Show error message
+                            showNotification(data.message || '{% trans "An error occurred. Please try again." %}', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('{% trans "An error occurred. Please try again." %}', 'error');
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    });
+            });
+        }
+
+        // Smooth scroll for anchor links
+        const anchorLinks = document.querySelectorAll('a[href^="#"]');
+        anchorLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation to social links on hover
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach(link => {
+            link.addEventListener('mouseenter', function () {
+                this.style.transform = 'scale(1.1) rotate(5deg)';
+            });
+
+            link.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    });
+
+    // Notification function
+    function showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 ${type === 'success' ? 'bg-green-500' :
+                type === 'error' ? 'bg-red-500' :
+                    'bg-blue-500'
+            } text-white`;
+        notification.innerHTML = `
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <i class="fas ${type === 'success' ? 'fa-check-circle' :
+                type === 'error' ? 'fa-exclamation-circle' :
+                    'fa-info-circle'
+            }"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.parentElement.remove()" class="ml-2 rtl:mr-2 rtl:ml-0">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Show notification
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 300);
+        }, 5000);
+    }
+</script>

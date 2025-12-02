@@ -1,0 +1,431 @@
+{% load static %}
+{% if has_announcements %}
+<div id="announcements-container" class="announcements-container">
+    {% for announcement in active_announcements %}
+    <div class="announcement announcement-{{ announcement.announcement_type }} priority-{{ announcement.priority }}"
+         data-announcement-id="{{ announcement.id }}"
+         data-dismissible="{{ announcement.is_dismissible|yesno:'true,false' }}"
+         data-show-countdown="{{ announcement.show_countdown|yesno:'true,false' }}"
+         {% if announcement.end_date %}data-end-date="{{ announcement.end_date|date:'c' }}"{% endif %}
+         style="{% if announcement.background_color %}background-color: {{ announcement.background_color }};{% endif %}
+                color: #000 !important;">
+        
+        <div class="announcement-content">
+            <!-- Icon based on type -->
+            <div class="announcement-icon">
+                {% if announcement.announcement_type == 'celebration' %}
+                    <i class="fas fa-party-horn"></i>
+                {% elif announcement.announcement_type == 'holiday' %}
+                    <i class="fas fa-calendar-star"></i>
+                {% elif announcement.announcement_type == 'mourning' %}
+                    <i class="fas fa-heart-broken"></i>
+                {% elif announcement.announcement_type == 'event' %}
+                    <i class="fas fa-calendar-event"></i>
+                {% elif announcement.announcement_type == 'success' %}
+                    <i class="fas fa-check-circle"></i>
+                {% elif announcement.announcement_type == 'warning' %}
+                    <i class="fas fa-exclamation-triangle"></i>
+                {% elif announcement.announcement_type == 'error' %}
+                    <i class="fas fa-times-circle"></i>
+                {% else %}
+                    <i class="fas fa-info-circle"></i>
+                {% endif %}
+            </div>
+            
+            <!-- Main content -->
+            <div class="announcement-main">
+                <h3 class="announcement-title">{{ announcement.title }}</h3>
+                <p class="announcement-message">{{ announcement.message|linebreaks }}</p>
+                
+                <!-- Countdown timer -->
+                {% if announcement.show_countdown and announcement.end_date %}
+                <div class="countdown-container">
+                    <div class="countdown-timer" data-target="{{ announcement.end_date|date:'c' }}">
+                        <div class="countdown-item">
+                            <span class="countdown-number days">00</span>
+                            <span class="countdown-label">أيام</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number hours">00</span>
+                            <span class="countdown-label">ساعات</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number minutes">00</span>
+                            <span class="countdown-label">دقائق</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number seconds">00</span>
+                            <span class="countdown-label">ثواني</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Link if provided -->
+                {% if announcement.link_url %}
+                <div class="announcement-link">
+                    <a href="{{ announcement.link_url }}" class="btn btn-announcement" target="_blank">
+                        {{ announcement.link_text|default:"اقرأ المزيد" }}
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Dismiss button removed - only admin can dismiss -->
+        </div>
+        
+        <!-- Progress bar for countdown -->
+        {% if announcement.show_countdown and announcement.end_date %}
+        <div class="announcement-progress">
+            <div class="progress-bar" data-start="{{ announcement.start_date|date:'c' }}" data-end="{{ announcement.end_date|date:'c' }}"></div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Announcement Styles -->
+<style>
+.announcements-container {
+    position: relative;
+    z-index: 1000;
+    margin-bottom: 1rem;
+}
+
+.announcement {
+    position: relative;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: slideInDown 0.6s ease-out;
+}
+
+.announcement:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Type-based colors */
+.announcement-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #000;
+}
+
+.announcement-success {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: #000;
+}
+
+.announcement-warning {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: #000;
+}
+
+.announcement-error {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    color: #000;
+}
+
+.announcement-celebration {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    color: #000;
+    border: 2px solid #ff6b6b;
+}
+
+.announcement-holiday {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #000;
+}
+
+.announcement-mourning {
+    background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+    color: #000;
+}
+
+.announcement-event {
+    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    color: #000;
+}
+
+.announcement-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.announcement-icon {
+    font-size: 2rem;
+    opacity: 0.9;
+    animation: pulse 2s infinite;
+    color: #000 !important;
+}
+
+.announcement-main {
+    flex: 1;
+}
+
+.announcement-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: #000 !important;
+}
+
+.announcement-message {
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+    opacity: 0.95;
+    color: #000 !important;
+}
+
+/* Dismiss button styles removed */
+
+/* Countdown Styles */
+.countdown-container {
+    margin: 1rem 0;
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.75rem;
+    border-radius: 8px;
+    min-width: 60px;
+    backdrop-filter: blur(5px);
+}
+
+.countdown-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000 !important;
+}
+
+.countdown-label {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-top: 0.25rem;
+    color: #000 !important;
+}
+
+/* Progress Bar */
+.announcement-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    transition: width 1s ease;
+}
+
+/* Link Button */
+.btn-announcement {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: #000 !important;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.btn-announcement:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    color: #000 !important;
+    text-decoration: none;
+}
+
+/* Animations */
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Priority indicators */
+.priority-urgent {
+    border-left: 5px solid #ff4757;
+    animation: urgentPulse 1s infinite;
+}
+
+.priority-high {
+    border-left: 5px solid #ffa502;
+}
+
+.priority-medium {
+    border-left: 5px solid #3742fa;
+}
+
+.priority-low {
+    border-left: 5px solid #2ed573;
+}
+
+@keyframes urgentPulse {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(255, 71, 87, 0.3);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .announcement {
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .announcement-content {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .announcement-icon {
+        font-size: 1.5rem;
+        align-self: center;
+    }
+    
+    .countdown-timer {
+        gap: 0.5rem;
+    }
+    
+    .countdown-item {
+        min-width: 50px;
+        padding: 0.5rem;
+    }
+    
+    .countdown-number {
+        font-size: 1.2rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .announcement {
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+</style>
+
+<!-- Announcement JavaScript -->
+<script>
+// Countdown functionality
+function initCountdowns() {
+    const countdowns = document.querySelectorAll('.countdown-timer');
+    
+    countdowns.forEach(countdown => {
+        const targetDate = new Date(countdown.dataset.target).getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            if (distance < 0) {
+                countdown.innerHTML = '<div class="countdown-expired">انتهت المدة</div>';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            countdown.querySelector('.days').textContent = days.toString().padStart(2, '0');
+            countdown.querySelector('.hours').textContent = hours.toString().padStart(2, '0');
+            countdown.querySelector('.minutes').textContent = minutes.toString().padStart(2, '0');
+            countdown.querySelector('.seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    });
+}
+
+// Progress bar functionality
+function initProgressBars() {
+    const progressBars = document.querySelectorAll('.progress-bar');
+    
+    progressBars.forEach(bar => {
+        const startDate = new Date(bar.dataset.start).getTime();
+        const endDate = new Date(bar.dataset.end).getTime();
+        const now = new Date().getTime();
+        
+        const totalDuration = endDate - startDate;
+        const elapsed = now - startDate;
+        const progress = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
+        
+        bar.style.width = progress + '%';
+    });
+}
+
+// Dismiss functionality removed - only admin can manage announcements
+
+// Slide out animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideOutUp {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initCountdowns();
+    initProgressBars();
+    
+    // Update progress bars every minute
+    setInterval(initProgressBars, 60000);
+});
+</script>
+{% endif %}

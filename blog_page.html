@@ -1,0 +1,1553 @@
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>
+    
+    
+    
+    Blog - Muntazir Hazim
+</title>
+    <meta name="description" content="Personal portfolio and blog of Muntazir Hazim Thamir - Web Developer & Designer">
+    <meta name="keywords" content="web development, portfolio, blog, programming, design">
+    <meta name="author" content="Muntazir Hazim Thamir">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Muntazir Hazim Thamir">
+    <meta property="og:description" content="Personal portfolio and blog of Muntazir Hazim Thamir">
+    <meta property="og:image" content="/static/images/og-image.jpg">
+    <meta property="og:url" content="http://127.0.0.1:8000/blog/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Muntazir Hazim Thamir">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Muntazir Hazim Thamir">
+    <meta name="twitter:description" content="Personal portfolio and blog of Muntazir Hazim Thamir">
+    <meta name="twitter:image" content="/static/images/og-image.jpg">
+    
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://127.0.0.1:8000/blog/">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Blog RSS Feed" href="/blog/rss/">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        'arabic': ['Noto Sans Arabic', 'Arial', 'sans-serif'],
+                        'english': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.5s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/responsive.css">
+    <link rel="stylesheet" href="/static/css/home-fixes.css">
+    
+    <!-- Blog Post JavaScript -->
+    <script src="/static/js/blog-post.js" defer></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Custom styles for RTL/LTR support */
+        [dir="rtl"] .rtl\:text-right { text-align: right; }
+        [dir="rtl"] .rtl\:text-left { text-align: left; }
+        [dir="ltr"] .ltr\:text-left { text-align: left; }
+        [dir="ltr"] .ltr\:text-right { text-align: right; }
+        
+        /* Font family based on language */
+        [lang="ar"] { font-family: 'Noto Sans Arabic', Arial, sans-serif; }
+        [lang="en"] { font-family: 'Inter', system-ui, sans-serif; }
+        
+        /* Smooth transitions */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: #6b7280;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+    
+    
+<style>
+    .blog-card {
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .blog-image {
+        transition: all 0.3s ease;
+    }
+    
+    .blog-card:hover .blog-image {
+        transform: scale(1.1);
+    }
+    
+    .category-tag {
+        transition: all 0.2s ease;
+    }
+    
+    .category-tag:hover {
+        transform: scale(1.05);
+    }
+    
+    .search-overlay {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .dark .search-overlay {
+        background: rgba(17, 24, 39, 0.9);
+    }
+    
+    .floating-search {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        width: 90%;
+        max-width: 500px;
+    }
+    
+    .tag-cloud .tag {
+        transition: all 0.2s ease;
+    }
+    
+    .tag-cloud .tag:hover {
+        transform: scale(1.1);
+    }
+    
+    .pagination-btn {
+        transition: all 0.2s ease;
+    }
+    
+    .pagination-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    .filter-dropdown {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+    }
+    
+    .dark .filter-dropdown {
+        background: rgba(31, 41, 55, 0.95);
+    }
+</style>
+
+</head>
+<body class="font-arabic bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md z-50">
+        Skip to main content
+    </a>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center transition-opacity duration-500">
+        <div class="text-center">
+            <div class="loading mx-auto mb-4"></div>
+            <p class="text-gray-600 dark:text-gray-400">Loading...</p>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    
+
+
+<nav class="navbar bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 transition-all duration-300" id="navbar">
+    <div class="container-responsive">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse">
+                    
+                        <div class="h-8 w-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">MH</span>
+                        </div>
+                    
+                    <span class="font-bold text-xl text-gray-900 dark:text-white gradient-text hidden sm:block">
+                        Muntazir Hazim
+                    </span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="nav-desktop hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4 rtl:space-x-reverse">
+                    <a href="/" class="nav-link ">
+                        <i class="fas fa-home mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        الرئيسية
+                    </a>
+                    <a href="/about/" class="nav-link ">
+                        <i class="fas fa-user mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        About
+                    </a>
+                    <a href="/projects/" class="nav-link ">
+                        <i class="fas fa-briefcase mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        Projects
+                    </a>
+                    <a href="/blog/" class="nav-link active">
+                        <i class="fas fa-blog mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        Blog
+                    </a>
+                    <a href="/books/" class="nav-link ">
+                        <i class="fas fa-book mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        Books
+                    </a>
+                    <a href="/search/" class="nav-link ">
+                        <i class="fas fa-search mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        ابحث
+                    </a>
+                    <a href="/contact/" class="nav-link ">
+                        <i class="fas fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- User Menu & Mobile Menu Button -->
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <!-- Search Button -->
+                <button id="search-toggle" class="p-2 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="ابحث">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <!-- User Menu -->
+                
+                    <div class="hidden sm:flex items-center space-x-2 rtl:space-x-reverse">
+                        <a href="/accounts/login/" class="btn-secondary">
+                            <i class="fas fa-sign-in-alt mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            Login
+                        </a>
+                        <a href="/accounts/register/" class="btn-primary">
+                            <i class="fas fa-user-plus mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            Register
+                        </a>
+                    </div>
+                
+
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200" aria-label="Open menu">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                    <i class="fas fa-times hidden" id="close-icon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="nav-mobile md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 opacity-0 invisible transition-all duration-300 transform -translate-y-2">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="/" class="mobile-nav-link ">
+                <i class="fas fa-home mr-3 rtl:ml-3 rtl:mr-0"></i>
+                الرئيسية
+            </a>
+            <a href="/about/" class="mobile-nav-link ">
+                <i class="fas fa-user mr-3 rtl:ml-3 rtl:mr-0"></i>
+                About
+            </a>
+            <a href="/projects/" class="mobile-nav-link ">
+                <i class="fas fa-briefcase mr-3 rtl:ml-3 rtl:mr-0"></i>
+                Projects
+            </a>
+            <a href="/blog/" class="mobile-nav-link active">
+                <i class="fas fa-blog mr-3 rtl:ml-3 rtl:mr-0"></i>
+                Blog
+            </a>
+            <a href="/books/" class="mobile-nav-link ">
+                <i class="fas fa-book mr-3 rtl:ml-3 rtl:mr-0"></i>
+                Books
+            </a>
+            <a href="/search/" class="mobile-nav-link ">
+                <i class="fas fa-search mr-3 rtl:ml-3 rtl:mr-0"></i>
+                ابحث
+            </a>
+            <a href="/contact/" class="mobile-nav-link ">
+                <i class="fas fa-envelope mr-3 rtl:ml-3 rtl:mr-0"></i>
+                Contact
+            </a>
+            
+            
+                <div class="border-t border-gray-200 dark:border-gray-600 my-3"></div>
+                <a href="/accounts/login/" class="mobile-nav-link">
+                    <i class="fas fa-sign-in-alt mr-3 rtl:ml-3 rtl:mr-0"></i>
+                    Login
+                </a>
+                <a href="/accounts/register/" class="mobile-nav-link">
+                    <i class="fas fa-user-plus mr-3 rtl:ml-3 rtl:mr-0"></i>
+                    Register
+                </a>
+            
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 opacity-0 invisible transition-all duration-300">
+        <div class="flex items-start justify-center pt-20">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 transform scale-95 transition-transform duration-300" id="search-modal">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">ابحث</h3>
+                        <button id="search-close" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <form action="/search/" method="get" class="space-y-4">
+                        <div class="relative">
+                            <input type="text" name="q" placeholder="Search posts, projects..." class="w-full px-4 py-3 pl-12 rtl:pr-12 rtl:pl-4 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white" autofocus>
+                            <i class="fas fa-search absolute left-4 rtl:right-4 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div class="flex justify-end space-x-3 rtl:space-x-reverse">
+                            <button type="button" id="search-cancel" class="btn-secondary">Cancel</button>
+                            <button type="submit" class="btn-primary">ابحث</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Navigation Styles */
+    .nav-link {
+        @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200;
+    }
+    
+    .nav-link.active {
+        @apply text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20;
+    }
+    
+    .mobile-nav-link {
+        @apply block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200;
+    }
+    
+    .mobile-nav-link.active {
+        @apply text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20;
+    }
+    
+    .dropdown-item {
+        @apply block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200;
+    }
+    
+    .btn-primary {
+        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+    }
+    
+    .btn-secondary {
+        @apply inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+    }
+    
+    /* Navbar scroll effect */
+    .navbar-scrolled {
+        @apply bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            const isOpen = !mobileMenu.classList.contains('invisible');
+            
+            if (isOpen) {
+                // Close menu
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            } else {
+                // Open menu
+                mobileMenu.classList.remove('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            }
+        });
+        
+        // User menu toggle
+        const userMenuButton = document.getElementById('user-menu-button');
+        const userDropdown = document.getElementById('user-dropdown');
+        
+        if (userMenuButton && userDropdown) {
+            userMenuButton.addEventListener('click', function() {
+                const isOpen = !userDropdown.classList.contains('invisible');
+                
+                if (isOpen) {
+                    userDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    userMenuButton.setAttribute('aria-expanded', 'false');
+                } else {
+                    userDropdown.classList.remove('opacity-0', 'invisible', 'scale-95');
+                    userMenuButton.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            // Close user menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
+                    userDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    userMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+        
+        // Search overlay
+        const searchToggle = document.getElementById('search-toggle');
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchModal = document.getElementById('search-modal');
+        const searchClose = document.getElementById('search-close');
+        const searchCancel = document.getElementById('search-cancel');
+        
+        function openSearch() {
+            searchOverlay.classList.remove('opacity-0', 'invisible');
+            searchModal.classList.remove('scale-95');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeSearch() {
+            searchOverlay.classList.add('opacity-0', 'invisible');
+            searchModal.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+        
+        searchToggle.addEventListener('click', openSearch);
+        searchClose.addEventListener('click', closeSearch);
+        searchCancel.addEventListener('click', closeSearch);
+        
+        // Close search when clicking overlay
+        searchOverlay.addEventListener('click', function(event) {
+            if (event.target === searchOverlay) {
+                closeSearch();
+            }
+        });
+        
+        // Close search with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeSearch();
+                // Also close mobile menu and user menu
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                
+                if (userDropdown) {
+                    userDropdown.classList.add('opacity-0', 'invisible', 'scale-95');
+                    if (userMenuButton) {
+                        userMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            }
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScrollTop = 0;
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+            
+            // Hide navbar on scroll down, show on scroll up
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+    });
+</script>
+    
+    <!-- Announcements -->
+    
+
+    
+    <!-- Main Content -->
+    <main id="main-content" class="min-h-screen">
+        <!-- Messages -->
+        
+        
+        
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-700 dark:to-primary-900 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4" data-aos="fade-up">
+            
+                Blog
+            
+        </h1>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            
+                Discover insights, tutorials, and thoughts on web development, programming, and technology.
+            
+        </p>
+        
+        <!-- Search Bar -->
+        <div class="max-w-md mx-auto" data-aos="fade-up" data-aos-delay="400">
+            <form method="get" action="/blog/search/" class="relative">
+                <input type="text" name="q" value="" 
+                       placeholder="Search articles..." 
+                       class="w-full px-4 py-3 pr-12 rtl:pl-12 rtl:pr-4 rounded-lg border border-white/20 bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all duration-200">
+                <button type="submit" class="absolute right-3 rtl:left-3 rtl:right-auto top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors duration-200">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Filters and Categories -->
+<section class="py-8 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <!-- Categories -->
+            <div class="flex flex-wrap gap-3">
+                <a href="/blog/" 
+                   class="category-tag px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 bg-primary-600 text-white">
+                    All Posts
+                </a>
+                
+                    <a href="/blog/category/hsob/" 
+                       class="category-tag px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400">
+                        حاسوب
+                        <span class="ml-1 rtl:mr-1 rtl:ml-0 text-xs opacity-75">(3)</span>
+                    </a>
+                
+            </div>
+            
+            <!-- Sort Options -->
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-600 dark:text-gray-400">Sort by:</span>
+                <select id="sort-select" class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <option value="-created_at">Latest</option>
+                    <option value="created_at">Oldest</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="-title">Title Z-A</option>
+                    <option value="-views">Most Popular</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Posts Grid -->
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+            <div class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-grid">
+                
+                    <article class="blog-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Post Image -->
+                        <div class="relative overflow-hidden h-48">
+                            
+                            <img src="/media/blog/covers/images.jpeg" alt="gfhfgh" class="blog-image w-full h-full object-cover">
+                            
+                            
+                            <!-- Category Badge -->
+                            <div class="absolute top-4 left-4 rtl:right-4 rtl:left-auto">
+                                <a href="/blog/category/hsob/" 
+                                   class="px-3 py-1 bg-white/90 dark:bg-gray-900/90 text-primary-600 dark:text-primary-400 text-xs font-medium rounded-full hover:bg-white dark:hover:bg-gray-900 transition-colors duration-200">
+                                    حاسوب
+                                </a>
+                            </div>
+                            
+                            <!-- Reading Time -->
+                            <div class="absolute top-4 right-4 rtl:left-4 rtl:right-auto">
+                                <span class="px-3 py-1 bg-black/50 text-white text-xs font-medium rounded-full">
+                                    <i class="fas fa-clock mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                    1 min read
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Post Content -->
+                        <div class="p-6">
+                            <!-- Post Meta -->
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                                <time datetime="2025-08-22T13:07:54.371578+03:00">
+                                    <i class="fas fa-calendar mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                    أغسطس 22, 2025
+                                </time>
+                                <span class="mx-2">•</span>
+                                <span>
+                                    <i class="fas fa-eye mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                    52
+                                </span>
+                            </div>
+                            
+                            <!-- Post Title -->
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                <a href="/blog/post/gfhfgh/">
+                                    gfhfgh
+                                </a>
+                            </h2>
+                            
+                            <!-- Post Excerpt -->
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                                fghbfghgh
+                            </p>
+                            
+                            <!-- Tags -->
+                            
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    
+                                        <a href="/blog/tag/ai/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #ai
+                                        </a>
+                                    
+                                        <a href="/blog/tag/ml/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #ml
+                                        </a>
+                                    
+                                        <a href="/blog/tag/test/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #test
+                                        </a>
+                                    
+                                    
+                                </div>
+                            
+                            
+                            <!-- Read More Button -->
+                            <div class="flex items-center justify-between">
+                                <a href="/blog/post/gfhfgh/" 
+                                   class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors duration-200">
+                                    Read More
+                                    <i class="fas fa-arrow-right ml-2 rtl:mr-2 rtl:ml-0 transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-200"></i>
+                                </a>
+                                
+                                <!-- Share Button -->
+                                <button onclick="sharePost('gfhfgh', 'http://127.0.0.1:8000/blog/post/gfhfgh/')" 
+                                        class="p-2 text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="blog-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                        <!-- Post Image -->
+                        <div class="relative overflow-hidden h-48">
+                            
+                            <img src="/media/blog/covers/1612876678427.png" alt="مرحبا" class="blog-image w-full h-full object-cover">
+                            
+                            
+                            <!-- Category Badge -->
+                            <div class="absolute top-4 left-4 rtl:right-4 rtl:left-auto">
+                                <a href="/blog/category/hsob/" 
+                                   class="px-3 py-1 bg-white/90 dark:bg-gray-900/90 text-primary-600 dark:text-primary-400 text-xs font-medium rounded-full hover:bg-white dark:hover:bg-gray-900 transition-colors duration-200">
+                                    حاسوب
+                                </a>
+                            </div>
+                            
+                            <!-- Reading Time -->
+                            <div class="absolute top-4 right-4 rtl:left-4 rtl:right-auto">
+                                <span class="px-3 py-1 bg-black/50 text-white text-xs font-medium rounded-full">
+                                    <i class="fas fa-clock mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                    1 min read
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Post Content -->
+                        <div class="p-6">
+                            <!-- Post Meta -->
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                                <time datetime="2025-08-22T12:36:15.999858+03:00">
+                                    <i class="fas fa-calendar mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                    أغسطس 22, 2025
+                                </time>
+                                <span class="mx-2">•</span>
+                                <span>
+                                    <i class="fas fa-eye mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                    48
+                                </span>
+                            </div>
+                            
+                            <!-- Post Title -->
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                <a href="/blog/post/post-2/">
+                                    مرحبا
+                                </a>
+                            </h2>
+                            
+                            <!-- Post Excerpt -->
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                                بلب يقبل قث للا للا
+                            </p>
+                            
+                            <!-- Tags -->
+                            
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    
+                                        <a href="/blog/tag/ai/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #ai
+                                        </a>
+                                    
+                                        <a href="/blog/tag/ml/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #ml
+                                        </a>
+                                    
+                                        <a href="/blog/tag/test/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #test
+                                        </a>
+                                    
+                                    
+                                        <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-500 text-xs rounded">
+                                            +2
+                                        </span>
+                                    
+                                </div>
+                            
+                            
+                            <!-- Read More Button -->
+                            <div class="flex items-center justify-between">
+                                <a href="/blog/post/post-2/" 
+                                   class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors duration-200">
+                                    Read More
+                                    <i class="fas fa-arrow-right ml-2 rtl:mr-2 rtl:ml-0 transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-200"></i>
+                                </a>
+                                
+                                <!-- Share Button -->
+                                <button onclick="sharePost('مرحبا', 'http://127.0.0.1:8000/blog/post/post-2/')" 
+                                        class="p-2 text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="blog-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                        <!-- Post Image -->
+                        <div class="relative overflow-hidden h-48">
+                            
+                            <img src="/media/blog/covers/logo-02-1024x350-1.png" alt="path planing" class="blog-image w-full h-full object-cover">
+                            
+                            
+                            <!-- Category Badge -->
+                            <div class="absolute top-4 left-4 rtl:right-4 rtl:left-auto">
+                                <a href="/blog/category/hsob/" 
+                                   class="px-3 py-1 bg-white/90 dark:bg-gray-900/90 text-primary-600 dark:text-primary-400 text-xs font-medium rounded-full hover:bg-white dark:hover:bg-gray-900 transition-colors duration-200">
+                                    حاسوب
+                                </a>
+                            </div>
+                            
+                            <!-- Reading Time -->
+                            <div class="absolute top-4 right-4 rtl:left-4 rtl:right-auto">
+                                <span class="px-3 py-1 bg-black/50 text-white text-xs font-medium rounded-full">
+                                    <i class="fas fa-clock mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                    1 min read
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Post Content -->
+                        <div class="p-6">
+                            <!-- Post Meta -->
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+                                <time datetime="2025-08-22T11:27:35.251457+03:00">
+                                    <i class="fas fa-calendar mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                    أغسطس 22, 2025
+                                </time>
+                                <span class="mx-2">•</span>
+                                <span>
+                                    <i class="fas fa-eye mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                    86
+                                </span>
+                            </div>
+                            
+                            <!-- Post Title -->
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                <a href="/blog/post/path-planing/">
+                                    path planing
+                                </a>
+                            </h2>
+                            
+                            <!-- Post Excerpt -->
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                                gr sfdfs sdgsdfv sdf fefe
+                            </p>
+                            
+                            <!-- Tags -->
+                            
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    
+                                        <a href="/blog/tag/ai/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #ai
+                                        </a>
+                                    
+                                        <a href="/blog/tag/ml/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #ml
+                                        </a>
+                                    
+                                        <a href="/blog/tag/test/" 
+                                           class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs rounded hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            #test
+                                        </a>
+                                    
+                                    
+                                </div>
+                            
+                            
+                            <!-- Read More Button -->
+                            <div class="flex items-center justify-between">
+                                <a href="/blog/post/path-planing/" 
+                                   class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors duration-200">
+                                    Read More
+                                    <i class="fas fa-arrow-right ml-2 rtl:mr-2 rtl:ml-0 transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform duration-200"></i>
+                                </a>
+                                
+                                <!-- Share Button -->
+                                <button onclick="sharePost('path planing', 'http://127.0.0.1:8000/blog/post/path-planing/')" 
+                                        class="p-2 text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                
+            </div>
+            
+            <!-- Pagination -->
+            
+        
+    </div>
+</section>
+
+<!-- Newsletter Subscription -->
+
+<section class="py-16 bg-primary-600 dark:bg-primary-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4" data-aos="fade-up">
+            Stay Updated
+        </h2>
+        <p class="text-xl text-primary-100 mb-8" data-aos="fade-up" data-aos-delay="200">
+            Subscribe to get notified about new articles and updates
+        </p>
+        <form class="max-w-md mx-auto flex gap-3" data-aos="fade-up" data-aos-delay="400">
+            <input type="email" placeholder="Enter your email" 
+                   class="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-white/50">
+            <button type="submit" class="px-6 py-3 bg-white text-primary-600 font-medium rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                Subscribe
+            </button>
+        </form>
+    </div>
+</section>
+
+
+    </main>
+    
+    <!-- Footer -->
+    
+
+
+<footer class="footer bg-gray-900 dark:bg-gray-950 text-white">
+    <!-- Main Footer Content -->
+    <div class="container-responsive py-12">
+        <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- About Section -->
+            <div class="col-span-1 lg:col-span-2">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse mb-4">
+                    
+                        <div class="h-10 w-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">MH</span>
+                        </div>
+                    
+                    <h3 class="text-xl font-bold gradient-text">Muntazir Hazim</h3>
+                </div>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    مطور ويب متخصص في تطوير التطبيقات الحديثة باستخدام Django و React. أقدم حلول تقنية مبتكرة ومتطورة.
+                </p>
+                
+                <!-- Social Media Links -->
+                <div class="flex space-x-4 rtl:space-x-reverse">
+                    
+                    
+                    
+                    
+                    
+                    
+                        <a href="mailto:contact@yourdomain.com" class="social-link" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="/" class="footer-link">الرئيسية</a></li>
+                    <li><a href="/about/" class="footer-link">About</a></li>
+                    <li><a href="/projects/" class="footer-link">Projects</a></li>
+                    <li><a href="/blog/" class="footer-link">Blog</a></li>
+                    <li><a href="/contact/" class="footer-link">Contact</a></li>
+                    
+                        <li><a href="/accounts/login/" class="footer-link">Login</a></li>
+                        <li><a href="/accounts/register/" class="footer-link">Register</a></li>
+                    
+                </ul>
+            </div>
+            
+            <!-- Blog Categories -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4 text-white">Categories</h4>
+                <ul class="space-y-2">
+                    
+                        <li><a href="/blog/" class="footer-link">Web Development</a></li>
+                        <li><a href="/blog/" class="footer-link">Programming</a></li>
+                        <li><a href="/blog/" class="footer-link">Technology</a></li>
+                        <li><a href="/blog/" class="footer-link">Tutorials</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Newsletter Subscription - Coming Soon -->
+        <div class="mt-12 pt-8 border-t border-gray-800">
+            <div class="max-w-md mx-auto text-center">
+                <h4 class="text-lg font-semibold mb-2 text-white">Stay Updated</h4>
+                <p class="text-gray-300 mb-4">Newsletter subscription coming soon!</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Footer -->
+    <div class="border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 rtl:space-x-reverse text-sm text-gray-400">
+                    <p>&copy; 2025 Muntazir Hazim. All rights reserved.</p>
+                    <div class="flex space-x-4 rtl:space-x-reverse">
+                        <a href="/privacy/" class="hover:text-white transition-colors duration-200">Privacy Policy</a>
+                        <a href="/terms/" class="hover:text-white transition-colors duration-200">Terms of Service</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4 rtl:space-x-reverse text-sm text-gray-400">
+                    <!-- RSS Feed -->
+                    <a href="/blog/rss/" class="hover:text-white transition-colors duration-200" title="RSS Feed">
+                        <i class="fas fa-rss mr-1 rtl:ml-1 rtl:mr-0"></i>
+                        RSS
+                    </a>
+                    
+                    <!-- Sitemap -->
+                    <a href="/sitemap.xml" class="hover:text-white transition-colors duration-200" title="Sitemap">
+                        <i class="fas fa-sitemap mr-1 rtl:ml-1 rtl:mr-0"></i>
+                        Sitemap
+                    </a>
+                    
+                    <!-- Made with Django -->
+                    <span class="flex items-center">
+                        Made with
+                        <i class="fas fa-heart text-red-500 mx-1"></i>
+                        using
+                        <a href="https://djangoproject.com" target="_blank" rel="noopener noreferrer" class="ml-1 rtl:mr-1 rtl:ml-0 text-primary-400 hover:text-primary-300 transition-colors duration-200">
+                            Django
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .social-link {
+        @apply w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300 transform hover:scale-110;
+    }
+    
+    .footer-link {
+        @apply text-gray-300 hover:text-white transition-colors duration-200 text-sm;
+    }
+    
+    .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Newsletter form submission
+        const newsletterForm = document.getElementById('newsletter-form');
+        
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const submitButton = this.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+                
+                // Show loading state
+                submitButton.textContent = 'Subscribing...';
+                submitButton.disabled = true;
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        const emailInput = this.querySelector('input[type="email"]');
+                        emailInput.value = '';
+                        emailInput.placeholder = 'Thank you for subscribing!';
+                        emailInput.classList.add('border-green-500');
+                        
+                        // Show success notification
+                        showNotification('Successfully subscribed to newsletter!', 'success');
+                    } else {
+                        // Show error message
+                        showNotification(data.message || 'An error occurred. Please try again.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showNotification('An error occurred. Please try again.', 'error');
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                });
+            });
+        }
+        
+        // Smooth scroll for anchor links
+        const anchorLinks = document.querySelectorAll('a[href^="#"]');
+        anchorLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add animation to social links on hover
+        const socialLinks = document.querySelectorAll('.social-link');
+        socialLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1) rotate(5deg)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    });
+    
+    // Notification function
+    function showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 ${
+            type === 'success' ? 'bg-green-500' : 
+            type === 'error' ? 'bg-red-500' : 
+            'bg-blue-500'
+        } text-white`;
+        notification.innerHTML = `
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <i class="fas ${
+                    type === 'success' ? 'fa-check-circle' : 
+                    type === 'error' ? 'fa-exclamation-circle' : 
+                    'fa-info-circle'
+                }"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.parentElement.remove()" class="ml-2 rtl:mr-2 rtl:ml-0">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Show notification
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 300);
+        }, 5000);
+    }
+</script>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary-600 hover:bg-primary-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible z-30" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Dark Mode Toggle -->
+    <button id="theme-toggle" class="fixed bottom-8 left-8 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 p-3 rounded-full shadow-lg transition-all duration-300 z-30" aria-label="Toggle dark mode">
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:inline"></i>
+    </button>
+    
+    <!-- Language Toggle -->
+    <div class="fixed bottom-24 left-8 z-30">
+        <div class="relative">
+            <button id="language-toggle" class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 p-3 rounded-full shadow-lg transition-all duration-300" aria-label="Change language">
+                <i class="fas fa-globe"></i>
+            </button>
+            <div id="language-menu" class="absolute bottom-full left-0 mb-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible transition-all duration-300 min-w-max">
+                <a href="/i18n/setlang/" onclick="setLanguage('en')" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">
+                    <i class="fas fa-flag-usa mr-2"></i> English
+                </a>
+                <a href="/i18n/setlang/" onclick="setLanguage('ar')" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg">
+                    <i class="fas fa-flag mr-2"></i> العربية
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+        
+        // Hide loading screen
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        });
+        
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            html.classList.toggle('dark');
+            const theme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Language toggle
+        const languageToggle = document.getElementById('language-toggle');
+        const languageMenu = document.getElementById('language-menu');
+        
+        languageToggle.addEventListener('click', function() {
+            languageMenu.classList.toggle('opacity-0');
+            languageMenu.classList.toggle('invisible');
+        });
+        
+        // Close language menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!languageToggle.contains(event.target) && !languageMenu.contains(event.target)) {
+                languageMenu.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        // Set language function
+        function setLanguage(lang) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/i18n/setlang/';
+            
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = 'csrfmiddlewaretoken';
+            csrfToken.value = 'u727CbfQyR4wQi8mMJwgXepAlXW5TYk5wPvma0IWPmxzg8FR82TvJMezcpejnxLM';
+            
+            const languageInput = document.createElement('input');
+            languageInput.type = 'hidden';
+            languageInput.name = 'language';
+            languageInput.value = lang;
+            
+            form.appendChild(csrfToken);
+            form.appendChild(languageInput);
+            document.body.appendChild(form);
+            form.submit();
+        }
+        
+        // Auto-hide messages after 5 seconds
+        setTimeout(function() {
+            const messages = document.querySelectorAll('.message-alert');
+            messages.forEach(function(message) {
+                message.style.opacity = '0';
+                setTimeout(function() {
+                    message.remove();
+                }, 300);
+            });
+        }, 5000);
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Form validation enhancement
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    const originalText = submitButton.textContent || submitButton.value;
+                    submitButton.innerHTML = '<span class="loading mr-2"></span>' + 'Processing...';
+                    
+                    // Re-enable button after 10 seconds as fallback
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }, 10000);
+                }
+            });
+        });
+    </script>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sort functionality
+        const sortSelect = document.getElementById('sort-select');
+        if (sortSelect) {
+            sortSelect.addEventListener('change', function() {
+                const url = new URL(window.location);
+                url.searchParams.set('sort', this.value);
+                window.location.href = url.toString();
+            });
+            
+            // Set current sort value
+            const currentSort = new URLSearchParams(window.location.search).get('sort');
+            if (currentSort) {
+                sortSelect.value = currentSort;
+            }
+        }
+        
+        // Blog card hover effects
+        const blogCards = document.querySelectorAll('.blog-card');
+        blogCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Smooth scroll for pagination
+        document.querySelectorAll('.pagination-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Scroll to top of posts section
+                const postsSection = document.querySelector('#posts-grid');
+                if (postsSection) {
+                    setTimeout(() => {
+                        postsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            });
+        });
+    });
+    
+    // Share post function
+    function sharePost(title, url) {
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                url: url
+            }).catch(console.error);
+        } else {
+            // Fallback to copying URL
+            navigator.clipboard.writeText(url).then(() => {
+                // Show toast notification
+                showToast('Link copied to clipboard!');
+            }).catch(() => {
+                // Fallback to opening share dialog
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+            });
+        }
+    }
+    
+    // Clear search function
+    function clearSearch() {
+        window.location.href = '/blog/';
+    }
+    
+    // Toast notification function
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-y-full transition-transform duration-300';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(full)';
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 300);
+        }, 3000);
+    }
+</script>
+
+<style>
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .btn-primary {
+        @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+    }
+    
+    .btn-outline {
+        @apply inline-flex items-center px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-300 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+    }
+</style>
+
+    
+    <!-- Google Analytics (if configured) -->
+    
+</body>
+</html>

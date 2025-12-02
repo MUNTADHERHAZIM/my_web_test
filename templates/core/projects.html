@@ -1,0 +1,588 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Projects" %} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block meta_description %}{% trans "Explore my portfolio of web development projects, including Django applications, React frontends, and full-stack solutions." %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .project-card {
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .project-image {
+        transition: all 0.3s ease;
+    }
+    
+    .project-card:hover .project-image {
+        transform: scale(1.1);
+    }
+    
+    .tech-tag {
+        transition: all 0.2s ease;
+    }
+    
+    .tech-tag:hover {
+        transform: scale(1.05);
+    }
+    
+    .filter-btn {
+        transition: all 0.3s ease;
+    }
+    
+    .filter-btn.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        transform: scale(1.05);
+    }
+    
+    .project-overlay {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .project-card:hover .project-overlay {
+        opacity: 1;
+    }
+    
+    .floating-icon {
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-700 dark:to-primary-900 py-20">
+    <div class="container-responsive text-center">
+        <div class="floating-icon mb-8" data-aos="fade-up">
+            <i class="fas fa-briefcase text-6xl text-white opacity-80"></i>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6" data-aos="fade-up" data-aos-delay="200">
+            {% trans "My Projects" %}
+        </h1>
+        <p class="text-xl text-primary-100 mb-8 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="400">
+            {% trans "A showcase of my work in web development, from simple websites to complex full-stack applications. Each project represents a unique challenge and learning experience." %}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="600">
+            <a href="#projects" class="btn-white">
+                <i class="fas fa-eye mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "View Projects" %}
+            </a>
+            <a href="{% url 'core:contact' %}" class="btn-outline-white">
+                <i class="fas fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Hire Me" %}
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Section -->
+<section id="projects" class="py-12 bg-white dark:bg-gray-900">
+    <div class="container-responsive">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Featured Work" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">
+                {% trans "Filter projects by technology or view all" %}
+            </p>
+            
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3" data-aos="fade-up" data-aos-delay="400">
+                <button class="filter-btn active px-6 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary-500 focus:outline-none" data-filter="all">
+                    {% trans "All Projects" %}
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary-500 focus:outline-none" data-filter="django">
+                    Django
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary-500 focus:outline-none" data-filter="react">
+                    React
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary-500 focus:outline-none" data-filter="fullstack">
+                    {% trans "Full-Stack" %}
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary-500 focus:outline-none" data-filter="api">
+                    API
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="pb-20 bg-white dark:bg-gray-900">
+    <div class="container-responsive">
+        <div class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+            <!-- Project 1: E-commerce Platform -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-category="django fullstack" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative overflow-hidden">
+                    <img src="{% static 'images/projects/ecommerce.jpg' %}" alt="E-commerce Platform" class="project-image w-full h-48 object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNzUgNzVIMjI1VjEyNUgxNzVWNzVaIiBmaWxsPSIjRDFENUQ5Ii8+CjxwYXRoIGQ9Ik0xODUgODVIMjE1VjExNUgxODVWODVaIiBmaWxsPSIjOUI5QkEwIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNkI3MjgwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiPkUtY29tbWVyY2UgUGxhdGZvcm08L3RleHQ+Cjwvc3ZnPg=='">
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-primary-600 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 mr-3 rtl:ml-3 rtl:mr-0">
+                                <i class="fas fa-eye mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "View" %}
+                            </a>
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                                <i class="fab fa-github mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "Code" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{% trans "E-commerce Platform" %}</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                        {% trans "A full-featured e-commerce platform built with Django and React. Includes user authentication, product catalog, shopping cart, payment integration, and admin dashboard." %}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full">Django</span>
+                        <span class="tech-tag px-3 py-1 bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">React</span>
+                        <span class="tech-tag px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 text-xs font-medium rounded-full">PostgreSQL</span>
+                        <span class="tech-tag px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-400 text-xs font-medium rounded-full">Stripe</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Completed" %}: 2023</span>
+                        <div class="flex space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2: Blog Platform -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-category="django" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative overflow-hidden">
+                    <img src="{% static 'images/projects/blog.jpg' %}" alt="Blog Platform" class="project-image w-full h-48 object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNEMUQ1RDkiLz4KPHJlY3QgeD0iNzAiIHk9IjcwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjOUI5QkEwIi8+CjxyZWN0IHg9IjcwIiB5PSI5MCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMCIgZmlsbD0iIzlCOUJBMCIvPgo8cmVjdCB4PSI3MCIgeT0iMTEwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjOUI5QkEwIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNkI3MjgwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiPkJsb2cgUGxhdGZvcm08L3RleHQ+Cjwvc3ZnPg=='">
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-primary-600 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 mr-3 rtl:ml-3 rtl:mr-0">
+                                <i class="fas fa-eye mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "View" %}
+                            </a>
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                                <i class="fab fa-github mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "Code" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{% trans "Blog Platform" %}</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                        {% trans "A modern blog platform with rich text editor, comment system, categories, tags, and SEO optimization. Features responsive design and dark mode support." %}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full">Django</span>
+                        <span class="tech-tag px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">TailwindCSS</span>
+                        <span class="tech-tag px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 text-xs font-medium rounded-full">PostgreSQL</span>
+                        <span class="tech-tag px-3 py-1 bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400 text-xs font-medium rounded-full">Redis</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Completed" %}: 2023</span>
+                        <div class="flex space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3: Task Management App -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-category="react fullstack" data-aos="fade-up" data-aos-delay="600">
+                <div class="relative overflow-hidden">
+                    <img src="{% static 'images/projects/taskmanager.jpg' %}" alt="Task Management App" class="project-image w-full h-48 object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxyZWN0IHg9IjgwIiB5PSI2MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI4MCIgZmlsbD0iI0QxRDVEOSIvPgo8Y2lyY2xlIGN4PSIxMDAiIGN5PSI4MCIgcj0iOCIgZmlsbD0iIzlCOUJBMCIvPgo8cmVjdCB4PSIxMjAiIHk9Ijc1IiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjOUI5QkEwIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOCIgZmlsbD0iIzlCOUJBMCIvPgo8cmVjdCB4PSIxMjAiIHk9Ijk1IiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjOUI5QkEwIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEyMCIgcj0iOCIgZmlsbD0iIzlCOUJBMCIvPgo8cmVjdCB4PSIxMjAiIHk9IjExNSIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMCIgZmlsbD0iIzlCOUJBMCIvPgo8dGV4dCB4PSIyMDAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzZCNzI4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij5UYXNrIE1hbmFnZW1lbnQ8L3RleHQ+Cjwvc3ZnPg=='">
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-primary-600 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 mr-3 rtl:ml-3 rtl:mr-0">
+                                <i class="fas fa-eye mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "View" %}
+                            </a>
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                                <i class="fab fa-github mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "Code" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{% trans "Task Management App" %}</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                        {% trans "A collaborative task management application with real-time updates, team collaboration features, project tracking, and deadline management." %}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag px-3 py-1 bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">React</span>
+                        <span class="tech-tag px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full">Django</span>
+                        <span class="tech-tag px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">WebSocket</span>
+                        <span class="tech-tag px-3 py-1 bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400 text-xs font-medium rounded-full">Redis</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Completed" %}: 2023</span>
+                        <div class="flex space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 4: REST API -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-category="api django" data-aos="fade-up" data-aos-delay="800">
+                <div class="relative overflow-hidden">
+                    <img src="{% static 'images/projects/api.jpg' %}" alt="REST API" class="project-image w-full h-48 object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNEMUQ1RDkiLz4KPHRleHQgeD0iMjAwIiB5PSI4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzlCOUJBMCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNiI+e30gQVBJIHt9PC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzlCOUJBMCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMiI+R0VUIFBPU1QgUFVUIERFTEVURTwvdGV4dD4KPHRleHQgeD0iMjAwIiB5PSIxMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5QjlCQTAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiPi9hcGkvdjEvPC90ZXh0Pgo8dGV4dCB4PSIyMDAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzZCNzI4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij5SRVNUIEFQSSBTZXJ2aWNlPC90ZXh0Pgo8L3N2Zz4='">
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-primary-600 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 mr-3 rtl:ml-3 rtl:mr-0">
+                                <i class="fas fa-eye mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "View" %}
+                            </a>
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                                <i class="fab fa-github mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "Code" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{% trans "REST API Service" %}</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                        {% trans "A comprehensive REST API service with authentication, rate limiting, documentation, and testing. Includes JWT authentication and OpenAPI documentation." %}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full">Django REST</span>
+                        <span class="tech-tag px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 text-xs font-medium rounded-full">JWT</span>
+                        <span class="tech-tag px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-400 text-xs font-medium rounded-full">Swagger</span>
+                        <span class="tech-tag px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">Docker</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Completed" %}: 2023</span>
+                        <div class="flex space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 5: Portfolio Website -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-category="django" data-aos="fade-up" data-aos-delay="1000">
+                <div class="relative overflow-hidden">
+                    <img src="{% static 'images/projects/portfolio.jpg' %}" alt="Portfolio Website" class="project-image w-full h-48 object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxyZWN0IHg9IjUwIiB5PSI0MCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI0QxRDVEOSIvPgo8cmVjdCB4PSI1MCIgeT0iODAiIHdpZHRoPSIxNDAiIGhlaWdodD0iODAiIGZpbGw9IiNEMUQ1RDkiLz4KPHJlY3QgeD0iMjEwIiB5PSI4MCIgd2lkdGg9IjE0MCIgaGVpZ2h0PSI4MCIgZmlsbD0iI0QxRDVEOSIvPgo8Y2lyY2xlIGN4PSIxMjAiIGN5PSIxMDAiIHI9IjE1IiBmaWxsPSIjOUI5QkEwIi8+CjxjaXJjbGUgY3g9IjI4MCIgY3k9IjEwMCIgcj0iMTUiIGZpbGw9IiM5QjlCQTAiLz4KPHRleHQgeD0iMjAwIiB5PSIxODUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2QjcyODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCI+UG9ydGZvbGlvIFdlYnNpdGU8L3RleHQ+Cjwvc3ZnPg=='">
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-primary-600 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 mr-3 rtl:ml-3 rtl:mr-0">
+                                <i class="fas fa-eye mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "View" %}
+                            </a>
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                                <i class="fab fa-github mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "Code" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{% trans "Portfolio Website" %}</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                        {% trans "A responsive portfolio website with blog functionality, contact forms, project showcase, and admin panel. Features SEO optimization and multilingual support." %}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full">Django</span>
+                        <span class="tech-tag px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">TailwindCSS</span>
+                        <span class="tech-tag px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">JavaScript</span>
+                        <span class="tech-tag px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 text-xs font-medium rounded-full">PostgreSQL</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Completed" %}: 2024</span>
+                        <div class="flex space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 6: React Dashboard -->
+            <div class="project-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-category="react" data-aos="fade-up" data-aos-delay="1200">
+                <div class="relative overflow-hidden">
+                    <img src="{% static 'images/projects/dashboard.jpg' %}" alt="React Dashboard" class="project-image w-full h-48 object-cover" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDQwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjE2MCIgZmlsbD0iI0QxRDVEOSIvPgo8cmVjdCB4PSIxMjAiIHk9IjIwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjRDFENUQ5Ii8+CjxyZWN0IHg9IjEyMCIgeT0iODAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNDAiIGZpbGw9IiNEMUQ1RDkiLz4KPHJlY3QgeD0iMjYwIiB5PSI4MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI0QxRDVEOSIvPgo8cmVjdCB4PSIxMjAiIHk9IjE0MCIgd2lkdGg9IjI2MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI0QxRDVEOSIvPgo8dGV4dCB4PSIyMDAiIHk9IjE5NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzZCNzI4MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij5SZWFjdCBEYXNoYm9hcmQ8L3RleHQ+Cjwvc3ZnPg=='">
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-primary-600 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 mr-3 rtl:ml-3 rtl:mr-0">
+                                <i class="fas fa-eye mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "View" %}
+                            </a>
+                            <a href="#" class="inline-flex items-center px-4 py-2 bg-transparent border-2 border-white text-white rounded-lg font-medium hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                                <i class="fab fa-github mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                {% trans "Code" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{% trans "React Dashboard" %}</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                        {% trans "A modern admin dashboard built with React and TypeScript. Features data visualization, user management, analytics, and real-time notifications." %}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag px-3 py-1 bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-400 text-xs font-medium rounded-full">React</span>
+                        <span class="tech-tag px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full">TypeScript</span>
+                        <span class="tech-tag px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 text-xs font-medium rounded-full">Chart.js</span>
+                        <span class="tech-tag px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full">Material-UI</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Completed" %}: 2023</span>
+                        <div class="flex space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="text-center mt-12" data-aos="fade-up">
+            <button id="load-more" class="btn-primary">
+                <i class="fas fa-plus mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Load More Projects" %}
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Technologies Section -->
+<section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Technologies I Use" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                {% trans "The tools and technologies that power my projects" %}
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <i class="fab fa-python text-3xl text-blue-600"></i>
+                </div>
+                <span class="text-gray-700 dark:text-gray-300 font-medium">Python</span>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <i class="fab fa-js-square text-3xl text-yellow-500"></i>
+                </div>
+                <span class="text-gray-700 dark:text-gray-300 font-medium">JavaScript</span>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <i class="fab fa-react text-3xl text-cyan-500"></i>
+                </div>
+                <span class="text-gray-700 dark:text-gray-300 font-medium">React</span>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="500">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <i class="fas fa-database text-3xl text-green-600"></i>
+                </div>
+                <span class="text-gray-700 dark:text-gray-300 font-medium">PostgreSQL</span>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="600">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <i class="fab fa-docker text-3xl text-blue-500"></i>
+                </div>
+                <span class="text-gray-700 dark:text-gray-300 font-medium">Docker</span>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="700">
+                <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <i class="fab fa-aws text-3xl text-orange-500"></i>
+                </div>
+                <span class="text-gray-700 dark:text-gray-300 font-medium">AWS</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-primary-600 dark:bg-primary-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up">
+            {% trans "Have a Project in Mind?" %}
+        </h2>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            {% trans "I'm always excited to work on new projects and challenges. Let's discuss how I can help bring your ideas to life." %}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'core:contact' %}" class="btn-white">
+                <i class="fas fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Start a Project" %}
+            </a>
+            <a href="{% url 'blog:post_list' %}" class="btn-outline-white">
+                <i class="fas fa-blog mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Read My Blog" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter projects
+                projectCards.forEach(card => {
+                    const categories = card.getAttribute('data-category');
+                    
+                    if (filter === 'all' || categories.includes(filter)) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeInUp 0.5s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Load more functionality
+        const loadMoreBtn = document.getElementById('load-more');
+        let isLoading = false;
+        
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                if (isLoading) return;
+                
+                isLoading = true;
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2 rtl:ml-2 rtl:mr-0"></i>{% trans "Loading..." %}';
+                this.disabled = true;
+                
+                // Simulate loading more projects
+                setTimeout(() => {
+                    // Here you would typically make an AJAX request to load more projects
+                    // For demo purposes, we'll just show a message
+                    this.innerHTML = '<i class="fas fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>{% trans "All Projects Loaded" %}';
+                    this.classList.add('opacity-50', 'cursor-not-allowed');
+                    
+                    setTimeout(() => {
+                        this.style.display = 'none';
+                    }, 2000);
+                }, 2000);
+            });
+        }
+        
+        // Project card hover effects
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Tech tag hover effects
+        const techTags = document.querySelectorAll('.tech-tag');
+        techTags.forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .btn-white {
+        @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200;
+    }
+    
+    .btn-outline-white {
+        @apply inline-flex items-center px-6 py-3 border-2 border-white text-base font-medium rounded-md text-white bg-transparent hover:bg-white hover:text-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-colors duration-200;
+    }
+    
+    .btn-primary {
+        @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+    }
+</style>
+{% endblock %}

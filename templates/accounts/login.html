@@ -1,0 +1,576 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Login" %} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block meta_description %}{% trans "Login to your account to access your dashboard, manage your profile, and interact with our content." %}{% endblock %}
+
+{% block extra_meta %}
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% trans 'Login' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta property="og:description" content="{% trans 'Login to your account to access your dashboard, manage your profile, and interact with our content.' %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="{% trans 'Login' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta property="twitter:description" content="{% trans 'Login to your account to access your dashboard, manage your profile, and interact with our content.' %}">
+
+<!-- Prevent indexing of login page -->
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        min-height: calc(100vh - 80px);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .auth-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        animation: float 20s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    .auth-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+    }
+    
+    .dark .auth-card {
+        background: rgba(17, 24, 39, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .auth-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .form-input {
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+    }
+    
+    .form-input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .dark .form-input {
+        border-color: #374151;
+        background-color: #1f2937;
+    }
+    
+    .dark .form-input:focus {
+        border-color: #667eea;
+        background-color: #111827;
+    }
+    
+    .btn-login {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-login::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-login:hover::before {
+        left: 100%;
+    }
+    
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+    }
+    
+    .social-btn {
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+    }
+    
+    .social-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dark .social-btn {
+        border-color: #374151;
+        background-color: #1f2937;
+    }
+    
+    .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .shape {
+        position: absolute;
+        opacity: 0.1;
+        animation: floatShapes 15s ease-in-out infinite;
+    }
+    
+    .shape:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+    
+    .shape:nth-child(2) {
+        top: 60%;
+        right: 10%;
+        animation-delay: 5s;
+    }
+    
+    .shape:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        animation-delay: 10s;
+    }
+    
+    @keyframes floatShapes {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-30px) rotate(120deg); }
+        66% { transform: translateY(30px) rotate(240deg); }
+    }
+    
+    .password-toggle {
+        cursor: pointer;
+        transition: color 0.2s ease;
+    }
+    
+    .password-toggle:hover {
+        color: #667eea;
+    }
+    
+    .remember-me-checkbox {
+        accent-color: #667eea;
+    }
+    
+    .error-message {
+        animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    .loading-spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ffffff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <!-- Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape w-32 h-32 bg-white rounded-full"></div>
+        <div class="shape w-24 h-24 bg-white rounded-lg transform rotate-45"></div>
+        <div class="shape w-40 h-40 bg-white rounded-full"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-md w-full space-y-8">
+        <!-- Header -->
+        <div class="text-center" data-aos="fade-up">
+            <div class="mx-auto h-16 w-16 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg">
+                <i class="fas fa-sign-in-alt text-2xl text-primary-600"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-white mb-2">
+                {% trans "Welcome Back" %}
+            </h2>
+            <p class="text-primary-100">
+                {% trans "Sign in to your account to continue" %}
+            </p>
+        </div>
+        
+        <!-- Login Form -->
+        <div class="auth-card rounded-xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <!-- Error Messages -->
+            {% if form.errors or form.non_field_errors %}
+                <div class="error-message mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-triangle text-red-500 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                        <div class="text-sm text-red-700 dark:text-red-300">
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% else %}
+                                <p>{% trans "Please correct the errors below." %}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            
+            <!-- Success Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mb-6 p-4 bg-{{ message.tags }}-50 dark:bg-{{ message.tags }}-900/20 border border-{{ message.tags }}-200 dark:border-{{ message.tags }}-800 rounded-lg">
+                        <div class="flex items-center">
+                            <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'info' %}info-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}times-circle{% endif %} text-{{ message.tags }}-500 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                            <div class="text-sm text-{{ message.tags }}-700 dark:text-{{ message.tags }}-300">
+                                {{ message }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" id="login-form" novalidate>
+                {% csrf_token %}
+                
+                <!-- Username/Email Field -->
+                <div class="mb-6">
+                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Username or Email" %}
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto pl-3 rtl:pr-3 rtl:pl-0 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" 
+                               name="{{ form.username.name }}" 
+                               id="{{ form.username.id_for_label }}"
+                               value="{{ form.username.value|default:'' }}"
+                               class="form-input block w-full pl-10 rtl:pr-10 rtl:pl-3 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="{% trans 'Enter your username or email' %}"
+                               required>
+                    </div>
+                    {% if form.username.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Password Field -->
+                <div class="mb-6">
+                    <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Password" %}
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto pl-3 rtl:pr-3 rtl:pl-0 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input type="password" 
+                               name="{{ form.password.name }}" 
+                               id="{{ form.password.id_for_label }}"
+                               class="form-input block w-full pl-10 rtl:pr-10 rtl:pl-3 pr-10 rtl:pl-10 rtl:pr-3 py-3 border rounded-lg focus:outline-none focus:ring-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="{% trans 'Enter your password' %}"
+                               required>
+                        <div class="absolute inset-y-0 right-0 rtl:left-0 rtl:right-auto pr-3 rtl:pl-3 rtl:pr-0 flex items-center">
+                            <i class="fas fa-eye password-toggle text-gray-400" onclick="togglePassword('{{ form.password.id_for_label }}')"></i>
+                        </div>
+                    </div>
+                    {% if form.password.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {% for error in form.password.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <input type="checkbox" 
+                               name="remember_me" 
+                               id="remember_me"
+                               class="remember-me-checkbox h-4 w-4 rounded border-gray-300 focus:ring-primary-500">
+                        <label for="remember_me" class="ml-2 rtl:mr-2 rtl:ml-0 block text-sm text-gray-700 dark:text-gray-300">
+                            {% trans "Remember me" %}
+                        </label>
+                    </div>
+                    <div class="text-sm">
+                        <a href="{% url 'accounts:password_reset' %}" class="text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200">
+                            {% trans "Forgot password?" %}
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="mb-6">
+                    <button type="submit" class="btn-login group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <span class="flex items-center">
+                            <i class="fas fa-sign-in-alt mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            {% trans "Sign In" %}
+                        </span>
+                        <div class="loading-spinner ml-2 rtl:mr-2 rtl:ml-0"></div>
+                    </button>
+                </div>
+                
+                <!-- Divider -->
+                <div class="relative mb-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
+                            {% trans "Or continue with" %}
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Social Login Buttons -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button type="button" class="social-btn w-full inline-flex justify-center py-2 px-4 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <i class="fab fa-google text-red-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn w-full inline-flex justify-center py-2 px-4 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <i class="fab fa-github text-gray-900 dark:text-white mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        GitHub
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Sign Up Link -->
+            <div class="text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    {% trans "Don't have an account?" %}
+                    <a href="{% url 'accounts:register' %}" class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200">
+                        {% trans "Sign up here" %}
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Additional Links -->
+        <div class="text-center space-y-2" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'core:home' %}" class="inline-flex items-center text-primary-100 hover:text-white transition-colors duration-200">
+                <i class="fas fa-arrow-left mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Back to Home" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('login-form');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const spinner = submitBtn.querySelector('.loading-spinner');
+        const btnText = submitBtn.querySelector('span');
+        
+        // Form submission with loading state
+        form.addEventListener('submit', function(e) {
+            // Show loading state
+            submitBtn.disabled = true;
+            spinner.style.display = 'block';
+            btnText.style.opacity = '0.7';
+            
+            // Basic client-side validation
+            const username = form.querySelector('input[name="username"]').value.trim();
+            const password = form.querySelector('input[name="password"]').value;
+            
+            if (!username || !password) {
+                e.preventDefault();
+                showToast('{% trans "Please fill in all required fields" %}', 'error');
+                resetSubmitButton();
+                return;
+            }
+            
+            // If validation passes, form will submit normally
+            // Loading state will be reset by page reload or by error handling
+        });
+        
+        function resetSubmitButton() {
+            submitBtn.disabled = false;
+            spinner.style.display = 'none';
+            btnText.style.opacity = '1';
+        }
+        
+        // Reset loading state if there are form errors (page didn't reload)
+        if (document.querySelector('.error-message')) {
+            resetSubmitButton();
+        }
+        
+        // Auto-focus first empty field
+        const usernameField = form.querySelector('input[name="username"]');
+        const passwordField = form.querySelector('input[name="password"]');
+        
+        if (!usernameField.value) {
+            usernameField.focus();
+        } else if (!passwordField.value) {
+            passwordField.focus();
+        }
+        
+        // Enhanced form validation
+        const inputs = form.querySelectorAll('input[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    validateField(this);
+                }
+            });
+        });
+        
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldContainer = field.closest('div').parentElement;
+            let isValid = true;
+            let errorMessage = '';
+            
+            // Remove existing error styling
+            field.classList.remove('error', 'border-red-500');
+            const existingError = fieldContainer.querySelector('.field-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // Validate based on field type
+            if (field.name === 'username') {
+                if (!value) {
+                    isValid = false;
+                    errorMessage = '{% trans "Username or email is required" %}';
+                } else if (value.length < 3) {
+                    isValid = false;
+                    errorMessage = '{% trans "Username must be at least 3 characters" %}';
+                }
+            } else if (field.name === 'password') {
+                if (!value) {
+                    isValid = false;
+                    errorMessage = '{% trans "Password is required" %}';
+                } else if (value.length < 6) {
+                    isValid = false;
+                    errorMessage = '{% trans "Password must be at least 6 characters" %}';
+                }
+            }
+            
+            // Apply error styling if invalid
+            if (!isValid) {
+                field.classList.add('error', 'border-red-500');
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error mt-1 text-sm text-red-600 dark:text-red-400';
+                errorDiv.textContent = errorMessage;
+                fieldContainer.appendChild(errorDiv);
+            }
+            
+            return isValid;
+        }
+        
+        // Social login handlers (placeholder)
+        const socialButtons = document.querySelectorAll('.social-btn');
+        socialButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const provider = this.textContent.trim();
+                showToast(`{% trans "Social login with" %} ${provider} {% trans "is coming soon!" %}`, 'info');
+            });
+        });
+        
+        // Remember me persistence
+        const rememberCheckbox = document.getElementById('remember_me');
+        const usernameInput = form.querySelector('input[name="username"]');
+        
+        // Load remembered username
+        if (localStorage.getItem('rememberedUsername')) {
+            usernameInput.value = localStorage.getItem('rememberedUsername');
+            rememberCheckbox.checked = true;
+        }
+        
+        // Save/remove username based on remember me
+        form.addEventListener('submit', function() {
+            if (rememberCheckbox.checked) {
+                localStorage.setItem('rememberedUsername', usernameInput.value);
+            } else {
+                localStorage.removeItem('rememberedUsername');
+            }
+        });
+    });
+    
+    // Password toggle function
+    function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = field.parentElement.querySelector('.password-toggle');
+        
+        if (field.type === 'password') {
+            field.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            field.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const bgColor = type === 'error' ? 'bg-red-500' : type === 'info' ? 'bg-blue-500' : 'bg-green-500';
+        toast.className = `fixed bottom-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-y-full transition-transform duration-300`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(full)';
+            setTimeout(() => {
+                if (document.body.contains(toast)) {
+                    document.body.removeChild(toast);
+                }
+            }, 300);
+        }, 3000);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,356 @@
+/* ========================================
+   HOME PAGE FIXES AND IMPROVEMENTS
+   ======================================== */
+
+/* Fix image display issues */
+.hero-section img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Prevent text overlap in hero section */
+.hero-section {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-section .container-responsive {
+    position: relative;
+    z-index: 10;
+    padding: 2rem 1rem;
+}
+
+/* Fix floating elements positioning */
+.floating {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Improve text readability */
+.hero-section h1,
+.hero-section p,
+.hero-section .text-xl {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10;
+}
+
+/* Fix blog post images */
+.blog-posts-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+/* Fix project images if any */
+.projects-grid img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+/* Prevent content overflow */
+.card-hover {
+    overflow: hidden;
+    position: relative;
+}
+
+.card-hover img {
+    transition: transform 0.3s ease;
+}
+
+.card-hover:hover img {
+    transform: scale(1.05);
+}
+
+/* Fix text wrapping in cards */
+.blog-posts-grid .p-6,
+.services-grid .p-8 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Improve mobile responsiveness */
+@media (max-width: 640px) {
+    .hero-section {
+        min-height: 80vh;
+        padding: 1rem 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-section .text-xl {
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-section p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+    
+    /* Fix button layout on mobile */
+    .hero-section .flex {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .hero-section .btn-white,
+    .hero-section .btn-outline-white {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    /* Fix floating nav on mobile */
+    #floating-nav {
+        left: 1rem;
+        transform: translateY(-50%);
+    }
+    
+    .nav-dot {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    /* Fix blog grid on mobile */
+    .blog-posts-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .blog-posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .blog-posts-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Fix avatar display */
+.hero-section .w-32.h-32 {
+    width: 8rem;
+    height: 8rem;
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Improve gradient text visibility */
+.gradient-text-white {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+}
+
+/* Fix typing animation container */
+#typing-text {
+    min-height: 2rem;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Improve section spacing */
+section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Fix background animations */
+.hero-section .absolute.inset-0 {
+    z-index: 1;
+}
+
+.hero-section .absolute.inset-0 > div {
+    opacity: 0.1;
+}
+
+/* Improve card shadows and spacing */
+.card-hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 0.75rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.dark .card-hover {
+    background: #1f2937;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Fix text overflow in cards */
+.card-hover h3,
+.card-hover p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-hover p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Improve button styles */
+.btn-white {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1f2937;
+    border: 2px solid transparent;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn-white:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-white {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn-outline-white:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+/* Fix scroll indicator */
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+/* Improve floating nav visibility */
+#floating-nav {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark #floating-nav {
+    background: rgba(31, 41, 55, 0.9);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+/* Fix progress bars in skills section */
+.bg-primary-600 {
+    background-color: #2563eb;
+    transition: width 2s ease-in-out;
+}
+
+/* Improve accessibility */
+.focus\:outline-none:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Fix any remaining layout issues */
+.container-responsive {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .container-responsive {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .container-responsive {
+        padding: 0 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-responsive {
+        padding: 0 2.5rem;
+    }
+}
+
+/* Ensure proper z-index stacking */
+.hero-section {
+    z-index: 1;
+}
+
+.navbar {
+    z-index: 50;
+}
+
+#floating-nav {
+    z-index: 30;
+}
+
+#messages-container {
+    z-index: 40;
+}
+
+#loading-screen {
+    z-index: 50;
+}

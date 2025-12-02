@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طريقة غير مسموحة - 405</title>
+    <link rel="stylesheet" href="/static/css/error-pages.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 50%, #8e44ad 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .error-container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+            padding: 2rem;
+        }
+
+        .method-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: rotateIn 1.5s ease-out 0.2s forwards;
+            color: #f39c12;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #f39c12, #e67e22, #f39c12, #d35400);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: waveGradient 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(243, 156, 18, 0.5);
+            opacity: 0;
+            animation: flipIn 1.2s ease-out 0.5s forwards, waveGradient 3s ease-in-out infinite 1.7s;
+        }
+
+        .error-title {
+            font-size: 2.7rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideInFromLeft 1s ease-out 1s forwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            color: #ecf0f1;
+        }
+
+        .error-message {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInRotate 1s ease-out 1.4s forwards;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+            color: #bdc3c7;
+        }
+
+        .method-list {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            animation: scaleIn 1s ease-out 1.8s forwards;
+        }
+
+        .method-list h3 {
+            margin-bottom: 1rem;
+            color: #f39c12;
+            font-size: 1.4rem;
+        }
+
+        .methods {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .method-tag {
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .method-tag:hover {
+            transform: scale(1.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: bounceInUp 1s ease-out 2.2s forwards;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .geometric-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .geometric-shape {
+            position: absolute;
+            border: 2px solid rgba(243, 156, 18, 0.2);
+            animation: geometricFloat 15s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            right: 15%;
+            transform: rotate(45deg);
+            animation-delay: 3s;
+        }
+
+        .shape-3 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            border-radius: 50%;
+            animation-delay: 6s;
+        }
+
+        .shape-4 {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            right: 10%;
+            transform: rotate(30deg);
+            animation-delay: 9s;
+        }
+
+        .shape-5 {
+            width: 70px;
+            height: 70px;
+            top: 50%;
+            left: 5%;
+            border-radius: 50%;
+            animation-delay: 12s;
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        @keyframes waveGradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            33% {
+                background-position: 100% 0%;
+            }
+            66% {
+                background-position: 0% 100%;
+            }
+        }
+
+        @keyframes flipIn {
+            from {
+                opacity: 0;
+                transform: rotateY(-90deg);
+            }
+            to {
+                opacity: 1;
+                transform: rotateY(0deg);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRotate {
+            from {
+                opacity: 0;
+                transform: rotate(-5deg) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounceInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes geometricFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.2;
+            }
+            25% {
+                transform: translateY(-30px) rotate(90deg);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(0px) rotate(180deg);
+                opacity: 0.2;
+            }
+            75% {
+                transform: translateY(30px) rotate(270deg);
+                opacity: 0.4;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6rem;
+            }
+            .error-title {
+                font-size: 2.2rem;
+            }
+            .error-message {
+                font-size: 1.1rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            .method-icon {
+                font-size: 3.5rem;
+            }
+            .methods {
+                gap: 0.5rem;
+            }
+            .method-tag {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="geometric-bg">
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+        <div class="geometric-shape shape-4"></div>
+        <div class="geometric-shape shape-5"></div>
+    </div>
+    
+    <div class="error-container">
+        <div class="method-icon">🚫</div>
+        <div class="error-code" data-text="405">405</div>
+        <h1 class="error-title" data-text="طريقة غير مسموحة">طريقة غير مسموحة</h1>
+        <p class="error-message">
+            عذراً، الطريقة المستخدمة للوصول إلى هذه الصفحة غير مسموحة.
+            <br>يرجى استخدام إحدى الطرق المسموحة أدناه.
+        </p>
+        
+        <div class="method-list">
+            <h3>الطرق المسموحة:</h3>
+            <div class="methods">
+                <span class="method-tag">GET</span>
+                <span class="method-tag">POST</span>
+                <span class="method-tag">PUT</span>
+                <span class="method-tag">DELETE</span>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/" class="btn btn-primary">العودة للرئيسية</a>
+            <a href="javascript:history.back()" class="btn btn-secondary">الصفحة السابقة</a>
+            <a href="/contact/" class="btn btn-secondary">تواصل معنا</a>
+        </div>
+    </div>
+    
+    <script src="/static/js/error-pages.js"></script>
+</body>
+</html>

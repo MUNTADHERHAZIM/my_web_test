@@ -1,0 +1,963 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Home" %} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block meta_description %}{{ site_settings.site_description|default:"مطور ويب متخصص في تطوير التطبيقات الحديثة
+باستخدام Django و React. أقدم حلول تقنية مبتكرة ومتطورة." }}{% endblock %}
+
+{% block extra_meta %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% trans 'Home' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta property="og:description"
+    content="{{ site_settings.site_description|default:'مطور ويب متخصص في تطوير التطبيقات الحديثة باستخدام Django و React.' }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{% trans 'Home' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta name="twitter:description"
+    content="{{ site_settings.site_description|default:'مطور ويب متخصص في تطوير التطبيقات الحديثة باستخدام Django و React.' }}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site_settings.site_name|default:'Muntazir Hazim'|escapejs }}",
+  "description": "{{ site_settings.site_description|default:'Portfolio and blog by a web developer'|escapejs }}",
+  "url": "{{ request.build_absolute_uri|escapejs }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site_settings.site_name|default:'Muntazir Hazim'|escapejs }}"
+  }
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    /* Fix text overlap and positioning */
+    .hero-section {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .hero-section .container-responsive {
+        position: relative;
+        z-index: 10;
+        padding: 2rem 1rem;
+    }
+
+    .hero-section h1,
+    .hero-section p,
+    .hero-section .text-xl {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 10;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Fix floating elements positioning */
+    .floating {
+        position: absolute;
+        pointer-events: none;
+        z-index: 1;
+        animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Improve image display */
+    .hero-section img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .card-hover {
+        transition: all 0.3s ease;
+        overflow: hidden;
+        position: relative;
+        background: #fff;
+        border-radius: 0.5rem;
+    }
+
+    .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-hover img {
+        transition: transform 0.3s ease;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .card-hover:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Fix blog post images */
+    .blog-posts-grid .card-hover {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-posts-grid .card-hover img {
+        width: 100%;
+        height: 12rem;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+    }
+
+    .blog-posts-grid .card-hover:hover img {
+        transform: scale(1.1);
+    }
+
+    /* Fix image container */
+    .blog-posts-grid .card-hover>div:first-child {
+        width: 100%;
+        height: 12rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Fix text wrapping in cards */
+    .card-hover .p-6,
+    .card-hover p {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .skill-item {
+        transition: all 0.3s ease;
+    }
+
+    .skill-item:hover {
+        transform: scale(1.05);
+    }
+
+    .typing-animation {
+        border-right: 2px solid;
+        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        min-height: 2rem;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    @keyframes typing {
+        from {
+            width: 0
+        }
+
+        to {
+            width: 100%
+        }
+    }
+
+    @keyframes blink-caret {
+
+        from,
+        to {
+            border-color: transparent
+        }
+
+        50% {
+            border-color: currentColor
+        }
+    }
+
+    /* Additional image fixes */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Fix avatar image specifically */
+    .hero-section .mb-8 img {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        margin: 0 auto 1.5rem;
+        border: 4px solid white;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Fix project and service images */
+    .service-card img,
+    .project-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 0.5rem;
+    }
+
+    /* Ensure proper image loading */
+    img[src=""],
+    img:not([src]) {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Loading state for images */
+    img {
+        transition: opacity 0.3s ease;
+    }
+
+    img.loaded {
+        opacity: 1;
+    }
+
+    /* Mobile responsiveness fixes */
+    @media (max-width: 640px) {
+        .hero-section {
+            min-height: 80vh;
+            padding: 1rem 0;
+        }
+
+        .hero-section h1 {
+            font-size: 2rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section .text-xl {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-section p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .hero-section .flex {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .hero-section .btn-white,
+        .hero-section .btn-outline-white {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .blog-posts-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-section .mb-8 img {
+            width: 6rem;
+            height: 6rem;
+        }
+    }
+
+    /* Floating Navigation Styles */
+    .nav-dot {
+        @apply w-10 h-10 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200 relative;
+    }
+
+    .nav-dot.active {
+        @apply text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20;
+    }
+
+    .nav-dot::after {
+        content: attr(title);
+        @apply absolute left-full ml-3 rtl:right-full rtl:mr-3 rtl:ml-0 bg-gray-900 dark:bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 invisible transition-all duration-200 whitespace-nowrap;
+    }
+
+    .nav-dot:hover::after {
+        @apply opacity-100 visible;
+    }
+
+    /* Show floating nav on scroll */
+    .show-floating-nav #floating-nav {
+        @apply opacity-100 visible;
+    }
+
+    /* Fix floating nav positioning */
+    #floating-nav {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 30;
+    }
+
+    .dark #floating-nav {
+        background: rgba(31, 41, 55, 0.9);
+        border: 1px solid rgba(75, 85, 99, 0.3);
+    }
+
+    /* Improve section spacing and prevent overlap */
+    section {
+        position: relative;
+        z-index: 1;
+        clear: both;
+    }
+
+    /* Fix container spacing */
+    .container-responsive {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    @media (min-width: 640px) {
+        .container-responsive {
+            padding: 0 1.5rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .container-responsive {
+            padding: 0 2rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .container-responsive {
+            padding: 0 2.5rem;
+        }
+    }
+
+    /* Fix gradient text visibility */
+    .gradient-text-white {
+        background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
+    }
+
+    /* Improve button styles */
+    .btn-white {
+        background: rgba(255, 255, 255, 0.95);
+        color: #1f2937;
+        border: 2px solid transparent;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .btn-white:hover {
+        background: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-outline-white {
+        background: transparent;
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .btn-outline-white:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: white;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Floating Navigation Sidebar -->
+<div id="floating-nav"
+    class="fixed left-4 top-1/2 transform -translate-y-1/2 z-30 opacity-0 invisible transition-all duration-300">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-2">
+        <nav class="space-y-2">
+            <a href="#hero" class="nav-dot active" data-section="hero" title="{% trans 'Hero' %}">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="#about" class="nav-dot" data-section="about" title="{% trans 'About' %}">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="#skills" class="nav-dot" data-section="skills" title="{% trans 'Skills' %}">
+                <i class="fas fa-code"></i>
+            </a>
+            <a href="#projects" class="nav-dot" data-section="projects" title="{% trans 'Projects' %}">
+                <i class="fas fa-briefcase"></i>
+            </a>
+            <a href="#blog" class="nav-dot" data-section="blog" title="{% trans 'Blog' %}">
+                <i class="fas fa-blog"></i>
+            </a>
+            <a href="#contact" class="nav-dot" data-section="contact" title="{% trans 'Contact' %}">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </nav>
+    </div>
+</div>
+<!-- Hero Section -->
+<section id="hero"
+    class="hero-section hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+    <!-- Background Animation -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-20 h-20 bg-white rounded-full floating" style="animation-delay: 0s;">
+        </div>
+        <div class="absolute top-20 right-20 w-16 h-16 bg-white rounded-full floating" style="animation-delay: 1s;">
+        </div>
+        <div class="absolute bottom-20 left-20 w-12 h-12 bg-white rounded-full floating" style="animation-delay: 2s;">
+        </div>
+        <div class="absolute bottom-10 right-10 w-24 h-24 bg-white rounded-full floating"
+            style="animation-delay: 0.5s;"></div>
+    </div>
+
+    <div class="container-responsive text-center text-white relative z-10">
+        <div class="mb-8 relative z-10" data-aos="fade-up">
+            {% if user_profile.avatar %}
+            <img src="{{ user_profile.avatar.url }}" alt="{{ site_settings.site_name }}"
+                class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-lg object-cover" loading="lazy"
+                decoding="async" width="128" height="128">
+            {% else %}
+            <div
+                class="w-32 h-32 bg-white bg-opacity-20 rounded-full mx-auto mb-6 flex items-center justify-center border-4 border-white">
+                <i class="fas fa-user text-4xl text-white"></i>
+            </div>
+            {% endif %}
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 relative z-10" data-aos="fade-up" data-aos-delay="200">
+            {% trans "Hello, I'm" %}
+            <span class="block gradient-text-white">{{ site_settings.site_name|default:"منتظر حازم ثامر" }}</span>
+        </h1>
+
+        <div class="text-xl md:text-2xl mb-8 h-16 relative z-10" data-aos="fade-up" data-aos-delay="400">
+            <span id="typing-text" class="typing-animation"></span>
+        </div>
+
+        <p class="text-lg md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed relative z-10" data-aos="fade-up"
+            data-aos-delay="600">
+            {{ site_settings.site_description|default:"مطور ويب متخصص في تطوير التطبيقات الحديثة باستخدام Django و
+            React. أقدم حلول تقنية مبتكرة ومتطورة لتحويل أفكارك إلى واقع رقمي." }}
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10" data-aos="fade-up"
+            data-aos-delay="800">
+            <a href="{% url 'core:projects' %}" class="btn-white">
+                <i class="fas fa-briefcase mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "View My Work" %}
+            </a>
+            <a href="{% url 'core:contact' %}" class="btn-outline-white">
+                <i class="fas fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Get In Touch" %}
+            </a>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" data-aos="fade-up"
+            data-aos-delay="1000">
+            <a href="#about" class="text-white hover:text-gray-200 transition-colors duration-200">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-white dark:bg-gray-900">
+    <div class="container-responsive">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "About Me" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up"
+                data-aos-delay="200">
+                {% trans "Passionate about creating digital solutions that make a difference" %}
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                    {% trans "My Journey" %}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                    {% trans "With years of experience in web development, I specialize in creating modern, scalable
+                    applications using cutting-edge technologies. My passion lies in transforming complex ideas into
+                    elegant, user-friendly solutions." %}
+                </p>
+                <p class="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                    {% trans "I believe in continuous learning and staying updated with the latest industry trends to
+                    deliver the best possible results for my clients and projects." %}
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700 dark:text-gray-300">{% trans "Full-Stack Development" %}</span>
+                    </div>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700 dark:text-gray-300">{% trans "Responsive Design" %}</span>
+                    </div>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700 dark:text-gray-300">{% trans "API Development" %}</span>
+                    </div>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <i class="fas fa-check-circle text-green-500"></i>
+                        <span class="text-gray-700 dark:text-gray-300">{% trans "Database Design" %}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div data-aos="fade-left">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8">
+                    <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-6">{% trans "Technical Skills" %}</h4>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300">Python/Django</span>
+                                <span class="text-gray-500 dark:text-gray-400">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary-600 h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300">JavaScript/React</span>
+                                <span class="text-gray-500 dark:text-gray-400">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary-600 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300">HTML/CSS</span>
+                                <span class="text-gray-500 dark:text-gray-400">98%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary-600 h-2 rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300">Database Design</span>
+                                <span class="text-gray-500 dark:text-gray-400">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-primary-600 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="skills" class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container-responsive">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "What I Do" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up"
+                data-aos-delay="200">
+                {% trans "I offer a comprehensive range of web development services" %}
+            </p>
+        </div>
+
+        <div class="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg card-hover" data-aos="fade-up"
+                data-aos-delay="200">
+                <div
+                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-code text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Web Development" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {% trans "Full-stack web development using modern frameworks like Django, React, and Vue.js to
+                    create scalable and maintainable applications." %}
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg card-hover" data-aos="fade-up"
+                data-aos-delay="400">
+                <div
+                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-mobile-alt text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Responsive Design" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {% trans "Creating beautiful, responsive designs that work perfectly across all devices and screen
+                    sizes using modern CSS frameworks." %}
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg card-hover" data-aos="fade-up"
+                data-aos-delay="600">
+                <div
+                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-server text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "API Development" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {% trans "Building robust RESTful APIs and GraphQL endpoints to power your applications and enable
+                    seamless data integration." %}
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg card-hover" data-aos="fade-up"
+                data-aos-delay="800">
+                <div
+                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-database text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Database Design" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {% trans "Designing efficient database schemas and optimizing queries for better performance and
+                    scalability." %}
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg card-hover" data-aos="fade-up"
+                data-aos-delay="1000">
+                <div
+                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-cloud text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Cloud Deployment" %}</h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {% trans "Deploying applications to cloud platforms like AWS, Google Cloud, and DigitalOcean with
+                    proper CI/CD pipelines." %}
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg card-hover" data-aos="fade-up"
+                data-aos-delay="1200">
+                <div
+                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mb-6">
+                    <i class="fas fa-cog text-2xl text-primary-600 dark:text-primary-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Maintenance & Support" %}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {% trans "Providing ongoing maintenance, updates, and technical support to ensure your applications
+                    run smoothly." %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Blog Posts -->
+{% if latest_posts %}
+<section id="blog" class="py-20 bg-white dark:bg-gray-900">
+    <div class="container-responsive">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Latest Blog Posts" %}
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-aos="fade-up"
+                data-aos-delay="200">
+                {% trans "Stay updated with my latest thoughts and tutorials" %}
+            </p>
+        </div>
+
+        <div class="blog-posts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in latest_posts %}
+            <article class="bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg card-hover"
+                data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 200 %}">
+                {% if post.cover_image %}
+                <div class="w-full h-48 overflow-hidden">
+                    <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
+                        class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+                        loading="lazy" decoding="async">
+                </div>
+                {% else %}
+                <div
+                    class="w-full h-48 bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
+                    <i class="fas fa-blog text-4xl text-white"></i>
+                </div>
+                {% endif %}
+
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse mb-3">
+                        <span
+                            class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-xs font-medium rounded-full">
+                            {{ post.category.name }}
+                        </span>
+                        <span class="text-gray-500 dark:text-gray-400 text-sm">
+                            {{ post.created_at|date:"M d, Y" }}
+                        </span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                        <a href="{{ post.get_absolute_url }}"
+                            class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                            {{ post.title }}
+                        </a>
+                    </h3>
+
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                        {{ post.excerpt|default:post.content|truncatewords:20 }}
+                    </p>
+
+                    <div class="flex items-center justify-between">
+                        <a href="{{ post.get_absolute_url }}"
+                            class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors duration-200">
+                            {% trans "Read More" %}
+                            <i class="fas fa-arrow-right ml-1 rtl:mr-1 rtl:ml-0"></i>
+                        </a>
+                        <span class="text-gray-500 dark:text-gray-400 text-sm">
+                            {{ post.reading_time }} {% trans "min read" %}
+                        </span>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="{% url 'blog:post_list' %}" class="btn-primary">
+                {% trans "View All Posts" %}
+                <i class="fas fa-arrow-right ml-2 rtl:mr-2 rtl:ml-0"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Contact CTA -->
+<section id="contact" class="py-20 bg-primary-600 dark:bg-primary-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-aos="fade-up">
+            {% trans "Ready to Start Your Project?" %}
+        </h2>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            {% trans "Let's work together to bring your ideas to life. Get in touch and let's discuss your next
+            project." %}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'core:contact' %}" class="btn-white">
+                <i class="fas fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Get In Touch" %}
+            </a>
+            <a href="{% url 'core:projects' %}" class="btn-outline-white">
+                <i class="fas fa-briefcase mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "View Portfolio" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Typing animation
+        const typingText = document.getElementById('typing-text');
+        const texts = [
+            '{% trans "Full-Stack Developer" %}',
+            '{% trans "Django Expert" %}',
+            '{% trans "React Developer" %}',
+            '{% trans "Problem Solver" %}'
+        ];
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentText = texts[textIndex];
+
+            if (isDeleting) {
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500; // Pause before next text
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        // Start typing animation
+        setTimeout(typeWriter, 1000);
+
+        // Image loading optimization
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            if (img.complete) {
+                img.classList.add('loaded');
+            } else {
+                img.addEventListener('load', function () {
+                    this.classList.add('loaded');
+                });
+                img.addEventListener('error', function () {
+                    // Handle broken images
+                    this.style.display = 'none';
+                    const parent = this.parentElement;
+                    if (parent && parent.classList.contains('overflow-hidden')) {
+                        parent.innerHTML = '<div class="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center"><i class="fas fa-image text-2xl text-gray-600"></i></div>';
+                    }
+                });
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function () {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-gradient');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Counter animation for skills
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('[style*="width:"]');
+                    progressBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.transition = 'width 2s ease-in-out';
+                            bar.style.width = width;
+                        }, 200);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.querySelector('.bg-gray-50.dark\\:bg-gray-800');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+
+        // Floating navigation functionality
+        const floatingNav = document.getElementById('floating-nav');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const sections = document.querySelectorAll('section[id]');
+
+        // Show floating nav on scroll
+        window.addEventListener('scroll', function () {
+            if (!floatingNav) return;
+            if (window.scrollY > 300) {
+                floatingNav.classList.remove('opacity-0', 'invisible');
+                floatingNav.classList.add('opacity-100', 'visible');
+            } else {
+                floatingNav.classList.add('opacity-0', 'invisible');
+                floatingNav.classList.remove('opacity-100', 'visible');
+            }
+
+            // Update active nav dot
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href') === '#' + current) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for floating nav
+        navDots.forEach(dot => {
+            dot.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

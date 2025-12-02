@@ -1,0 +1,287 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: muntazir_db
+    environment:
+      POSTGRES_DB: muntazir_portfolio
+      POSTGRES_USER: muntazir
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secure_password_123}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U muntazir -d muntazir_portfolio"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: muntazir_redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_password_123}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Django Web Application
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: muntazir_web
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - DATABASE_URL=postgres://muntazir:${DB_PASSWORD:-secure_password_123}@db:5432/muntazir_portfolio
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/1
+      - ALLOWED_HOSTS=localhost,127.0.0.1,${DOMAIN_NAME:-muntazir.com}
+      - LANGUAGE_CODE=ar
+      - TIME_ZONE=Asia/Baghdad
+      - USE_TZ=True
+      - STATIC_URL=/static/
+      - MEDIA_URL=/media/
+      - EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+      - EMAIL_HOST=${EMAIL_HOST:-smtp.gmail.com}
+      - EMAIL_PORT=${EMAIL_PORT:-587}
+      - EMAIL_USE_TLS=True
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER:-your-email@gmail.com}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD:-your-app-password}
+      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL:-Muntazir Portfolio <noreply@muntazir.com>}
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+      - ./logs:/app/logs
+    ports:
+      - "8000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Celery Worker
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: muntazir_celery
+    command: celery -A muntazir_portfolio worker -l info
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - DATABASE_URL=postgres://muntazir:${DB_PASSWORD:-secure_password_123}@db:5432/muntazir_portfolio
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/1
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/0
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - db
+      - redis
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+
+  # Celery Beat (Scheduler)
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: muntazir_celery_beat
+    command: celery -A muntazir_portfolio beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - DATABASE_URL=postgres://muntazir:${DB_PASSWORD:-secure_password_123}@db:5432/muntazir_portfolio
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/1
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/0
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - db
+      - redis
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+
+  # Flower (Celery Monitoring)
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: muntazir_flower
+    command: celery -A muntazir_portfolio flower --port=5555
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - DATABASE_URL=postgres://muntazir:${DB_PASSWORD:-secure_password_123}@db:5432/muntazir_portfolio
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/1
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD:-redis_password_123}@redis:6379/0
+      - FLOWER_BASIC_AUTH=${FLOWER_USER:-admin}:${FLOWER_PASSWORD:-flower_password_123}
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy (Production)
+  nginx:
+    image: nginx:alpine
+    container_name: muntazir_nginx
+    volumes:
+      - ./docker/nginx-prod.conf:/etc/nginx/nginx.conf
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+      - ./docker/ssl:/etc/nginx/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    profiles:
+      - production
+
+  # Elasticsearch (for search functionality)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: muntazir_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    profiles:
+      - search
+
+  # Kibana (Elasticsearch UI)
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: muntazir_kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    profiles:
+      - search
+
+  # Prometheus (Monitoring)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: muntazir_prometheus
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Grafana (Metrics Dashboard)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: muntazir_grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-grafana_admin_123}
+    volumes:
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Backup Service
+  backup:
+    image: postgres:15-alpine
+    container_name: muntazir_backup
+    environment:
+      - PGPASSWORD=${DB_PASSWORD:-secure_password_123}
+    volumes:
+      - ./backups:/backups
+      - ./docker/backup.sh:/backup.sh
+    command: |
+      sh -c '
+        chmod +x /backup.sh
+        crond -f
+      '
+    depends_on:
+      - db
+    networks:
+      - muntazir_network
+    restart: unless-stopped
+    profiles:
+      - backup
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  static_volume:
+    driver: local
+  media_volume:
+    driver: local
+  elasticsearch_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  muntazir_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

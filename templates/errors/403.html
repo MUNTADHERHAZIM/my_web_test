@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ممنوع الوصول - 403</title>
+    <link rel="stylesheet" href="/static/css/error-pages.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .error-container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+            padding: 2rem;
+        }
+
+        .lock-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: lockShake 2s ease-in-out 0.3s forwards;
+            color: #e74c3c;
+        }
+
+        .error-code {
+            font-size: 7.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #e74c3c, #c0392b, #e74c3c);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulseGlow 2s ease-in-out infinite;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(231, 76, 60, 0.5);
+            opacity: 0;
+            animation: zoomIn 1s ease-out 0.6s forwards, pulseGlow 2s ease-in-out infinite 1.6s;
+        }
+
+        .error-title {
+            font-size: 2.6rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideInFromTop 1s ease-out 1s forwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            color: #ecf0f1;
+        }
+
+        .error-message {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInScale 1s ease-out 1.4s forwards;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+            color: #bdc3c7;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: slideInFromBottom 1s ease-out 1.8s forwards;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .security-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(52, 73, 94, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(52, 73, 94, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 10s linear infinite;
+            z-index: 1;
+        }
+
+        .floating-shields {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shield {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(231, 76, 60, 0.2);
+            animation: floatShield 12s ease-in-out infinite;
+        }
+
+        .shield:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shield:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        .shield:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+
+        .shield:nth-child(4) {
+            bottom: 30%;
+            right: 25%;
+            animation-delay: 9s;
+        }
+
+        @keyframes lockShake {
+            0%, 100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-5px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(5px);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1);
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(1.2);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        @keyframes floatShield {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.2;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(0px) rotate(180deg);
+                opacity: 0.2;
+            }
+            75% {
+                transform: translateY(20px) rotate(270deg);
+                opacity: 0.4;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5.5rem;
+            }
+            .error-title {
+                font-size: 2rem;
+            }
+            .error-message {
+                font-size: 1rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            .lock-icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="security-grid"></div>
+    
+    <div class="floating-shields">
+        <div class="shield">🛡️</div>
+        <div class="shield">🔒</div>
+        <div class="shield">🛡️</div>
+        <div class="shield">🔒</div>
+    </div>
+    
+    <div class="error-container">
+        <div class="lock-icon">🔐</div>
+        <div class="error-code" data-text="403">403</div>
+        <h1 class="error-title" data-text="ممنوع الوصول">ممنوع الوصول</h1>
+        <p class="error-message">
+            عذراً، ليس لديك الصلاحية للوصول إلى هذه الصفحة.
+            <br>قد تحتاج إلى تسجيل الدخول أو الحصول على إذن خاص للوصول إلى هذا المحتوى.
+            <br>إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع المسؤول.
+        </p>
+        <div class="action-buttons">
+            <a href="/" class="btn btn-primary">العودة للرئيسية</a>
+            <a href="/accounts/login/" class="btn btn-secondary">تسجيل الدخول</a>
+            <a href="/contact/" class="btn btn-secondary">تواصل معنا</a>
+        </div>
+    </div>
+    
+    <script src="/static/js/error-pages.js"></script>
+</body>
+</html>

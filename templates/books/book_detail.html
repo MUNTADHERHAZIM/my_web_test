@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load blog_extras %}
+
+{% block title %}{{ book.title }} - {% trans "Books" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Book Header -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden mb-8">
+            <div class="md:flex">
+                <div class="md:w-1/3">
+                    {% if book.cover_image %}
+                        <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-full h-96 object-cover">
+                    {% else %}
+                        <div class="w-full h-96 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                            <span class="text-gray-500 dark:text-gray-400 text-lg">{% trans "No Cover" %}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="md:w-2/3 p-6">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ book.title }}</h1>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{% trans "by" %} {{ book.author }}</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{% trans "Status" %}</span>
+                            <p class="text-gray-900 dark:text-white">{{ book.get_status_display }}</p>
+                        </div>
+                        {% if book.isbn %}
+                        <div>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{% trans "ISBN" %}</span>
+                            <p class="text-gray-900 dark:text-white">{{ book.isbn }}</p>
+                        </div>
+                        {% endif %}
+                        {% if book.publication_date %}
+                        <div>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{% trans "Publication Date" %}</span>
+                            <p class="text-gray-900 dark:text-white">{{ book.publication_date|date:"Y" }}</p>
+                        </div>
+                        {% endif %}
+                        {% if book.pages %}
+                        <div>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{% trans "Pages" %}</span>
+                            <p class="text-gray-900 dark:text-white">{{ book.pages }}</p>
+                        </div>
+                        {% endif %}
+                        {% if book.category %}
+                        <div>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{% trans "Category" %}</span>
+                            <p class="text-gray-900 dark:text-white">
+                                <a href="{% url 'books:category_books' book.category.slug %}" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                    {{ book.category.name }}
+                                </a>
+                            </p>
+                        </div>
+                        {% endif %}
+                        {% if book.rating %}
+                        <div>
+                            <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{% trans "Rating" %}</span>
+                            <div class="flex items-center">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= book.rating %}
+                                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    {% else %}
+                                        <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20">
+                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                        </svg>
+                                    {% endif %}
+                                {% endfor %}
+                                <span class="ml-2 text-gray-600 dark:text-gray-400">({{ book.rating }}/5)</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if book.tags.all %}
+                    <div class="mb-6">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400 block mb-2">{% trans "Tags" %}</span>
+                        <div class="flex flex-wrap gap-2">
+                            {% for tag in book.tags.all %}
+                                <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm">
+                                    {{ tag.name }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if user == book.user %}
+                    <div class="flex space-x-4">
+                        <a href="{% url 'books:book_edit' book.slug %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                            {% trans "Edit Book" %}
+                        </a>
+                        <a href="{% url 'books:book_delete' book.slug %}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors" onclick="return confirm('{% trans 'Are you sure you want to delete this book?' %}')">
+                            {% trans "Delete Book" %}
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Description -->
+        {% if book.description %}
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Description" %}</h2>
+            <div class="prose dark:prose-invert max-w-none">
+                {{ book.description|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Reading Progress -->
+        {% if book.status == 'reading' and book.pages and book.current_page %}
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{% trans "Reading Progress" %}</h2>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-4">
+                <div class="bg-blue-600 h-4 rounded-full" style="width: {{ book.reading_progress }}%"></div>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400">
+                {% trans "Page" %} {{ book.current_page }} {% trans "of" %} {{ book.pages }} ({{ book.reading_progress|floatformat:1 }}%)
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Notes Section -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{% trans "Notes" %}</h2>
+                {% if user == book.user %}
+                    <a href="{% url 'books:note_create' book.slug %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        {% trans "Add Note" %}
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if book.notes.all %}
+                <div class="space-y-6">
+                    {% for note in book.notes.all %}
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ note.title }}</h3>
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    {% if note.page_number %}
+                                        {% trans "Page" %} {{ note.page_number }} • 
+                                    {% endif %}
+                                    {{ note.created_at|date:"M d, Y" }}
+                                </div>
+                            </div>
+                            <div class="prose dark:prose-invert max-w-none">
+                                {{ note.content|linebreaks }}
+                            </div>
+                            {% if note.is_favorite %}
+                                <div class="mt-2">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
+                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                        {% trans "Favorite" %}
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500 dark:text-gray-400 text-center py-8">
+                    {% trans "No notes yet." %}
+                    {% if user == book.user %}
+                        <a href="{% url 'books:note_create' book.slug %}" class="text-blue-600 dark:text-blue-400 hover:underline ml-1">
+                            {% trans "Add the first note!" %}
+                        </a>
+                    {% endif %}
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- Related Books -->
+        {% if related_books %}
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{% trans "Related Books" %}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for related_book in related_books %}
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        {% if related_book.cover_image %}
+                            <img src="{{ related_book.cover_image.url }}" alt="{{ related_book.title }}" class="w-full h-32 object-cover rounded mb-3">
+                        {% endif %}
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">
+                            <a href="{% url 'books:book_detail' related_book.slug %}" class="hover:text-blue-600 dark:hover:text-blue-400">
+                                {{ related_book.title }}
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{% trans "by" %} {{ related_book.author }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

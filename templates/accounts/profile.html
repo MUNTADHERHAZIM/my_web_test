@@ -1,0 +1,585 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Profile" %} - {{ user.get_full_name|default:user.username }} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block meta_description %}{% trans "View and manage your profile information, settings, and account preferences." %}{% endblock %}
+
+{% block extra_meta %}
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="{{ user.get_full_name|default:user.username }} - {% trans 'Profile' %}">
+<meta property="og:description" content="{% trans 'View and manage your profile information, settings, and account preferences.' %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% if user.userprofile.avatar %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ user.userprofile.avatar.url }}">
+{% endif %}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="{{ user.get_full_name|default:user.username }} - {% trans 'Profile' %}">
+<meta property="twitter:description" content="{% trans 'View and manage your profile information, settings, and account preferences.' %}">
+{% if user.userprofile.avatar %}
+<meta property="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ user.userprofile.avatar.url }}">
+{% endif %}
+
+<!-- Prevent indexing of profile page -->
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-container {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: calc(100vh - 80px);
+    }
+    
+    .dark .profile-container {
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    }
+    
+    .profile-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+    }
+    
+    .dark .profile-card {
+        background: rgba(17, 24, 39, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .avatar-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .avatar-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .avatar-container:hover .avatar-overlay {
+        opacity: 1;
+    }
+    
+    .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .activity-item {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+    
+    .activity-item:hover {
+        border-left-color: #667eea;
+        background-color: rgba(102, 126, 234, 0.05);
+        transform: translateX(5px);
+    }
+    
+    .dark .activity-item:hover {
+        background-color: rgba(102, 126, 234, 0.1);
+    }
+    
+    .progress-bar {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        transition: width 0.5s ease;
+    }
+    
+    .social-link {
+        transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.8; }
+    }
+    
+    .edit-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        transition: all 0.3s ease;
+    }
+    
+    .edit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+    }
+    
+    .tab-button {
+        transition: all 0.3s ease;
+        border-bottom: 3px solid transparent;
+    }
+    
+    .tab-button.active {
+        border-bottom-color: #667eea;
+        color: #667eea;
+    }
+    
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-container py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Profile Header -->
+        <div class="profile-card rounded-xl p-8 mb-8" data-aos="fade-up">
+            <div class="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-8 rtl:lg:space-x-reverse">
+                <!-- Avatar -->
+                <div class="avatar-container">
+                    {% if user.userprofile.avatar %}
+                        <img src="{{ user.userprofile.avatar.url }}" alt="{{ user.get_full_name|default:user.username }}" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg">
+                    {% else %}
+                        <div class="w-32 h-32 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center border-4 border-white shadow-lg">
+                            <span class="text-4xl font-bold text-white">{{ user.first_name|first|default:user.username|first|upper }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="avatar-overlay">
+                        <i class="fas fa-camera text-white text-xl"></i>
+                    </div>
+                </div>
+                
+                <!-- User Info -->
+                <div class="flex-1 text-center lg:text-left rtl:lg:text-right">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                        {{ user.get_full_name|default:user.username }}
+                        {% if user.userprofile.is_verified %}
+                            <i class="fas fa-check-circle text-blue-500 ml-2 rtl:mr-2 rtl:ml-0" title="{% trans 'Verified Account' %}"></i>
+                        {% endif %}
+                    </h1>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-4">{{ user.userprofile.bio|default:"No bio available" }}</p>
+                    
+                    <!-- User Stats -->
+                    <div class="flex flex-wrap justify-center lg:justify-start rtl:lg:justify-end gap-4 mb-6">
+                        <div class="stat-card text-white px-4 py-2 rounded-lg">
+                            <div class="text-sm opacity-90">{% trans "Posts" %}</div>
+                            <div class="text-xl font-bold">{{ user.blog_posts.count }}</div>
+                        </div>
+                        <div class="stat-card text-white px-4 py-2 rounded-lg">
+                            <div class="text-sm opacity-90">{% trans "Comments" %}</div>
+                            <div class="text-xl font-bold">{{ user.comments.count }}</div>
+                        </div>
+                        <div class="stat-card text-white px-4 py-2 rounded-lg">
+                            <div class="text-sm opacity-90">{% trans "Joined" %}</div>
+                            <div class="text-xl font-bold">{{ user.date_joined|date:"M Y" }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    {% if user.userprofile.website or user.userprofile.github or user.userprofile.linkedin or user.userprofile.twitter %}
+                        <div class="flex justify-center lg:justify-start rtl:lg:justify-end space-x-4 rtl:space-x-reverse mb-6">
+                            {% if user.userprofile.website %}
+                                <a href="{{ user.userprofile.website }}" target="_blank" class="social-link text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400">
+                                    <i class="fas fa-globe text-xl"></i>
+                                </a>
+                            {% endif %}
+                            {% if user.userprofile.github %}
+                                <a href="{{ user.userprofile.github }}" target="_blank" class="social-link text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                            {% endif %}
+                            {% if user.userprofile.linkedin %}
+                                <a href="{{ user.userprofile.linkedin }}" target="_blank" class="social-link text-gray-600 dark:text-gray-300 hover:text-blue-600">
+                                    <i class="fab fa-linkedin text-xl"></i>
+                                </a>
+                            {% endif %}
+                            {% if user.userprofile.twitter %}
+                                <a href="{{ user.userprofile.twitter }}" target="_blank" class="social-link text-gray-600 dark:text-gray-300 hover:text-blue-400">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Profile Completion -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-gray-600 dark:text-gray-300">{% trans "Profile Completion" %}</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-white">{{ user.userprofile.completion_percentage }}%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div class="progress-bar h-2 rounded-full" style="width: {{ user.userprofile.completion_percentage }}%"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap justify-center lg:justify-start rtl:lg:justify-end gap-4">
+                        <a href="{% url 'accounts:profile_edit' %}" class="edit-btn inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            <i class="fas fa-edit mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            {% trans "Edit Profile" %}
+                        </a>
+                        <button type="button" class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <i class="fas fa-cog mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            {% trans "Settings" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabs Navigation -->
+        <div class="profile-card rounded-xl mb-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <nav class="flex space-x-8 rtl:space-x-reverse px-8">
+                    <button class="tab-button py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 active" data-tab="overview">
+                        <i class="fas fa-chart-line mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Overview" %}
+                    </button>
+                    <button class="tab-button py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" data-tab="posts">
+                        <i class="fas fa-blog mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Posts" %}
+                    </button>
+                    <button class="tab-button py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" data-tab="activity">
+                        <i class="fas fa-history mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Activity" %}
+                    </button>
+                    <button class="tab-button py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" data-tab="achievements">
+                        <i class="fas fa-trophy mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Achievements" %}
+                    </button>
+                </nav>
+            </div>
+            
+            <!-- Tab Contents -->
+            <div class="p-8">
+                <!-- Overview Tab -->
+                <div id="overview" class="tab-content active">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Recent Activity -->
+                        <div class="lg:col-span-2">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">{% trans "Recent Activity" %}</h3>
+                            <div class="space-y-4">
+                                {% for activity in recent_activities|slice:":5" %}
+                                    <div class="activity-item p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                                        <div class="flex items-start space-x-3 rtl:space-x-reverse">
+                                            <div class="flex-shrink-0">
+                                                <i class="fas fa-{{ activity.icon }} text-primary-600 mt-1"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-sm text-gray-900 dark:text-white">{{ activity.description }}</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ activity.created_at|timesince }} {% trans "ago" %}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="text-center py-8">
+                                        <i class="fas fa-history text-4xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                                        <p class="text-gray-500 dark:text-gray-400">{% trans "No recent activity" %}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Stats -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">{% trans "Quick Stats" %}</h3>
+                            <div class="space-y-4">
+                                <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-lg text-white">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm opacity-90">{% trans "Total Views" %}</p>
+                                            <p class="text-2xl font-bold">{{ total_views|default:0 }}</p>
+                                        </div>
+                                        <i class="fas fa-eye text-2xl opacity-75"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gradient-to-r from-green-500 to-green-600 p-4 rounded-lg text-white">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm opacity-90">{% trans "Total Likes" %}</p>
+                                            <p class="text-2xl font-bold">{{ total_likes|default:0 }}</p>
+                                        </div>
+                                        <i class="fas fa-heart text-2xl opacity-75"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-4 rounded-lg text-white">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm opacity-90">{% trans "Reputation" %}</p>
+                                            <p class="text-2xl font-bold">{{ user.userprofile.reputation|default:0 }}</p>
+                                        </div>
+                                        <i class="fas fa-star text-2xl opacity-75"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Posts Tab -->
+                <div id="posts" class="tab-content">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{% trans "My Posts" %}</h3>
+                        <a href="{% url 'blog:post_create' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            <i class="fas fa-plus mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            {% trans "New Post" %}
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {% for post in user.blog_posts.all|slice:":6" %}
+                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                                {% if post.cover_image %}
+                            <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+                                {% else %}
+                                    <div class="w-full h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
+                                        <i class="fas fa-image text-4xl text-white opacity-50"></i>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="p-6">
+                                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                                        <a href="{{ post.get_absolute_url }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200">
+                                            {{ post.title }}
+                                        </a>
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">{{ post.excerpt|default:post.content|truncatewords:20 }}</p>
+                                    
+                                    <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                                        <span>{{ post.created_at|date:"M d, Y" }}</span>
+                                        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                                            <span><i class="fas fa-eye mr-1 rtl:ml-1 rtl:mr-0"></i>{{ post.views }}</span>
+                                            <span><i class="fas fa-comment mr-1 rtl:ml-1 rtl:mr-0"></i>{{ post.comments.count }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="col-span-full text-center py-12">
+                                <i class="fas fa-blog text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                                <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{% trans "No posts yet" %}</h4>
+                                <p class="text-gray-600 dark:text-gray-300 mb-6">{% trans "Start sharing your thoughts with the world!" %}</p>
+                                <a href="{% url 'blog:post_create' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                    <i class="fas fa-plus mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                    {% trans "Create Your First Post" %}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Activity Tab -->
+                <div id="activity" class="tab-content">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">{% trans "Activity History" %}</h3>
+                    
+                    <div class="space-y-6">
+                        {% for activity in all_activities %}
+                            <div class="activity-item p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                                <div class="flex items-start space-x-4 rtl:space-x-reverse">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-{{ activity.icon }} text-primary-600 dark:text-primary-400"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <h4 class="text-sm font-medium text-gray-900 dark:text-white">{{ activity.title }}</h4>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">{{ activity.created_at|date:"M d, Y H:i" }}</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{{ activity.description }}</p>
+                                        {% if activity.link %}
+                                            <a href="{{ activity.link }}" class="text-sm text-primary-600 dark:text-primary-400 hover:underline mt-2 inline-block">
+                                                {% trans "View Details" %} <i class="fas fa-arrow-right mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="text-center py-12">
+                                <i class="fas fa-history text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                                <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{% trans "No activity yet" %}</h4>
+                                <p class="text-gray-600 dark:text-gray-300">{% trans "Your activity will appear here as you interact with the site." %}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Achievements Tab -->
+                <div id="achievements" class="tab-content">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">{% trans "Achievements & Badges" %}</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Sample achievements -->
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center">
+                            <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-user-plus text-2xl text-yellow-600 dark:text-yellow-400"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{% trans "Welcome Aboard" %}</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{% trans "Successfully created your account" %}</p>
+                            <span class="badge text-xs px-3 py-1 rounded-full text-white">{% trans "Earned" %}</span>
+                        </div>
+                        
+                        {% if user.blog_posts.count >= 1 %}
+                            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center">
+                                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-pen text-2xl text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{% trans "First Post" %}</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{% trans "Published your first blog post" %}</p>
+                                <span class="badge text-xs px-3 py-1 rounded-full text-white">{% trans "Earned" %}</span>
+                            </div>
+                        {% endif %}
+                        
+                        {% if user.userprofile.completion_percentage >= 100 %}
+                            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center">
+                                <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-check-circle text-2xl text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{% trans "Profile Master" %}</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{% trans "Completed your profile 100%" %}</p>
+                                <span class="badge text-xs px-3 py-1 rounded-full text-white">{% trans "Earned" %}</span>
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Locked achievements -->
+                        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-md text-center opacity-60">
+                            <div class="w-16 h-16 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-lock text-2xl text-gray-400"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{% trans "Popular Author" %}</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">{% trans "Get 100 likes on your posts" %}</p>
+                            <span class="text-xs px-3 py-1 rounded-full bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300">{% trans "Locked" %}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+        
+        // Avatar upload functionality (placeholder)
+        const avatarContainer = document.querySelector('.avatar-container');
+        if (avatarContainer) {
+            avatarContainer.addEventListener('click', function() {
+                showToast('{% trans "Avatar upload functionality coming soon!" %}', 'info');
+            });
+        }
+        
+        // Animate progress bar
+        const progressBar = document.querySelector('.progress-bar');
+        if (progressBar) {
+            const targetWidth = progressBar.style.width;
+            progressBar.style.width = '0%';
+            
+            setTimeout(() => {
+                progressBar.style.width = targetWidth;
+            }, 500);
+        }
+        
+        // Animate stat cards
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 200 * (index + 1));
+        });
+        
+        // Activity item hover effects
+        const activityItems = document.querySelectorAll('.activity-item');
+        activityItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+    });
+    
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const bgColor = type === 'error' ? 'bg-red-500' : type === 'info' ? 'bg-blue-500' : 'bg-green-500';
+        toast.className = `fixed bottom-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-y-full transition-transform duration-300`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(full)';
+            setTimeout(() => {
+                if (document.body.contains(toast)) {
+                    document.body.removeChild(toast);
+                }
+            }, 300);
+        }, 3000);
+    }
+</script>
+{% endblock %}

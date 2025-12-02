@@ -1,0 +1,801 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Register" %} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block meta_description %}{% trans "Create your account to join our community, access exclusive content, and interact with our platform." %}{% endblock %}
+
+{% block extra_meta %}
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% trans 'Register' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta property="og:description" content="{% trans 'Create your account to join our community, access exclusive content, and interact with our platform.' %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="{% trans 'Register' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta property="twitter:description" content="{% trans 'Create your account to join our community, access exclusive content, and interact with our platform.' %}">
+
+<!-- Prevent indexing of register page -->
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        min-height: calc(100vh - 80px);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .auth-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        animation: float 20s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    .auth-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+    }
+    
+    .dark .auth-card {
+        background: rgba(17, 24, 39, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .auth-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .form-input {
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+    }
+    
+    .form-input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .dark .form-input {
+        border-color: #374151;
+        background-color: #1f2937;
+    }
+    
+    .dark .form-input:focus {
+        border-color: #667eea;
+        background-color: #111827;
+    }
+    
+    .btn-register {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-register::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+    
+    .btn-register:hover::before {
+        left: 100%;
+    }
+    
+    .btn-register:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+    }
+    
+    .social-btn {
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+    }
+    
+    .social-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dark .social-btn {
+        border-color: #374151;
+        background-color: #1f2937;
+    }
+    
+    .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .shape {
+        position: absolute;
+        opacity: 0.1;
+        animation: floatShapes 15s ease-in-out infinite;
+    }
+    
+    .shape:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+    
+    .shape:nth-child(2) {
+        top: 60%;
+        right: 10%;
+        animation-delay: 5s;
+    }
+    
+    .shape:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        animation-delay: 10s;
+    }
+    
+    @keyframes floatShapes {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-30px) rotate(120deg); }
+        66% { transform: translateY(30px) rotate(240deg); }
+    }
+    
+    .password-toggle {
+        cursor: pointer;
+        transition: color 0.2s ease;
+    }
+    
+    .password-toggle:hover {
+        color: #667eea;
+    }
+    
+    .password-strength {
+        height: 4px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+        margin-top: 8px;
+    }
+    
+    .strength-weak { background-color: #ef4444; width: 25%; }
+    .strength-fair { background-color: #f59e0b; width: 50%; }
+    .strength-good { background-color: #10b981; width: 75%; }
+    .strength-strong { background-color: #059669; width: 100%; }
+    
+    .error-message {
+        animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    .loading-spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ffffff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .field-valid {
+        border-color: #10b981 !important;
+    }
+    
+    .field-invalid {
+        border-color: #ef4444 !important;
+    }
+    
+    .validation-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .rtl .validation-icon {
+        right: auto;
+        left: 12px;
+    }
+    
+    .field-valid + .validation-icon.valid,
+    .field-invalid + .validation-icon.invalid {
+        opacity: 1;
+    }
+    
+    .terms-checkbox {
+        accent-color: #667eea;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <!-- Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape w-32 h-32 bg-white rounded-full"></div>
+        <div class="shape w-24 h-24 bg-white rounded-lg transform rotate-45"></div>
+        <div class="shape w-40 h-40 bg-white rounded-full"></div>
+    </div>
+    
+    <div class="relative z-10 max-w-md w-full space-y-8">
+        <!-- Header -->
+        <div class="text-center" data-aos="fade-up">
+            <div class="mx-auto h-16 w-16 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg">
+                <i class="fas fa-user-plus text-2xl text-primary-600"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-white mb-2">
+                {% trans "Join Our Community" %}
+            </h2>
+            <p class="text-primary-100">
+                {% trans "Create your account to get started" %}
+            </p>
+        </div>
+        
+        <!-- Registration Form -->
+        <div class="auth-card rounded-xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <!-- Error Messages -->
+            {% if form.errors or form.non_field_errors %}
+                <div class="error-message mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-triangle text-red-500 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                        <div class="text-sm text-red-700 dark:text-red-300">
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% else %}
+                                <p>{% trans "Please correct the errors below." %}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            
+            <!-- Success Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mb-6 p-4 bg-{{ message.tags }}-50 dark:bg-{{ message.tags }}-900/20 border border-{{ message.tags }}-200 dark:border-{{ message.tags }}-800 rounded-lg">
+                        <div class="flex items-center">
+                            <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'info' %}info-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}times-circle{% endif %} text-{{ message.tags }}-500 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                            <div class="text-sm text-{{ message.tags }}-700 dark:text-{{ message.tags }}-300">
+                                {{ message }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" id="register-form" novalidate>
+                {% csrf_token %}
+                
+                <!-- Honeypot Field (Hidden) -->
+                {% if form.honeypot %}
+                    <div style="display: none;">
+                        {{ form.honeypot }}
+                    </div>
+                {% endif %}
+                
+                <!-- Username Field -->
+                <div class="mb-6">
+                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Username" %} <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto pl-3 rtl:pr-3 rtl:pl-0 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" 
+                               name="{{ form.username.name }}" 
+                               id="{{ form.username.id_for_label }}"
+                               value="{{ form.username.value|default:'' }}"
+                               class="form-input block w-full pl-10 rtl:pr-10 rtl:pl-3 pr-10 rtl:pl-10 rtl:pr-3 py-3 border rounded-lg focus:outline-none focus:ring-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="{% trans 'Choose a unique username' %}"
+                               required>
+                        <i class="validation-icon valid fas fa-check-circle text-green-500"></i>
+                        <i class="validation-icon invalid fas fa-times-circle text-red-500"></i>
+                    </div>
+                    <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        {% trans "3-30 characters, letters, numbers, and underscores only" %}
+                    </div>
+                    {% if form.username.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Email Field -->
+                <div class="mb-6">
+                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Email Address" %} <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto pl-3 rtl:pr-3 rtl:pl-0 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input type="email" 
+                               name="{{ form.email.name }}" 
+                               id="{{ form.email.id_for_label }}"
+                               value="{{ form.email.value|default:'' }}"
+                               class="form-input block w-full pl-10 rtl:pr-10 rtl:pl-3 pr-10 rtl:pl-10 rtl:pr-3 py-3 border rounded-lg focus:outline-none focus:ring-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="{% trans 'Enter your email address' %}"
+                               required>
+                        <i class="validation-icon valid fas fa-check-circle text-green-500"></i>
+                        <i class="validation-icon invalid fas fa-times-circle text-red-500"></i>
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Password Field -->
+                <div class="mb-6">
+                    <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Password" %} <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto pl-3 rtl:pr-3 rtl:pl-0 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input type="password" 
+                               name="{{ form.password1.name }}" 
+                               id="{{ form.password1.id_for_label }}"
+                               class="form-input block w-full pl-10 rtl:pr-10 rtl:pl-3 pr-10 rtl:pl-10 rtl:pr-3 py-3 border rounded-lg focus:outline-none focus:ring-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="{% trans 'Create a strong password' %}"
+                               required>
+                        <div class="absolute inset-y-0 right-0 rtl:left-0 rtl:right-auto pr-3 rtl:pl-3 rtl:pr-0 flex items-center">
+                            <i class="fas fa-eye password-toggle text-gray-400" onclick="togglePassword('{{ form.password1.id_for_label }}')"></i>
+                        </div>
+                    </div>
+                    <!-- Password Strength Indicator -->
+                    <div class="password-strength bg-gray-200 dark:bg-gray-700 rounded-full" id="password-strength"></div>
+                    <div class="mt-1 text-xs text-gray-500 dark:text-gray-400" id="password-strength-text">
+                        {% trans "Password strength: Enter a password" %}
+                    </div>
+                    {% if form.password1.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Confirm Password Field -->
+                <div class="mb-6">
+                    <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Confirm Password" %} <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 rtl:right-0 rtl:left-auto pl-3 rtl:pr-3 rtl:pl-0 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input type="password" 
+                               name="{{ form.password2.name }}" 
+                               id="{{ form.password2.id_for_label }}"
+                               class="form-input block w-full pl-10 rtl:pr-10 rtl:pl-3 pr-10 rtl:pl-10 rtl:pr-3 py-3 border rounded-lg focus:outline-none focus:ring-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                               placeholder="{% trans 'Confirm your password' %}"
+                               required>
+                        <div class="absolute inset-y-0 right-0 rtl:left-0 rtl:right-auto pr-3 rtl:pl-3 rtl:pr-0 flex items-center">
+                            <i class="fas fa-eye password-toggle text-gray-400" onclick="togglePassword('{{ form.password2.id_for_label }}')"></i>
+                        </div>
+                    </div>
+                    {% if form.password2.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {% for error in form.password2.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Terms and Privacy -->
+                <div class="mb-6">
+                    <div class="flex items-start">
+                        <input type="checkbox" 
+                               name="terms_accepted" 
+                               id="terms_accepted"
+                               class="terms-checkbox h-4 w-4 mt-1 rounded border-gray-300 focus:ring-primary-500"
+                               required>
+                        <label for="terms_accepted" class="ml-2 rtl:mr-2 rtl:ml-0 block text-sm text-gray-700 dark:text-gray-300">
+                            {% trans "I agree to the" %}
+                            <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200">
+                                {% trans "Terms of Service" %}
+                            </a>
+                            {% trans "and" %}
+                            <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200">
+                                {% trans "Privacy Policy" %}
+                            </a>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="mb-6">
+                    <button type="submit" class="btn-register group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        <span class="flex items-center">
+                            <i class="fas fa-user-plus mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            {% trans "Create Account" %}
+                        </span>
+                        <div class="loading-spinner ml-2 rtl:mr-2 rtl:ml-0"></div>
+                    </button>
+                </div>
+                
+                <!-- Divider -->
+                <div class="relative mb-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
+                            {% trans "Or sign up with" %}
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Social Registration Buttons -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button type="button" class="social-btn w-full inline-flex justify-center py-2 px-4 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <i class="fab fa-google text-red-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        Google
+                    </button>
+                    <button type="button" class="social-btn w-full inline-flex justify-center py-2 px-4 rounded-lg shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <i class="fab fa-github text-gray-900 dark:text-white mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        GitHub
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Sign In Link -->
+            <div class="text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    {% trans "Already have an account?" %}
+                    <a href="{% url 'accounts:login' %}" class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200">
+                        {% trans "Sign in here" %}
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Additional Links -->
+        <div class="text-center space-y-2" data-aos="fade-up" data-aos-delay="400">
+            <a href="{% url 'core:home' %}" class="inline-flex items-center text-primary-100 hover:text-white transition-colors duration-200">
+                <i class="fas fa-arrow-left mr-2 rtl:ml-2 rtl:mr-0"></i>
+                {% trans "Back to Home" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('register-form');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const spinner = submitBtn.querySelector('.loading-spinner');
+        const btnText = submitBtn.querySelector('span');
+        
+        // Form submission with loading state
+        form.addEventListener('submit', function(e) {
+            // Validate terms acceptance
+            const termsCheckbox = document.getElementById('terms_accepted');
+            if (!termsCheckbox.checked) {
+                e.preventDefault();
+                showToast('{% trans "Please accept the Terms of Service and Privacy Policy" %}', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            spinner.style.display = 'block';
+            btnText.style.opacity = '0.7';
+            
+            // Basic client-side validation
+            const username = form.querySelector('input[name="username"]').value.trim();
+            const email = form.querySelector('input[name="email"]').value.trim();
+            const password1 = form.querySelector('input[name="password1"]').value;
+            const password2 = form.querySelector('input[name="password2"]').value;
+            
+            if (!username || !email || !password1 || !password2) {
+                e.preventDefault();
+                showToast('{% trans "Please fill in all required fields" %}', 'error');
+                resetSubmitButton();
+                return;
+            }
+            
+            if (password1 !== password2) {
+                e.preventDefault();
+                showToast('{% trans "Passwords do not match" %}', 'error');
+                resetSubmitButton();
+                return;
+            }
+            
+            // If validation passes, form will submit normally
+        });
+        
+        function resetSubmitButton() {
+            submitBtn.disabled = false;
+            spinner.style.display = 'none';
+            btnText.style.opacity = '1';
+        }
+        
+        // Reset loading state if there are form errors
+        if (document.querySelector('.error-message')) {
+            resetSubmitButton();
+        }
+        
+        // Auto-focus first empty field
+        const usernameField = form.querySelector('input[name="username"]');
+        if (!usernameField.value) {
+            usernameField.focus();
+        }
+        
+        // Enhanced form validation
+        const inputs = form.querySelectorAll('input[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                validateField(this);
+                
+                // Real-time password strength checking
+                if (this.name === 'password1') {
+                    updatePasswordStrength(this.value);
+                }
+                
+                // Real-time password confirmation checking
+                if (this.name === 'password2') {
+                    checkPasswordMatch();
+                }
+            });
+        });
+        
+        function validateField(field) {
+            const value = field.value.trim();
+            let isValid = true;
+            
+            // Remove existing validation classes
+            field.classList.remove('field-valid', 'field-invalid');
+            
+            // Validate based on field type
+            if (field.name === 'username') {
+                isValid = value.length >= 3 && value.length <= 30 && /^[a-zA-Z0-9_]+$/.test(value);
+            } else if (field.name === 'email') {
+                isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            } else if (field.name === 'password1') {
+                isValid = value.length >= 8;
+            } else if (field.name === 'password2') {
+                const password1 = form.querySelector('input[name="password1"]').value;
+                isValid = value === password1 && value.length >= 8;
+            }
+            
+            // Apply validation styling
+            if (value && isValid) {
+                field.classList.add('field-valid');
+            } else if (value) {
+                field.classList.add('field-invalid');
+            }
+            
+            return isValid;
+        }
+        
+        function updatePasswordStrength(password) {
+            const strengthBar = document.getElementById('password-strength');
+            const strengthText = document.getElementById('password-strength-text');
+            
+            let strength = 0;
+            let strengthLabel = '';
+            
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            // Remove existing strength classes
+            strengthBar.className = strengthBar.className.replace(/strength-\w+/g, '');
+            
+            if (password.length === 0) {
+                strengthLabel = '{% trans "Password strength: Enter a password" %}';
+            } else if (strength <= 2) {
+                strengthBar.classList.add('strength-weak');
+                strengthLabel = '{% trans "Password strength: Weak" %}';
+            } else if (strength === 3) {
+                strengthBar.classList.add('strength-fair');
+                strengthLabel = '{% trans "Password strength: Fair" %}';
+            } else if (strength === 4) {
+                strengthBar.classList.add('strength-good');
+                strengthLabel = '{% trans "Password strength: Good" %}';
+            } else {
+                strengthBar.classList.add('strength-strong');
+                strengthLabel = '{% trans "Password strength: Strong" %}';
+            }
+            
+            strengthText.textContent = strengthLabel;
+        }
+        
+        function checkPasswordMatch() {
+            const password1 = form.querySelector('input[name="password1"]').value;
+            const password2 = form.querySelector('input[name="password2"]');
+            
+            if (password2.value && password1 !== password2.value) {
+                password2.classList.add('field-invalid');
+                password2.classList.remove('field-valid');
+            } else if (password2.value && password1 === password2.value) {
+                password2.classList.add('field-valid');
+                password2.classList.remove('field-invalid');
+            }
+        }
+        
+        // Username availability check (AJAX)
+        const usernameField = form.querySelector('input[name="username"]');
+        let usernameTimeout;
+        
+        usernameField.addEventListener('input', function() {
+            clearTimeout(usernameTimeout);
+            const username = this.value.trim();
+            
+            if (username.length >= 3) {
+                usernameTimeout = setTimeout(() => {
+                    checkUsernameAvailability(username);
+                }, 500);
+            }
+        });
+        
+        function checkUsernameAvailability(username) {
+            fetch(`/accounts/check-username/?username=${encodeURIComponent(username)}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const usernameField = form.querySelector('input[name="username"]');
+                if (data.available) {
+                    usernameField.classList.add('field-valid');
+                    usernameField.classList.remove('field-invalid');
+                } else {
+                    usernameField.classList.add('field-invalid');
+                    usernameField.classList.remove('field-valid');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking username availability:', error);
+            });
+        }
+        
+        // Email availability check (AJAX)
+        const emailField = form.querySelector('input[name="email"]');
+        let emailTimeout;
+        
+        emailField.addEventListener('input', function() {
+            clearTimeout(emailTimeout);
+            const email = this.value.trim();
+            
+            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailTimeout = setTimeout(() => {
+                    checkEmailAvailability(email);
+                }, 500);
+            }
+        });
+        
+        function checkEmailAvailability(email) {
+            fetch(`/accounts/check-email/?email=${encodeURIComponent(email)}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const emailField = form.querySelector('input[name="email"]');
+                if (data.available) {
+                    emailField.classList.add('field-valid');
+                    emailField.classList.remove('field-invalid');
+                } else {
+                    emailField.classList.add('field-invalid');
+                    emailField.classList.remove('field-valid');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking email availability:', error);
+            });
+        }
+        
+        // Social registration handlers (placeholder)
+        const socialButtons = document.querySelectorAll('.social-btn');
+        socialButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const provider = this.textContent.trim();
+                showToast(`{% trans "Social registration with" %} ${provider} {% trans "is coming soon!" %}`, 'info');
+            });
+        });
+    });
+    
+    // Password toggle function
+    function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = field.parentElement.querySelector('.password-toggle');
+        
+        if (field.type === 'password') {
+            field.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            field.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const bgColor = type === 'error' ? 'bg-red-500' : type === 'info' ? 'bg-blue-500' : 'bg-green-500';
+        toast.className = `fixed bottom-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-y-full transition-transform duration-300`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(full)';
+            setTimeout(() => {
+                if (document.body.contains(toast)) {
+                    document.body.removeChild(toast);
+                }
+            }, 300);
+        }, 3000);
+    }
+</script>
+{% endblock %}

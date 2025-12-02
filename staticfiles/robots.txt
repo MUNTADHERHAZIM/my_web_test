@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /accounts/login/
+Disallow: /accounts/signup/
+Disallow: /accounts/password/
+Disallow: /media/private/
+Disallow: /ckeditor/
+Disallow: /markdownx/
+
+# Allow important directories
+Allow: /static/
+Allow: /media/
+Allow: /blog/
+Allow: /books/
+Allow: /projects/
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://muntazir.com/sitemap.xml
+Sitemap: https://www.muntazir.com/sitemap.xml
+
+# For development
+Sitemap: http://127.0.0.1:8000/sitemap.xml
+Sitemap: http://localhost:8000/sitemap.xml

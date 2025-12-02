@@ -1,0 +1,2617 @@
+# Arabic translation for Muntazir Portfolio
+# Copyright (C) 2024
+# This file is distributed under the same license as the Muntazir Portfolio package.
+# Muntazir Hazim Thamir <muntazir@example.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Muntazir Portfolio 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: Muntazir Hazim Thamir <muntazir@example.com>\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+# Language names
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+# Navigation
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "About"
+msgstr "عني"
+
+msgid "Projects"
+msgstr "المشاريع"
+
+msgid "Blog"
+msgstr "المدونة"
+
+msgid "Contact"
+msgstr "تواصل معي"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+msgid "Register"
+msgstr "إنشاء حساب"
+
+# Common actions
+msgid "Read More"
+msgstr "اقرأ المزيد"
+
+msgid "View All"
+msgstr "عرض الكل"
+
+msgid "Load More"
+msgstr "تحميل المزيد"
+
+msgid "Search"
+msgstr "البحث"
+
+msgid "Submit"
+msgstr "إرسال"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Share"
+msgstr "مشاركة"
+
+msgid "Download"
+msgstr "تحميل"
+
+# Time and dates
+msgid "Published"
+msgstr "نُشر في"
+
+msgid "Updated"
+msgstr "آخر تحديث"
+
+msgid "Created"
+msgstr "تم الإنشاء"
+
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "دقيقة"
+msgstr[1] "دقيقة"
+msgstr[2] "دقيقتان"
+msgstr[3] "دقائق"
+msgstr[4] "دقيقة"
+msgstr[5] "دقيقة"
+
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "ساعة"
+msgstr[1] "ساعة"
+msgstr[2] "ساعتان"
+msgstr[3] "ساعات"
+msgstr[4] "ساعة"
+msgstr[5] "ساعة"
+
+msgid "day"
+msgid_plural "days"
+msgstr[0] "يوم"
+msgstr[1] "يوم"
+msgstr[2] "يومان"
+msgstr[3] "أيام"
+msgstr[4] "يوماً"
+msgstr[5] "يوم"
+
+msgid "week"
+msgid_plural "weeks"
+msgstr[0] "أسبوع"
+msgstr[1] "أسبوع"
+msgstr[2] "أسبوعان"
+msgstr[3] "أسابيع"
+msgstr[4] "أسبوعاً"
+msgstr[5] "أسبوع"
+
+msgid "month"
+msgid_plural "months"
+msgstr[0] "شهر"
+msgstr[1] "شهر"
+msgstr[2] "شهران"
+msgstr[3] "أشهر"
+msgstr[4] "شهراً"
+msgstr[5] "شهر"
+
+msgid "year"
+msgid_plural "years"
+msgstr[0] "سنة"
+msgstr[1] "سنة"
+msgstr[2] "سنتان"
+msgstr[3] "سنوات"
+msgstr[4] "سنة"
+msgstr[5] "سنة"
+
+msgid "ago"
+msgstr "منذ"
+
+msgid "reading time"
+msgstr "وقت القراءة"
+
+# Blog related
+msgid "Categories"
+msgstr "التصنيفات"
+
+msgid "Category"
+msgstr "التصنيف"
+
+msgid "Tags"
+msgstr "الوسوم"
+
+msgid "Tag"
+msgstr "الوسم"
+
+msgid "Author"
+msgstr "الكاتب"
+
+msgid "Comments"
+msgstr "التعليقات"
+
+msgid "Comment"
+msgstr "تعليق"
+
+msgid "Reply"
+msgstr "رد"
+
+msgid "Like"
+msgstr "إعجاب"
+
+msgid "Views"
+msgstr "المشاهدات"
+
+msgid "Related Posts"
+msgstr "مقالات ذات صلة"
+
+msgid "Popular Posts"
+msgstr "المقالات الشائعة"
+
+msgid "Recent Posts"
+msgstr "المقالات الحديثة"
+
+msgid "No posts found"
+msgstr "لا توجد مقالات"
+
+msgid "No comments yet"
+msgstr "لا توجد تعليقات بعد"
+
+# Forms
+msgid "Name"
+msgstr "الاسم"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Confirm Password"
+msgstr "تأكيد كلمة المرور"
+
+msgid "Message"
+msgstr "الرسالة"
+
+msgid "Subject"
+msgstr "الموضوع"
+
+msgid "Phone"
+msgstr "الهاتف"
+
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+msgid "Bio"
+msgstr "نبذة شخصية"
+
+msgid "Location"
+msgstr "الموقع"
+
+msgid "Skills"
+msgstr "المهارات"
+
+msgid "Social Media"
+msgstr "وسائل التواصل الاجتماعي"
+
+# Error messages
+msgid "This field is required"
+msgstr "هذا الحقل مطلوب"
+
+msgid "Invalid email address"
+msgstr "عنوان بريد إلكتروني غير صحيح"
+
+msgid "Password too short"
+msgstr "كلمة المرور قصيرة جداً"
+
+msgid "Passwords do not match"
+msgstr "كلمات المرور غير متطابقة"
+
+msgid "Page not found"
+msgstr "الصفحة غير موجودة"
+
+msgid "Access denied"
+msgstr "تم رفض الوصول"
+
+msgid "Something went wrong"
+msgstr "حدث خطأ ما"
+
+# Success messages
+msgid "Message sent successfully"
+msgstr "تم إرسال الرسالة بنجاح"
+
+msgid "Profile updated successfully"
+msgstr "تم تحديث الملف الشخصي بنجاح"
+
+msgid "Comment posted successfully"
+msgstr "تم نشر التعليق بنجاح"
+
+msgid "Welcome back!"
+msgstr "مرحباً بعودتك!"
+
+# Footer
+msgid "All rights reserved"
+msgstr "جميع الحقوق محفوظة"
+
+msgid "Privacy Policy"
+msgstr "سياسة الخصوصية"
+
+msgid "Terms of Service"
+msgstr "شروط الخدمة"
+
+msgid "Follow me on"
+msgstr "تابعني على"
+
+# Contact page
+msgid "Get in Touch"
+msgstr "تواصل معي"
+
+msgid "Send Message"
+msgstr "إرسال رسالة"
+
+msgid "Contact Information"
+msgstr "معلومات التواصل"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "Office Hours"
+msgstr "ساعات العمل"
+
+# About page
+msgid "About Me"
+msgstr "عني"
+
+msgid "My Story"
+msgstr "قصتي"
+
+msgid "Experience"
+msgstr "الخبرة"
+
+msgid "Education"
+msgstr "التعليم"
+
+msgid "Achievements"
+msgstr "الإنجازات"
+
+# Projects page
+msgid "My Projects"
+msgstr "مشاريعي"
+
+msgid "Project Details"
+msgstr "تفاصيل المشروع"
+
+msgid "Technologies Used"
+msgstr "التقنيات المستخدمة"
+
+msgid "Live Demo"
+msgstr "عرض مباشر"
+
+msgid "Source Code"
+msgstr "الكود المصدري"
+
+msgid "Filter by Technology"
+msgstr "تصفية حسب التقنية"
+
+# User account
+msgid "My Account"
+msgstr "حسابي"
+
+msgid "Account Settings"
+msgstr "إعدادات الحساب"
+
+msgid "Change Password"
+msgstr "تغيير كلمة المرور"
+
+msgid "Delete Account"
+msgstr "حذف الحساب"
+
+msgid "Forgot Password?"
+msgstr "نسيت كلمة المرور؟"
+
+msgid "Reset Password"
+msgstr "إعادة تعيين كلمة المرور"
+
+msgid "Remember Me"
+msgstr "تذكرني"
+
+msgid "Already have an account?"
+msgstr "لديك حساب بالفعل؟"
+
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+# Statistics
+msgid "Total Posts"
+msgstr "إجمالي المقالات"
+
+msgid "Total Views"
+msgstr "إجمالي المشاهدات"
+
+msgid "Total Comments"
+msgstr "إجمالي التعليقات"
+
+msgid "Member Since"
+msgstr "عضو منذ"
+
+msgid "Last Login"
+msgstr "آخر تسجيل دخول"
+
+msgid "Activity"
+msgstr "النشاط"
+
+msgid "Recent Activity"
+msgstr "النشاط الحديث"
+
+# Theme and settings
+msgid "Dark Mode"
+msgstr "الوضع الليلي"
+
+msgid "Light Mode"
+msgstr "الوضع النهاري"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Settings"
+msgstr "الإعدادات"
+
+msgid "Notifications"
+msgstr "الإشعارات"
+
+msgid "Email Notifications"
+msgstr "إشعارات البريد الإلكتروني"
+
+msgid "Privacy Settings"
+msgstr "إعدادات الخصوصية"
+
+# Pagination
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "First"
+msgstr "الأول"
+
+msgid "Last"
+msgstr "الأخير"
+
+msgid "Page"
+msgstr "الصفحة"
+
+msgid "of"
+msgstr "من"
+
+# Sorting and filtering
+msgid "Sort by"
+msgstr "ترتيب حسب"
+
+msgid "Filter"
+msgstr "تصفية"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "Latest"
+msgstr "الأحدث"
+
+msgid "Oldest"
+msgstr "الأقدم"
+
+msgid "Most Popular"
+msgstr "الأكثر شعبية"
+
+msgid "Most Viewed"
+msgstr "الأكثر مشاهدة"
+
+msgid "Alphabetical"
+msgstr "أبجدياً"
+
+# File and media
+msgid "Upload"
+msgstr "رفع"
+
+msgid "Choose File"
+msgstr "اختر ملف"
+
+msgid "No file chosen"
+msgstr "لم يتم اختيار ملف"
+
+msgid "File size too large"
+msgstr "حجم الملف كبير جداً"
+
+msgid "Invalid file type"
+msgstr "نوع ملف غير صحيح"
+
+msgid "Image"
+msgstr "صورة"
+
+msgid "Video"
+msgstr "فيديو"
+
+msgid "Document"
+msgstr "مستند"
+
+# Loading and status
+msgid "Loading..."
+msgstr "جاري التحميل..."
+
+msgid "Please wait..."
+msgstr "يرجى الانتظار..."
+
+msgid "Processing..."
+msgstr "جاري المعالجة..."
+
+msgid "Saving..."
+msgstr "جاري الحفظ..."
+
+msgid "Sending..."
+msgstr "جاري الإرسال..."
+
+msgid "Done"
+msgstr "تم"
+
+msgid "Failed"
+msgstr "فشل"
+
+msgid "Success"
+msgstr "نجح"
+
+msgid "Error"
+msgstr "خطأ"
+
+msgid "Warning"
+msgstr "تحذير"
+
+msgid "Info"
+msgstr "معلومات"
+
+# Confirmation
+msgid "Are you sure?"
+msgstr "هل أنت متأكد؟"
+
+msgid "This action cannot be undone"
+msgstr "لا يمكن التراجع عن هذا الإجراء"
+
+msgid "Confirm"
+msgstr "تأكيد"
+
+msgid "Yes"
+msgstr "نعم"
+
+msgid "No"
+msgstr "لا"
+
+msgid "OK"
+msgstr "موافق"
+
+msgid "Close"
+msgstr "إغلاق"
+
+# Newsletter
+msgid "Newsletter"
+msgstr "النشرة الإخبارية"
+
+msgid "Subscribe"
+msgstr "اشترك"
+
+msgid "Unsubscribe"
+msgstr "إلغاء الاشتراك"
+
+msgid "Subscribe to Newsletter"
+msgstr "اشترك في النشرة الإخبارية"
+
+msgid "Get latest updates"
+msgstr "احصل على آخر التحديثات"
+
+msgid "Enter your email"
+msgstr "أدخل بريدك الإلكتروني"
+
+msgid "Thank you for subscribing!"
+msgstr "شكراً لك على الاشتراك!"
+
+# Social media
+msgid "Facebook"
+msgstr "فيسبوك"
+
+msgid "Twitter"
+msgstr "تويتر"
+
+msgid "LinkedIn"
+msgstr "لينكد إن"
+
+msgid "Instagram"
+msgstr "إنستغرام"
+
+msgid "GitHub"
+msgstr "جيت هاب"
+
+msgid "YouTube"
+msgstr "يوتيوب"
+
+msgid "Telegram"
+msgstr "تليغرام"
+
+msgid "WhatsApp"
+msgstr "واتساب"
+
+# Breadcrumbs
+msgid "You are here"
+msgstr "أنت هنا"
+
+msgid "Breadcrumb"
+msgstr "مسار التنقل"
+
+# Table of contents
+msgid "Table of Contents"
+msgstr "جدول المحتويات"
+
+msgid "Contents"
+msgstr "المحتويات"
+
+msgid "Jump to section"
+msgstr "انتقل إلى القسم"
+
+# Print and export
+msgid "Print"
+msgstr "طباعة"
+
+msgid "Export"
+msgstr "تصدير"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "Word"
+msgstr "وورد"
+
+# Bookmarks and favorites
+msgid "Bookmark"
+msgstr "إشارة مرجعية"
+
+msgid "Bookmarks"
+msgstr "الإشارات المرجعية"
+
+msgid "Favorites"
+msgstr "المفضلة"
+
+msgid "Add to Favorites"
+msgstr "إضافة للمفضلة"
+
+msgid "Remove from Favorites"
+msgstr "إزالة من المفضلة"
+
+# Search and results
+msgid "Search Results"
+msgstr "نتائج البحث"
+
+msgid "No results found"
+msgstr "لا توجد نتائج"
+
+msgid "Search for"
+msgstr "البحث عن"
+
+msgid "results found"
+msgstr "نتيجة موجودة"
+
+msgid "Showing results"
+msgstr "عرض النتائج"
+
+msgid "Clear search"
+msgstr "مسح البحث"
+
+msgid "Advanced Search"
+msgstr "البحث المتقدم"
+
+# FAQ
+msgid "FAQ"
+msgstr "الأسئلة الشائعة"
+
+msgid "Frequently Asked Questions"
+msgstr "الأسئلة المتكررة"
+
+msgid "Question"
+msgstr "سؤال"
+
+msgid "Answer"
+msgstr "جواب"
+
+msgid "Show Answer"
+msgstr "إظهار الجواب"
+
+msgid "Hide Answer"
+msgstr "إخفاء الجواب"
+
+# Testimonials
+msgid "Testimonials"
+msgstr "الشهادات"
+
+msgid "What people say"
+msgstr "ما يقوله الناس"
+
+msgid "Client Reviews"
+msgstr "آراء العملاء"
+
+msgid "Rating"
+msgstr "التقييم"
+
+msgid "Review"
+msgstr "مراجعة"
+
+# Portfolio specific
+msgid "Web Developer"
+msgstr "مطور ويب"
+
+msgid "Full Stack Developer"
+msgstr "مطور متكامل"
+
+msgid "Software Engineer"
+msgstr "مهندس برمجيات"
+
+msgid "Frontend Developer"
+msgstr "مطور واجهات أمامية"
+
+msgid "Backend Developer"
+msgstr "مطور خلفي"
+
+msgid "UI/UX Designer"
+msgstr "مصمم واجهات وتجربة مستخدم"
+
+msgid "Years of Experience"
+msgstr "سنوات الخبرة"
+
+msgid "Projects Completed"
+msgstr "المشاريع المكتملة"
+
+msgid "Happy Clients"
+msgstr "العملاء السعداء"
+
+msgid "Technologies Mastered"
+msgstr "التقنيات المتقنة"
+
+msgid "Hire Me"
+msgstr "وظفني"
+
+msgid "Let's Work Together"
+msgstr "لنعمل معاً"
+
+msgid "Available for Freelance"
+msgstr "متاح للعمل الحر"
+
+msgid "Currently Available"
+msgstr "متاح حالياً"
+
+msgid "Busy"
+msgstr "مشغول"
+
+msgid "Download CV"
+msgstr "تحميل السيرة الذاتية"
+
+msgid "View Resume"
+msgstr "عرض السيرة الذاتية"
+
+msgid "Portfolio"
+msgstr "معرض الأعمال"
+
+msgid "Case Study"
+msgstr "دراسة حالة"
+
+msgid "Challenge"
+msgstr "التحدي"
+
+msgid "Solution"
+msgstr "الحل"
+
+msgid "Result"
+msgstr "النتيجة"
+
+msgid "Outcome"
+msgstr "المخرجات"
+
+msgid "Process"
+msgstr "العملية"
+
+msgid "Methodology"
+msgstr "المنهجية"
+
+msgid "Tools Used"
+msgstr "الأدوات المستخدمة"
+
+msgid "Duration"
+msgstr "المدة"
+
+msgid "Timeline"
+msgstr "الجدول الزمني"
+
+msgid "Budget"
+msgstr "الميزانية"
+
+msgid "Client"
+msgstr "العميل"
+
+msgid "Team"
+msgstr "الفريق"
+
+msgid "Role"
+msgstr "الدور"
+
+msgid "Responsibilities"
+msgstr "المسؤوليات"
+
+msgid "Key Features"
+msgstr "الميزات الرئيسية"
+
+msgid "Highlights"
+msgstr "النقاط المميزة"
+
+msgid "Screenshots"
+msgstr "لقطات الشاشة"
+
+msgid "Gallery"
+msgstr "المعرض"
+
+msgid "Before & After"
+msgstr "قبل وبعد"
+
+msgid "Comparison"
+msgstr "المقارنة"
+
+msgid "Performance"
+msgstr "الأداء"
+
+msgid "Optimization"
+msgstr "التحسين"
+
+msgid "Speed"
+msgstr "السرعة"
+
+msgid "Security"
+msgstr "الأمان"
+
+msgid "Scalability"
+msgstr "قابلية التوسع"
+
+msgid "Maintainability"
+msgstr "قابلية الصيانة"
+
+msgid "User Experience"
+msgstr "تجربة المستخدم"
+
+msgid "User Interface"
+msgstr "واجهة المستخدم"
+
+msgid "Responsive Design"
+msgstr "التصميم المتجاوب"
+
+msgid "Mobile Friendly"
+msgstr "متوافق مع الجوال"
+
+msgid "Cross Browser"
+msgstr "متوافق مع المتصفحات"
+
+msgid "SEO Optimized"
+msgstr "محسن لمحركات البحث"
+
+msgid "Accessibility"
+msgstr "إمكانية الوصول"
+
+msgid "Clean Code"
+msgstr "كود نظيف"
+
+msgid "Best Practices"
+msgstr "أفضل الممارسات"
+
+msgid "Industry Standards"
+msgstr "معايير الصناعة"
+
+msgid "Quality Assurance"
+msgstr "ضمان الجودة"
+
+msgid "Testing"
+msgstr "الاختبار"
+
+msgid "Debugging"
+msgstr "إصلاح الأخطاء"
+
+msgid "Documentation"
+msgstr "التوثيق"
+
+msgid "Support"
+msgstr "الدعم"
+
+msgid "Maintenance"
+msgstr "الصيانة"
+
+msgid "Updates"
+msgstr "التحديثات"
+
+msgid "Version"
+msgstr "الإصدار"
+
+msgid "Release Notes"
+msgstr "ملاحظات الإصدار"
+
+msgid "Changelog"
+msgstr "سجل التغييرات"
+
+msgid "Roadmap"
+msgstr "خارطة الطريق"
+
+msgid "Future Plans"
+msgstr "الخطط المستقبلية"
+
+msgid "Coming Soon"
+msgstr "قريباً"
+
+msgid "Under Development"
+msgstr "قيد التطوير"
+
+msgid "Beta Version"
+msgstr "النسخة التجريبية"
+
+msgid "Alpha Version"
+msgstr "النسخة الأولية"
+
+msgid "Stable Release"
+msgstr "الإصدار المستقر"
+
+msgid "Latest Version"
+msgstr "أحدث إصدار"
+
+msgid "Legacy Version"
+msgstr "الإصدار القديم"
+
+msgid "Deprecated"
+msgstr "مهجور"
+
+msgid "End of Life"
+msgstr "نهاية الدعم"
+
+msgid "Migration Guide"
+msgstr "دليل الترحيل"
+
+msgid "Upgrade Instructions"
+msgstr "تعليمات الترقية"
+
+msgid "Installation Guide"
+msgstr "دليل التثبيت"
+
+msgid "Getting Started"
+msgstr "البدء"
+
+msgid "Quick Start"
+msgstr "البداية السريعة"
+
+msgid "Tutorial"
+msgstr "الدرس التعليمي"
+
+msgid "Guide"
+msgstr "الدليل"
+
+msgid "Manual"
+msgstr "الدليل اليدوي"
+
+msgid "Reference"
+msgstr "المرجع"
+
+msgid "API Documentation"
+msgstr "توثيق واجهة البرمجة"
+
+msgid "Code Examples"
+msgstr "أمثلة الكود"
+
+msgid "Snippets"
+msgstr "مقاطع الكود"
+
+msgid "Templates"
+msgstr "القوالب"
+
+msgid "Boilerplate"
+msgstr "النموذج الأساسي"
+
+msgid "Starter Kit"
+msgstr "حزمة البداية"
+
+msgid "Framework"
+msgstr "إطار العمل"
+
+msgid "Library"
+msgstr "المكتبة"
+
+msgid "Plugin"
+msgstr "الإضافة"
+
+msgid "Extension"
+msgstr "الامتداد"
+
+msgid "Module"
+msgstr "الوحدة"
+
+msgid "Component"
+msgstr "المكون"
+
+msgid "Widget"
+msgstr "الأداة"
+
+msgid "Theme"
+msgstr "القالب"
+
+msgid "Skin"
+msgstr "المظهر"
+
+msgid "Layout"
+msgstr "التخطيط"
+
+msgid "Grid"
+msgstr "الشبكة"
+
+msgid "Flexbox"
+msgstr "فليكس بوكس"
+
+msgid "CSS Grid"
+msgstr "شبكة CSS"
+
+msgid "Bootstrap"
+msgstr "بوتستراب"
+
+msgid "Tailwind CSS"
+msgstr "تيلويند CSS"
+
+msgid "Material Design"
+msgstr "تصميم المواد"
+
+msgid "Flat Design"
+msgstr "التصميم المسطح"
+
+msgid "Minimalist"
+msgstr "بساطة"
+
+msgid "Modern"
+msgstr "حديث"
+
+msgid "Classic"
+msgstr "كلاسيكي"
+
+msgid "Elegant"
+msgstr "أنيق"
+
+msgid "Professional"
+msgstr "مهني"
+
+msgid "Creative"
+msgstr "إبداعي"
+
+msgid "Innovative"
+msgstr "مبتكر"
+
+msgid "Cutting Edge"
+msgstr "متطور"
+
+msgid "State of the Art"
+msgstr "أحدث ما توصلت إليه التقنية"
+
+msgid "Industry Leading"
+msgstr "رائد في الصناعة"
+
+msgid "Award Winning"
+msgstr "حائز على جوائز"
+
+msgid "Certified"
+msgstr "معتمد"
+
+msgid "Verified"
+msgstr "موثق"
+
+msgid "Trusted"
+msgstr "موثوق"
+
+msgid "Reliable"
+msgstr "موثوق"
+
+msgid "Secure"
+msgstr "آمن"
+
+msgid "Fast"
+msgstr "سريع"
+
+msgid "Efficient"
+msgstr "فعال"
+
+msgid "Optimized"
+msgstr "محسن"
+
+msgid "High Performance"
+msgstr "عالي الأداء"
+
+msgid "Lightweight"
+msgstr "خفيف"
+
+msgid "Robust"
+msgstr "قوي"
+
+msgid "Flexible"
+msgstr "مرن"
+
+msgid "Customizable"
+msgstr "قابل للتخصيص"
+
+msgid "Configurable"
+msgstr "قابل للتكوين"
+
+msgid "Extensible"
+msgstr "قابل للتوسيع"
+
+msgid "Modular"
+msgstr "معياري"
+
+msgid "Reusable"
+msgstr "قابل لإعادة الاستخدام"
+
+msgid "Maintainable"
+msgstr "قابل للصيانة"
+
+msgid "Scalable"
+msgstr "قابل للتوسع"
+
+msgid "Cross Platform"
+msgstr "متعدد المنصات"
+
+msgid "Multi Language"
+msgstr "متعدد اللغات"
+
+msgid "Internationalization"
+msgstr "التدويل"
+
+msgid "Localization"
+msgstr "التوطين"
+
+msgid "Right to Left"
+msgstr "من اليمين إلى اليسار"
+
+msgid "Left to Right"
+msgstr "من اليسار إلى اليمين"
+
+msgid "Bidirectional"
+msgstr "ثنائي الاتجاه"
+
+msgid "Unicode"
+msgstr "يونيكود"
+
+msgid "UTF-8"
+msgstr "UTF-8"
+
+msgid "Character Encoding"
+msgstr "ترميز الأحرف"
+
+msgid "Font"
+msgstr "الخط"
+
+msgid "Typography"
+msgstr "الطباعة"
+
+msgid "Color Scheme"
+msgstr "نظام الألوان"
+
+msgid "Palette"
+msgstr "لوحة الألوان"
+
+msgid "Gradient"
+msgstr "التدرج"
+
+msgid "Shadow"
+msgstr "الظل"
+
+msgid "Border"
+msgstr "الحدود"
+
+msgid "Radius"
+msgstr "نصف القطر"
+
+msgid "Padding"
+msgstr "الحشو الداخلي"
+
+msgid "Margin"
+msgstr "الهامش"
+
+msgid "Spacing"
+msgstr "التباعد"
+
+msgid "Alignment"
+msgstr "المحاذاة"
+
+msgid "Center"
+msgstr "الوسط"
+
+msgid "Left"
+msgstr "اليسار"
+
+msgid "Right"
+msgstr "اليمين"
+
+msgid "Top"
+msgstr "الأعلى"
+
+msgid "Bottom"
+msgstr "الأسفل"
+
+msgid "Middle"
+msgstr "الوسط"
+
+msgid "Justify"
+msgstr "ضبط"
+
+msgid "Stretch"
+msgstr "تمدد"
+
+msgid "Wrap"
+msgstr "التفاف"
+
+msgid "Nowrap"
+msgstr "بدون التفاف"
+
+msgid "Overflow"
+msgstr "الفيض"
+
+msgid "Hidden"
+msgstr "مخفي"
+
+msgid "Visible"
+msgstr "مرئي"
+
+msgid "Scroll"
+msgstr "تمرير"
+
+msgid "Auto"
+msgstr "تلقائي"
+
+msgid "Fixed"
+msgstr "ثابت"
+
+msgid "Absolute"
+msgstr "مطلق"
+
+msgid "Relative"
+msgstr "نسبي"
+
+msgid "Static"
+msgstr "ثابت"
+
+msgid "Sticky"
+msgstr "لاصق"
+
+msgid "Float"
+msgstr "عائم"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Display"
+msgstr "العرض"
+
+msgid "Block"
+msgstr "كتلة"
+
+msgid "Inline"
+msgstr "سطري"
+
+msgid "Inline Block"
+msgstr "كتلة سطرية"
+
+msgid "Flex"
+msgstr "مرن"
+
+msgid "Grid"
+msgstr "شبكة"
+
+msgid "Table"
+msgstr "جدول"
+
+msgid "None"
+msgstr "لا شيء"
+
+msgid "Initial"
+msgstr "ابتدائي"
+
+msgid "Inherit"
+msgstr "وراثة"
+
+msgid "Unset"
+msgstr "إلغاء التعيين"
+
+msgid "Important"
+msgstr "مهم"
+
+msgid "Priority"
+msgstr "الأولوية"
+
+msgid "High"
+msgstr "عالي"
+
+msgid "Medium"
+msgstr "متوسط"
+
+msgid "Low"
+msgstr "منخفض"
+
+msgid "Urgent"
+msgstr "عاجل"
+
+msgid "Normal"
+msgstr "عادي"
+
+msgid "Optional"
+msgstr "اختياري"
+
+msgid "Required"
+msgstr "مطلوب"
+
+msgid "Mandatory"
+msgstr "إجباري"
+
+msgid "Recommended"
+msgstr "موصى به"
+
+msgid "Suggested"
+msgstr "مقترح"
+
+msgid "Preferred"
+msgstr "مفضل"
+
+msgid "Alternative"
+msgstr "بديل"
+
+msgid "Fallback"
+msgstr "احتياطي"
+
+msgid "Default"
+msgstr "افتراضي"
+
+msgid "Custom"
+msgstr "مخصص"
+
+msgid "Standard"
+msgstr "قياسي"
+
+msgid "Basic"
+msgstr "أساسي"
+
+msgid "Advanced"
+msgstr "متقدم"
+
+msgid "Expert"
+msgstr "خبير"
+
+msgid "Professional"
+msgstr "مهني"
+
+msgid "Enterprise"
+msgstr "مؤسسي"
+
+msgid "Premium"
+msgstr "مميز"
+
+msgid "Pro"
+msgstr "احترافي"
+
+msgid "Plus"
+msgstr "بلس"
+
+msgid "Lite"
+msgstr "خفيف"
+
+msgid "Free"
+msgstr "مجاني"
+
+msgid "Paid"
+msgstr "مدفوع"
+
+msgid "Trial"
+msgstr "تجريبي"
+
+msgid "Demo"
+msgstr "عرض توضيحي"
+
+msgid "Preview"
+msgstr "معاينة"
+
+msgid "Sample"
+msgstr "عينة"
+
+msgid "Example"
+msgstr "مثال"
+
+msgid "Template"
+msgstr "قالب"
+
+msgid "Prototype"
+msgstr "نموذج أولي"
+
+msgid "Mockup"
+msgstr "نموذج تصميمي"
+
+msgid "Wireframe"
+msgstr "إطار سلكي"
+
+msgid "Sketch"
+msgstr "رسم تخطيطي"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Concept"
+msgstr "مفهوم"
+
+msgid "Idea"
+msgstr "فكرة"
+
+msgid "Proposal"
+msgstr "اقتراح"
+
+msgid "Plan"
+msgstr "خطة"
+
+msgid "Strategy"
+msgstr "استراتيجية"
+
+msgid "Approach"
+msgstr "نهج"
+
+msgid "Method"
+msgstr "طريقة"
+
+msgid "Technique"
+msgstr "تقنية"
+
+msgid "Practice"
+msgstr "ممارسة"
+
+msgid "Implementation"
+msgstr "التنفيذ"
+
+msgid "Execution"
+msgstr "التنفيذ"
+
+msgid "Deployment"
+msgstr "النشر"
+
+msgid "Launch"
+msgstr "الإطلاق"
+
+msgid "Release"
+msgstr "الإصدار"
+
+msgid "Publish"
+msgstr "النشر"
+
+msgid "Go Live"
+msgstr "البث المباشر"
+
+msgid "Production"
+msgstr "الإنتاج"
+
+msgid "Staging"
+msgstr "التجهيز"
+
+msgid "Development"
+msgstr "التطوير"
+
+msgid "Testing"
+msgstr "الاختبار"
+
+msgid "Quality Assurance"
+msgstr "ضمان الجودة"
+
+msgid "Code Review"
+msgstr "مراجعة الكود"
+
+msgid "Peer Review"
+msgstr "مراجعة الأقران"
+
+msgid "Approval"
+msgstr "الموافقة"
+
+msgid "Rejection"
+msgstr "الرفض"
+
+msgid "Feedback"
+msgstr "التغذية الراجعة"
+
+msgid "Comments"
+msgstr "التعليقات"
+
+msgid "Suggestions"
+msgstr "الاقتراحات"
+
+msgid "Recommendations"
+msgstr "التوصيات"
+
+msgid "Improvements"
+msgstr "التحسينات"
+
+msgid "Enhancements"
+msgstr "التطويرات"
+
+msgid "Features"
+msgstr "الميزات"
+
+msgid "Functionality"
+msgstr "الوظائف"
+
+msgid "Capabilities"
+msgstr "القدرات"
+
+msgid "Specifications"
+msgstr "المواصفات"
+
+msgid "Requirements"
+msgstr "المتطلبات"
+
+msgid "Criteria"
+msgstr "المعايير"
+
+msgid "Standards"
+msgstr "المعايير"
+
+msgid "Guidelines"
+msgstr "الإرشادات"
+
+msgid "Rules"
+msgstr "القواعد"
+
+msgid "Policies"
+msgstr "السياسات"
+
+msgid "Procedures"
+msgstr "الإجراءات"
+
+msgid "Protocols"
+msgstr "البروتوكولات"
+
+msgid "Workflows"
+msgstr "سير العمل"
+
+msgid "Processes"
+msgstr "العمليات"
+
+msgid "Operations"
+msgstr "العمليات"
+
+msgid "Tasks"
+msgstr "المهام"
+
+msgid "Activities"
+msgstr "الأنشطة"
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "Steps"
+msgstr "الخطوات"
+
+msgid "Phases"
+msgstr "المراحل"
+
+msgid "Stages"
+msgstr "المراحل"
+
+msgid "Milestones"
+msgstr "المعالم"
+
+msgid "Deliverables"
+msgstr "المخرجات"
+
+msgid "Outcomes"
+msgstr "النتائج"
+
+msgid "Results"
+msgstr "النتائج"
+
+msgid "Achievements"
+msgstr "الإنجازات"
+
+msgid "Accomplishments"
+msgstr "الإنجازات"
+
+msgid "Success"
+msgstr "النجاح"
+
+msgid "Failure"
+msgstr "الفشل"
+
+msgid "Progress"
+msgstr "التقدم"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "State"
+msgstr "الحالة"
+
+msgid "Condition"
+msgstr "الحالة"
+
+msgid "Situation"
+msgstr "الوضع"
+
+msgid "Context"
+msgstr "السياق"
+
+msgid "Environment"
+msgstr "البيئة"
+
+msgid "Setting"
+msgstr "الإعداد"
+
+msgid "Configuration"
+msgstr "التكوين"
+
+msgid "Setup"
+msgstr "الإعداد"
+
+msgid "Installation"
+msgstr "التثبيت"
+
+msgid "Initialization"
+msgstr "التهيئة"
+
+msgid "Startup"
+msgstr "بدء التشغيل"
+
+msgid "Shutdown"
+msgstr "إيقاف التشغيل"
+
+msgid "Restart"
+msgstr "إعادة التشغيل"
+
+msgid "Reload"
+msgstr "إعادة التحميل"
+
+msgid "Refresh"
+msgstr "تحديث"
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Upgrade"
+msgstr "ترقية"
+
+msgid "Downgrade"
+msgstr "تخفيض الدرجة"
+
+msgid "Rollback"
+msgstr "التراجع"
+
+msgid "Revert"
+msgstr "العكس"
+
+msgid "Undo"
+msgstr "تراجع"
+
+msgid "Redo"
+msgstr "إعادة"
+
+msgid "Repeat"
+msgstr "تكرار"
+
+msgid "Retry"
+msgstr "إعادة المحاولة"
+
+msgid "Resume"
+msgstr "استئناف"
+
+msgid "Pause"
+msgstr "إيقاف مؤقت"
+
+msgid "Stop"
+msgstr "توقف"
+
+msgid "Start"
+msgstr "بدء"
+
+msgid "Begin"
+msgstr "البداية"
+
+msgid "End"
+msgstr "النهاية"
+
+msgid "Finish"
+msgstr "إنهاء"
+
+msgid "Complete"
+msgstr "إكمال"
+
+msgid "Incomplete"
+msgstr "غير مكتمل"
+
+msgid "Partial"
+msgstr "جزئي"
+
+msgid "Full"
+msgstr "كامل"
+
+msgid "Empty"
+msgstr "فارغ"
+
+msgid "Blank"
+msgstr "فارغ"
+
+msgid "Null"
+msgstr "فارغ"
+
+msgid "Undefined"
+msgstr "غير محدد"
+
+msgid "Unknown"
+msgstr "غير معروف"
+
+msgid "Invalid"
+msgstr "غير صحيح"
+
+msgid "Valid"
+msgstr "صحيح"
+
+msgid "Correct"
+msgstr "صحيح"
+
+msgid "Incorrect"
+msgstr "غير صحيح"
+
+msgid "Wrong"
+msgstr "خطأ"
+
+msgid "Right"
+msgstr "صحيح"
+
+msgid "True"
+msgstr "صحيح"
+
+msgid "False"
+msgstr "خطأ"
+
+msgid "On"
+msgstr "تشغيل"
+
+msgid "Off"
+msgstr "إيقاف"
+
+msgid "Enable"
+msgstr "تفعيل"
+
+msgid "Disable"
+msgstr "تعطيل"
+
+msgid "Enabled"
+msgstr "مفعل"
+
+msgid "Disabled"
+msgstr "معطل"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Inactive"
+msgstr "غير نشط"
+
+msgid "Online"
+msgstr "متصل"
+
+msgid "Offline"
+msgstr "غير متصل"
+
+msgid "Connected"
+msgstr "متصل"
+
+msgid "Disconnected"
+msgstr "منقطع"
+
+msgid "Available"
+msgstr "متاح"
+
+msgid "Unavailable"
+msgstr "غير متاح"
+
+msgid "Busy"
+msgstr "مشغول"
+
+msgid "Free"
+msgstr "حر"
+
+msgid "Occupied"
+msgstr "مشغول"
+
+msgid "Vacant"
+msgstr "شاغر"
+
+msgid "Reserved"
+msgstr "محجوز"
+
+msgid "Booked"
+msgstr "محجوز"
+
+msgid "Scheduled"
+msgstr "مجدول"
+
+msgid "Pending"
+msgstr "معلق"
+
+msgid "Waiting"
+msgstr "في الانتظار"
+
+msgid "Queue"
+msgstr "طابور"
+
+msgid "Processing"
+msgstr "قيد المعالجة"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "Finished"
+msgstr "منتهي"
+
+msgid "Cancelled"
+msgstr "ملغي"
+
+msgid "Aborted"
+msgstr "متوقف"
+
+msgid "Terminated"
+msgstr "منتهي"
+
+msgid "Expired"
+msgstr "منتهي الصلاحية"
+
+msgid "Timeout"
+msgstr "انتهت المهلة"
+
+msgid "Delay"
+msgstr "تأخير"
+
+msgid "Postpone"
+msgstr "تأجيل"
+
+msgid "Schedule"
+msgstr "جدولة"
+
+msgid "Reschedule"
+msgstr "إعادة جدولة"
+
+msgid "Deadline"
+msgstr "الموعد النهائي"
+
+msgid "Due Date"
+msgstr "تاريخ الاستحقاق"
+
+msgid "Expiry Date"
+msgstr "تاريخ انتهاء الصلاحية"
+
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+msgid "End Date"
+msgstr "تاريخ النهاية"
+
+msgid "Creation Date"
+msgstr "تاريخ الإنشاء"
+
+msgid "Modification Date"
+msgstr "تاريخ التعديل"
+
+msgid "Last Modified"
+msgstr "آخر تعديل"
+
+msgid "Last Updated"
+msgstr "آخر تحديث"
+
+msgid "Last Accessed"
+msgstr "آخر وصول"
+
+msgid "Last Seen"
+msgstr "آخر ظهور"
+
+msgid "Last Login"
+msgstr "آخر تسجيل دخول"
+
+msgid "First Login"
+msgstr "أول تسجيل دخول"
+
+msgid "Registration Date"
+msgstr "تاريخ التسجيل"
+
+msgid "Join Date"
+msgstr "تاريخ الانضمام"
+
+msgid "Birth Date"
+msgstr "تاريخ الميلاد"
+
+msgid "Age"
+msgstr "العمر"
+
+msgid "Gender"
+msgstr "الجنس"
+
+msgid "Male"
+msgstr "ذكر"
+
+msgid "Female"
+msgstr "أنثى"
+
+msgid "Other"
+msgstr "آخر"
+
+msgid "Prefer not to say"
+msgstr "أفضل عدم الإفصاح"
+
+msgid "Nationality"
+msgstr "الجنسية"
+
+msgid "Country"
+msgstr "البلد"
+
+msgid "City"
+msgstr "المدينة"
+
+msgid "State"
+msgstr "الولاية"
+
+msgid "Province"
+msgstr "المحافظة"
+
+msgid "Region"
+msgstr "المنطقة"
+
+msgid "District"
+msgstr "المقاطعة"
+
+msgid "Neighborhood"
+msgstr "الحي"
+
+msgid "Street"
+msgstr "الشارع"
+
+msgid "Building"
+msgstr "المبنى"
+
+msgid "Floor"
+msgstr "الطابق"
+
+msgid "Apartment"
+msgstr "الشقة"
+
+msgid "Room"
+msgstr "الغرفة"
+
+msgid "Office"
+msgstr "المكتب"
+
+msgid "Department"
+msgstr "القسم"
+
+msgid "Division"
+msgstr "الشعبة"
+
+msgid "Unit"
+msgstr "الوحدة"
+
+msgid "Branch"
+msgstr "الفرع"
+
+msgid "Headquarters"
+msgstr "المقر الرئيسي"
+
+msgid "Subsidiary"
+msgstr "الفرع التابع"
+
+msgid "Affiliate"
+msgstr "الشركة التابعة"
+
+msgid "Partner"
+msgstr "الشريك"
+
+msgid "Vendor"
+msgstr "المورد"
+
+msgid "Supplier"
+msgstr "المورد"
+
+msgid "Customer"
+msgstr "العميل"
+
+msgid "Client"
+msgstr "العميل"
+
+msgid "User"
+msgstr "المستخدم"
+
+msgid "Member"
+msgstr "العضو"
+
+msgid "Guest"
+msgstr "الضيف"
+
+msgid "Visitor"
+msgstr "الزائر"
+
+msgid "Subscriber"
+msgstr "المشترك"
+
+msgid "Follower"
+msgstr "المتابع"
+
+msgid "Fan"
+msgstr "المعجب"
+
+msgid "Friend"
+msgstr "الصديق"
+
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+msgid "Connection"
+msgstr "الاتصال"
+
+msgid "Network"
+msgstr "الشبكة"
+
+msgid "Community"
+msgstr "المجتمع"
+
+msgid "Group"
+msgstr "المجموعة"
+
+msgid "Team"
+msgstr "الفريق"
+
+msgid "Organization"
+msgstr "المنظمة"
+
+msgid "Company"
+msgstr "الشركة"
+
+msgid "Business"
+msgstr "الأعمال"
+
+msgid "Enterprise"
+msgstr "المؤسسة"
+
+msgid "Corporation"
+msgstr "الشركة"
+
+msgid "Institution"
+msgstr "المؤسسة"
+
+msgid "Agency"
+msgstr "الوكالة"
+
+msgid "Bureau"
+msgstr "المكتب"
+
+msgid "Office"
+msgstr "المكتب"
+
+msgid "Studio"
+msgstr "الاستوديو"
+
+msgid "Workshop"
+msgstr "الورشة"
+
+msgid "Laboratory"
+msgstr "المختبر"
+
+msgid "Factory"
+msgstr "المصنع"
+
+msgid "Plant"
+msgstr "المصنع"
+
+msgid "Facility"
+msgstr "المرفق"
+
+msgid "Center"
+msgstr "المركز"
+
+msgid "Hub"
+msgstr "المحور"
+
+msgid "Base"
+msgstr "القاعدة"
+
+msgid "Station"
+msgstr "المحطة"
+
+msgid "Terminal"
+msgstr "المحطة الطرفية"
+
+msgid "Platform"
+msgstr "المنصة"
+
+msgid "Interface"
+msgstr "الواجهة"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Panel"
+msgstr "اللوحة"
+
+msgid "Console"
+msgstr "وحدة التحكم"
+
+msgid "Control"
+msgstr "التحكم"
+
+msgid "Management"
+msgstr "الإدارة"
+
+msgid "Administration"
+msgstr "الإدارة"
+
+msgid "Governance"
+msgstr "الحوكمة"
+
+msgid "Leadership"
+msgstr "القيادة"
+
+msgid "Direction"
+msgstr "التوجيه"
+
+msgid "Guidance"
+msgstr "الإرشاد"
+
+msgid "Supervision"
+msgstr "الإشراف"
+
+msgid "Oversight"
+msgstr "الرقابة"
+
+msgid "Monitoring"
+msgstr "المراقبة"
+
+msgid "Tracking"
+msgstr "التتبع"
+
+msgid "Analytics"
+msgstr "التحليلات"
+
+msgid "Statistics"
+msgstr "الإحصائيات"
+
+msgid "Metrics"
+msgstr "المقاييس"
+
+msgid "KPI"
+msgstr "مؤشرات الأداء الرئيسية"
+
+msgid "Performance"
+msgstr "الأداء"
+
+msgid "Efficiency"
+msgstr "الكفاءة"
+
+msgid "Productivity"
+msgstr "الإنتاجية"
+
+msgid "Quality"
+msgstr "الجودة"
+
+msgid "Reliability"
+msgstr "الموثوقية"
+
+msgid "Stability"
+msgstr "الاستقرار"
+
+msgid "Consistency"
+msgstr "الاتساق"
+
+msgid "Accuracy"
+msgstr "الدقة"
+
+msgid "Precision"
+msgstr "الدقة"
+
+msgid "Excellence"
+msgstr "التميز"
+
+msgid "Innovation"
+msgstr "الابتكار"
+
+msgid "Creativity"
+msgstr "الإبداع"
+
+msgid "Originality"
+msgstr "الأصالة"
+
+msgid "Uniqueness"
+msgstr "التفرد"
+
+msgid "Distinction"
+msgstr "التميز"
+
+msgid "Recognition"
+msgstr "الاعتراف"
+
+msgid "Appreciation"
+msgstr "التقدير"
+
+msgid "Acknowledgment"
+msgstr "الإقرار"
+
+msgid "Gratitude"
+msgstr "الامتنان"
+
+msgid "Thanks"
+msgstr "الشكر"
+
+msgid "Thank you"
+msgstr "شكراً لك"
+
+msgid "You're welcome"
+msgstr "على الرحب والسعة"
+
+msgid "Please"
+msgstr "من فضلك"
+
+msgid "Excuse me"
+msgstr "عذراً"
+
+msgid "Sorry"
+msgstr "آسف"
+
+msgid "Apologies"
+msgstr "اعتذارات"
+
+msgid "Congratulations"
+msgstr "تهانينا"
+
+msgid "Good luck"
+msgstr "حظاً سعيداً"
+
+msgid "Best wishes"
+msgstr "أطيب التمنيات"
+
+msgid "Welcome"
+msgstr "مرحباً"
+
+msgid "Goodbye"
+msgstr "وداعاً"
+
+msgid "See you later"
+msgstr "أراك لاحقاً"
+
+msgid "Take care"
+msgstr "اعتن بنفسك"
+
+msgid "Have a nice day"
+msgstr "أتمنى لك يوماً سعيداً"
+
+msgid "Good morning"
+msgstr "صباح الخير"
+
+msgid "Good afternoon"
+msgstr "مساء الخير"
+
+msgid "Good evening"
+msgstr "مساء الخير"
+
+msgid "Good night"
+msgstr "تصبح على خير"
+
+msgid "Hello"
+msgstr "مرحباً"
+
+msgid "Hi"
+msgstr "أهلاً"
+
+msgid "Hey"
+msgstr "مرحبا"
+
+msgid "Greetings"
+msgstr "التحيات"
+
+msgid "Salutations"
+msgstr "التحيات"
+
+# About page translations
+msgid "Learn more about Muntazir Hazim, a passionate full-stack developer specializing in Django and React development."
+msgstr "تعرف أكثر على منتظر حازم، مطور ويب متكامل شغوف متخصص في تطوير Django و React."
+
+msgid "About Me"
+msgstr "عني"
+
+msgid "I'm a passionate full-stack developer with a love for creating innovative digital solutions. With years of experience in web development, I specialize in building scalable applications that make a real impact."
+msgstr "أنا مطور ويب متكامل شغوف بحب إنشاء حلول رقمية مبتكرة. مع سنوات من الخبرة في تطوير الويب، أتخصص في بناء تطبيقات قابلة للتوسع تحدث تأثيراً حقيقياً."
+
+msgid "Iraq, Baghdad"
+msgstr "العراق، بغداد"
+
+msgid "Basra, Iraq"
+msgstr "البصرة، العراق"
+
+msgid "Located in the beautiful city of Basra, Iraq"
+msgstr "يقع في مدينة البصرة الجميلة، العراق"
+
+msgid "Projects Completed"
+msgstr "المشاريع المكتملة"
+
+msgid "Years Experience"
+msgstr "سنوات الخبرة"
+
+msgid "Happy Clients"
+msgstr "العملاء السعداء"
+
+msgid "Code Commits"
+msgstr "عمليات الإرسال البرمجية"
+
+msgid "Technical Skills"
+msgstr "المهارات التقنية"
+
+msgid "Here are the technologies and tools I work with"
+msgstr "هذه هي التقنيات والأدوات التي أعمل بها"
+
+msgid "Frontend"
+msgstr "الواجهة الأمامية"
+
+msgid "Backend"
+msgstr "الواجهة الخلفية"
+
+msgid "Tools & DevOps"
+msgstr "الأدوات والتطوير والعمليات"
+
+# Blog page translations
+msgid "min read"
+msgstr "دقيقة قراءة"
+
+msgid "views"
+msgstr "مشاهدة"
+
+msgid "comments"
+msgstr "تعليق"
+
+msgid "No comments yet"
+msgstr "لا توجد تعليقات بعد"
+
+msgid "Be the first to comment"
+msgstr "كن أول من يعلق"
+
+msgid "Leave a comment"
+msgstr "اترك تعليقاً"
+
+msgid "Your comment"
+msgstr "تعليقك"
+
+msgid "Post comment"
+msgstr "نشر التعليق"
+
+msgid "Recent Posts"
+msgstr "المقالات الحديثة"
+
+msgid "Popular Posts"
+msgstr "المقالات الشائعة"
+
+msgid "All Categories"
+msgstr "جميع الفئات"
+
+msgid "All Tags"
+msgstr "جميع العلامات"
+
+msgid "by"
+msgstr "بواسطة"
+
+msgid "this month"
+msgstr "هذا الشهر"
+
+msgid "All time"
+msgstr "كل الأوقات"
+
+msgid "Points"
+msgstr "نقاط"
+
+msgid "Quick Navigation"
+msgstr "التنقل السريع"
+
+msgid "Overview"
+msgstr "نظرة عامة"
+
+msgid "My Posts"
+msgstr "مقالاتي"
+
+msgid "Analytics"
+msgstr "التحليلات"
+
+msgid "Complete your profile"
+msgstr "أكمل ملفك الشخصي"
+
+msgid "Welcome back,"
+msgstr "مرحباً بعودتك،"
+
+msgid "Here's what's happening with your account today."
+msgstr "إليك ما يحدث مع حسابك اليوم."
+
+msgid "New Post"
+msgstr "مقال جديد"
+
+msgid "New Book"
+msgstr "كتاب جديد"
+
+msgid "Reputation"
+msgstr "السمعة"
+
+msgid "Want to Read"
+msgstr "أريد القراءة"
+
+msgid "Reading"
+msgstr "أقرأ حالياً"
+
+msgid "Pages"
+msgstr "صفحات"
+
+msgid "Add Book"
+msgstr "إضافة كتاب"
+
+msgid "Search books..."
+msgstr "البحث في الكتب..."
+
+msgid "No books found."
+msgstr "لم يتم العثور على كتب."
+
+msgid "Add Your First Book"
+msgstr "أضف كتابك الأول"
+
+msgid "Reading Progress"
+msgstr "تقدم القراءة"
+
+msgid "Related Books"
+msgstr "كتب ذات صلة"
+
+msgid "Edit Book"
+msgstr "تعديل الكتاب"
+
+msgid "Delete Book"
+msgstr "حذف الكتاب"
+
+msgid "Are you sure you want to delete this book?"
+msgstr "هل أنت متأكد من حذف هذا الكتاب؟"
+
+msgid "Add New Book"
+msgstr "إضافة كتاب جديد"
+
+msgid "Update Book"
+msgstr "تحديث الكتاب"
+
+msgid "Create Book"
+msgstr "إنشاء كتاب"
+
+msgid "Filter by category"
+msgstr "تصفية حسب الفئة"
+
+msgid "Filter by tag"
+msgstr "تصفية حسب العلامة"
+
+msgid "No posts found"
+msgstr "لم يتم العثور على مقالات"
+
+msgid "Back to blog"
+msgstr "العودة إلى المدونة"
+
+msgid "Share this post"
+msgstr "شارك هذا المقال"
+
+msgid "Copy link"
+msgstr "نسخ الرابط"
+
+msgid "Link copied!"
+msgstr "تم نسخ الرابط!"
+
+# Projects page translations
+msgid "My Projects"
+msgstr "مشاريعي"
+
+msgid "Explore my latest work and projects"
+msgstr "استكشف أحدث أعمالي ومشاريعي"
+
+msgid "View Project"
+msgstr "عرض المشروع"
+
+msgid "Live Demo"
+msgstr "عرض مباشر"
+
+msgid "Source Code"
+msgstr "الكود المصدري"
+
+msgid "Technologies Used"
+msgstr "التقنيات المستخدمة"
+
+msgid "Project Details"
+msgstr "تفاصيل المشروع"
+
+msgid "Features"
+msgstr "الميزات"
+
+msgid "Challenges"
+msgstr "التحديات"
+
+msgid "Solutions"
+msgstr "الحلول"
+
+# Dashboard translations
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Welcome back"
+msgstr "مرحباً بعودتك"
+
+msgid "Statistics"
+msgstr "الإحصائيات"
+
+msgid "Total Posts"
+msgstr "إجمالي المقالات"
+
+msgid "Total Projects"
+msgstr "إجمالي المشاريع"
+
+msgid "Total Views"
+msgstr "إجمالي المشاهدات"
+
+msgid "Total Comments"
+msgstr "إجمالي التعليقات"
+
+msgid "Recent Activity"
+msgstr "النشاط الحديث"
+
+msgid "Manage Posts"
+msgstr "إدارة المقالات"
+
+msgid "Manage Projects"
+msgstr "إدارة المشاريع"
+
+msgid "Add New Post"
+msgstr "إضافة مقال جديد"
+
+msgid "Add New Project"
+msgstr "إضافة مشروع جديد"
+
+msgid "Settings"
+msgstr "الإعدادات"
+
+# Books page translations
+msgid "My Books"
+msgstr "كتبي"
+
+msgid "Explore my collection of books and publications"
+msgstr "استكشف مجموعة كتبي ومنشوراتي"
+
+msgid "Read Book"
+msgstr "قراءة الكتاب"
+
+msgid "Download PDF"
+msgstr "تحميل PDF"
+
+msgid "Book Details"
+msgstr "تفاصيل الكتاب"
+
+msgid "Publication Date"
+msgstr "تاريخ النشر"
+
+msgid "Pages"
+msgstr "الصفحات"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Genre"
+msgstr "النوع"
+
+msgid "ISBN"
+msgstr "الرقم المعياري الدولي للكتاب"
+
+msgid "Table of Contents"
+msgstr "جدول المحتويات"
+
+msgid "About this Book"
+msgstr "حول هذا الكتاب"
+
+msgid "Reviews"
+msgstr "المراجعات"
+
+msgid "Related Books"
+msgstr "الكتب ذات الصلة"
+
+# Contact page translations
+msgid "Get In Touch"
+msgstr "تواصل معي"
+
+msgid "I'd love to hear from you. Send me a message and I'll respond as soon as possible."
+msgstr "أحب أن أسمع منك. أرسل لي رسالة وسأرد في أقرب وقت ممكن."
+
+msgid "Your Name"
+msgstr "اسمك"
+
+msgid "Your Email"
+msgstr "بريدك الإلكتروني"
+
+msgid "Subject"
+msgstr "الموضوع"
+
+msgid "Your Message"
+msgstr "رسالتك"
+
+msgid "Send Message"
+msgstr "إرسال الرسالة"
+
+msgid "Message sent successfully!"
+msgstr "تم إرسال الرسالة بنجاح!"
+
+msgid "Error sending message. Please try again."
+msgstr "خطأ في إرسال الرسالة. يرجى المحاولة مرة أخرى."
+
+msgid "Contact Information"
+msgstr "معلومات الاتصال"
+
+msgid "Phone"
+msgstr "الهاتف"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "Follow Me"
+msgstr "تابعني"
+
+# Additional About page translations
+msgid "My Journey"
+msgstr "رحلتي"
+
+msgid "Passionate about creating digital solutions that make a difference"
+msgstr "شغوف بإنشاء حلول رقمية تحدث فرقاً"
+
+msgid "With years of experience in web development, I specialize in creating modern, scalable applications using cutting-edge technologies. My passion lies in transforming complex ideas into elegant, user-friendly solutions."
+msgstr "مع سنوات من الخبرة في تطوير الويب، أتخصص في إنشاء تطبيقات حديثة وقابلة للتوسع باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار المعقدة إلى حلول أنيقة وسهلة الاستخدام."

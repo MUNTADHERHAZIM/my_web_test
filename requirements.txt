@@ -1,0 +1,37 @@
+# Django and core dependencies
+Django>=4.2,<5.0
+psycopg2-binary>=2.9.0
+whitenoise>=6.5.0
+gunicorn>=21.2.0
+
+# Content and forms
+django-markdownx>=4.0.0
+django-taggit>=4.0.0
+django-crispy-forms>=2.0
+crispy-tailwind>=0.5.0
+Pillow>=10.0.0
+
+# Development tools
+django-debug-toolbar>=4.2.0
+black>=23.0.0
+isort>=5.12.0
+flake8>=6.0.0
+mypy>=1.5.0
+pre-commit>=3.4.0
+
+# Testing
+pytest>=7.4.0
+pytest-django>=4.5.0
+pytest-cov>=4.1.0
+factory-boy>=3.3.0
+
+# Security and performance
+django-csp>=3.7
+redis>=4.6.0
+django-redis>=5.3.0
+
+# Utilities
+python-decouple>=3.8
+django-extensions>=3.2.0
+Markdown>=3.4.0
+pygments>=2.16.0

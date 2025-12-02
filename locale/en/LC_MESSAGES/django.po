@@ -1,0 +1,2421 @@
+# English translation for Muntazir Portfolio
+# Copyright (C) 2024
+# This file is distributed under the same license as the Muntazir Portfolio package.
+# Muntazir Hazim Thamir <muntazir@example.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Muntazir Portfolio 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: Muntazir Hazim Thamir <muntazir@example.com>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Language names
+msgid "Arabic"
+msgstr "Arabic"
+
+msgid "English"
+msgstr "English"
+
+# Navigation
+msgid "Home"
+msgstr "Home"
+
+msgid "About"
+msgstr "About"
+
+msgid "Projects"
+msgstr "Projects"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Register"
+msgstr "Register"
+
+# Common actions
+msgid "Read More"
+msgstr "Read More"
+
+msgid "View All"
+msgstr "View All"
+
+msgid "Load More"
+msgstr "Load More"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Share"
+msgstr "Share"
+
+msgid "Download"
+msgstr "Download"
+
+# Time and dates
+msgid "Published"
+msgstr "Published"
+
+msgid "Updated"
+msgstr "Updated"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minute"
+msgstr[1] "minutes"
+
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "hour"
+msgstr[1] "hours"
+
+msgid "day"
+msgid_plural "days"
+msgstr[0] "day"
+msgstr[1] "days"
+
+msgid "week"
+msgid_plural "weeks"
+msgstr[0] "week"
+msgstr[1] "weeks"
+
+msgid "month"
+msgid_plural "months"
+msgstr[0] "month"
+msgstr[1] "months"
+
+msgid "year"
+msgid_plural "years"
+msgstr[0] "year"
+msgstr[1] "years"
+
+msgid "ago"
+msgstr "ago"
+
+msgid "reading time"
+msgstr "reading time"
+
+# Blog related
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Category"
+msgstr "Category"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Tag"
+msgstr "Tag"
+
+msgid "Author"
+msgstr "Author"
+
+msgid "Comments"
+msgstr "Comments"
+
+msgid "Comment"
+msgstr "Comment"
+
+msgid "Reply"
+msgstr "Reply"
+
+msgid "Like"
+msgstr "Like"
+
+msgid "Views"
+msgstr "Views"
+
+msgid "Related Posts"
+msgstr "Related Posts"
+
+msgid "Popular Posts"
+msgstr "Popular Posts"
+
+msgid "Recent Posts"
+msgstr "Recent Posts"
+
+msgid "No posts found"
+msgstr "No posts found"
+
+msgid "No comments yet"
+msgstr "No comments yet"
+
+# Forms
+msgid "Name"
+msgstr "Name"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Confirm Password"
+msgstr "Confirm Password"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Subject"
+msgstr "Subject"
+
+msgid "Phone"
+msgstr "Phone"
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Bio"
+msgstr "Bio"
+
+msgid "Location"
+msgstr "Location"
+
+msgid "Skills"
+msgstr "Skills"
+
+msgid "Social Media"
+msgstr "Social Media"
+
+# Error messages
+msgid "This field is required"
+msgstr "This field is required"
+
+msgid "Invalid email address"
+msgstr "Invalid email address"
+
+msgid "Password too short"
+msgstr "Password too short"
+
+msgid "Passwords do not match"
+msgstr "Passwords do not match"
+
+msgid "Page not found"
+msgstr "Page not found"
+
+msgid "Access denied"
+msgstr "Access denied"
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+# Success messages
+msgid "Message sent successfully"
+msgstr "Message sent successfully"
+
+msgid "Profile updated successfully"
+msgstr "Profile updated successfully"
+
+msgid "Comment posted successfully"
+msgstr "Comment posted successfully"
+
+msgid "Welcome back!"
+msgstr "Welcome back!"
+
+# Footer
+msgid "All rights reserved"
+msgstr "All rights reserved"
+
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+msgid "Terms of Service"
+msgstr "Terms of Service"
+
+msgid "Follow me on"
+msgstr "Follow me on"
+
+# Contact page
+msgid "Get in Touch"
+msgstr "Get in Touch"
+
+msgid "Send Message"
+msgstr "Send Message"
+
+msgid "Contact Information"
+msgstr "Contact Information"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "Office Hours"
+msgstr "Office Hours"
+
+# About page
+msgid "About Me"
+msgstr "About Me"
+
+msgid "My Story"
+msgstr "My Story"
+
+msgid "Experience"
+msgstr "Experience"
+
+msgid "Education"
+msgstr "Education"
+
+msgid "Achievements"
+msgstr "Achievements"
+
+# Projects page
+msgid "My Projects"
+msgstr "My Projects"
+
+msgid "Project Details"
+msgstr "Project Details"
+
+msgid "Technologies Used"
+msgstr "Technologies Used"
+
+msgid "Live Demo"
+msgstr "Live Demo"
+
+msgid "Source Code"
+msgstr "Source Code"
+
+msgid "Filter by Technology"
+msgstr "Filter by Technology"
+
+# User account
+msgid "My Account"
+msgstr "My Account"
+
+msgid "Account Settings"
+msgstr "Account Settings"
+
+msgid "Change Password"
+msgstr "Change Password"
+
+msgid "Delete Account"
+msgstr "Delete Account"
+
+msgid "Forgot Password?"
+msgstr "Forgot Password?"
+
+msgid "Reset Password"
+msgstr "Reset Password"
+
+msgid "Remember Me"
+msgstr "Remember Me"
+
+msgid "Already have an account?"
+msgstr "Already have an account?"
+
+msgid "Don't have an account?"
+msgstr "Don't have an account?"
+
+# Statistics
+msgid "Total Posts"
+msgstr "Total Posts"
+
+msgid "Total Views"
+msgstr "Total Views"
+
+msgid "Total Comments"
+msgstr "Total Comments"
+
+msgid "Member Since"
+msgstr "Member Since"
+
+msgid "Last Login"
+msgstr "Last Login"
+
+msgid "Activity"
+msgstr "Activity"
+
+msgid "Recent Activity"
+msgstr "Recent Activity"
+
+# Theme and settings
+msgid "Dark Mode"
+msgstr "Dark Mode"
+
+msgid "Light Mode"
+msgstr "Light Mode"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Email Notifications"
+msgstr "Email Notifications"
+
+msgid "Privacy Settings"
+msgstr "Privacy Settings"
+
+# Pagination
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "First"
+msgstr "First"
+
+msgid "Last"
+msgstr "Last"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "of"
+msgstr "of"
+
+# Sorting and filtering
+msgid "Sort by"
+msgstr "Sort by"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "All"
+msgstr "All"
+
+msgid "Latest"
+msgstr "Latest"
+
+msgid "Oldest"
+msgstr "Oldest"
+
+msgid "Most Popular"
+msgstr "Most Popular"
+
+msgid "Most Viewed"
+msgstr "Most Viewed"
+
+msgid "Alphabetical"
+msgstr "Alphabetical"
+
+# File and media
+msgid "Upload"
+msgstr "Upload"
+
+msgid "Choose File"
+msgstr "Choose File"
+
+msgid "No file chosen"
+msgstr "No file chosen"
+
+msgid "File size too large"
+msgstr "File size too large"
+
+msgid "Invalid file type"
+msgstr "Invalid file type"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Document"
+msgstr "Document"
+
+# Loading and status
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "Please wait..."
+msgstr "Please wait..."
+
+msgid "Processing..."
+msgstr "Processing..."
+
+msgid "Saving..."
+msgstr "Saving..."
+
+msgid "Sending..."
+msgstr "Sending..."
+
+msgid "Done"
+msgstr "Done"
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Info"
+msgstr "Info"
+
+# Confirmation
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+msgid "This action cannot be undone"
+msgstr "This action cannot be undone"
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Close"
+msgstr "Close"
+
+# Newsletter
+msgid "Newsletter"
+msgstr "Newsletter"
+
+msgid "Subscribe"
+msgstr "Subscribe"
+
+msgid "Unsubscribe"
+msgstr "Unsubscribe"
+
+msgid "Subscribe to Newsletter"
+msgstr "Subscribe to Newsletter"
+
+msgid "Get latest updates"
+msgstr "Get latest updates"
+
+msgid "Enter your email"
+msgstr "Enter your email"
+
+msgid "Thank you for subscribing!"
+msgstr "Thank you for subscribing!"
+
+# Social media
+msgid "Facebook"
+msgstr "Facebook"
+
+msgid "Twitter"
+msgstr "Twitter"
+
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+msgid "Instagram"
+msgstr "Instagram"
+
+msgid "GitHub"
+msgstr "GitHub"
+
+msgid "YouTube"
+msgstr "YouTube"
+
+msgid "Telegram"
+msgstr "Telegram"
+
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+# Breadcrumbs
+msgid "You are here"
+msgstr "You are here"
+
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
+# Table of contents
+msgid "Table of Contents"
+msgstr "Table of Contents"
+
+msgid "Contents"
+msgstr "Contents"
+
+msgid "Jump to section"
+msgstr "Jump to section"
+
+# Print and export
+msgid "Print"
+msgstr "Print"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "Word"
+msgstr "Word"
+
+# Bookmarks and favorites
+msgid "Bookmark"
+msgstr "Bookmark"
+
+msgid "Bookmarks"
+msgstr "Bookmarks"
+
+msgid "Favorites"
+msgstr "Favorites"
+
+msgid "Add to Favorites"
+msgstr "Add to Favorites"
+
+msgid "Remove from Favorites"
+msgstr "Remove from Favorites"
+
+# Search and results
+msgid "Search Results"
+msgstr "Search Results"
+
+msgid "No results found"
+msgstr "No results found"
+
+msgid "Search for"
+msgstr "Search for"
+
+msgid "results found"
+msgstr "results found"
+
+msgid "Showing results"
+msgstr "Showing results"
+
+msgid "Clear search"
+msgstr "Clear search"
+
+msgid "Advanced Search"
+msgstr "Advanced Search"
+
+# FAQ
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Frequently Asked Questions"
+msgstr "Frequently Asked Questions"
+
+msgid "Question"
+msgstr "Question"
+
+msgid "Answer"
+msgstr "Answer"
+
+msgid "Show Answer"
+msgstr "Show Answer"
+
+msgid "Hide Answer"
+msgstr "Hide Answer"
+
+# Testimonials
+msgid "Testimonials"
+msgstr "Testimonials"
+
+msgid "What people say"
+msgstr "What people say"
+
+msgid "Client Reviews"
+msgstr "Client Reviews"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Review"
+msgstr "Review"
+
+# Portfolio specific
+msgid "Web Developer"
+msgstr "Web Developer"
+
+msgid "Full Stack Developer"
+msgstr "Full Stack Developer"
+
+msgid "Software Engineer"
+msgstr "Software Engineer"
+
+msgid "Frontend Developer"
+msgstr "Frontend Developer"
+
+msgid "Backend Developer"
+msgstr "Backend Developer"
+
+msgid "UI/UX Designer"
+msgstr "UI/UX Designer"
+
+msgid "Years of Experience"
+msgstr "Years of Experience"
+
+msgid "Projects Completed"
+msgstr "Projects Completed"
+
+msgid "Happy Clients"
+msgstr "Happy Clients"
+
+msgid "Technologies Mastered"
+msgstr "Technologies Mastered"
+
+msgid "Hire Me"
+msgstr "Hire Me"
+
+msgid "Let's Work Together"
+msgstr "Let's Work Together"
+
+msgid "Available for Freelance"
+msgstr "Available for Freelance"
+
+msgid "Currently Available"
+msgstr "Currently Available"
+
+msgid "Busy"
+msgstr "Busy"
+
+msgid "Download CV"
+msgstr "Download CV"
+
+msgid "View Resume"
+msgstr "View Resume"
+
+msgid "Portfolio"
+msgstr "Portfolio"
+
+msgid "Case Study"
+msgstr "Case Study"
+
+msgid "Challenge"
+msgstr "Challenge"
+
+msgid "Solution"
+msgstr "Solution"
+
+msgid "Result"
+msgstr "Result"
+
+msgid "Outcome"
+msgstr "Outcome"
+
+msgid "Process"
+msgstr "Process"
+
+msgid "Methodology"
+msgstr "Methodology"
+
+msgid "Tools Used"
+msgstr "Tools Used"
+
+msgid "Duration"
+msgstr "Duration"
+
+msgid "Timeline"
+msgstr "Timeline"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Client"
+msgstr "Client"
+
+msgid "Team"
+msgstr "Team"
+
+msgid "Role"
+msgstr "Role"
+
+msgid "Responsibilities"
+msgstr "Responsibilities"
+
+msgid "Key Features"
+msgstr "Key Features"
+
+msgid "Highlights"
+msgstr "Highlights"
+
+msgid "Screenshots"
+msgstr "Screenshots"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+msgid "Before & After"
+msgstr "Before & After"
+
+msgid "Comparison"
+msgstr "Comparison"
+
+msgid "Performance"
+msgstr "Performance"
+
+msgid "Optimization"
+msgstr "Optimization"
+
+msgid "Speed"
+msgstr "Speed"
+
+msgid "Security"
+msgstr "Security"
+
+msgid "Scalability"
+msgstr "Scalability"
+
+msgid "Maintainability"
+msgstr "Maintainability"
+
+msgid "User Experience"
+msgstr "User Experience"
+
+msgid "User Interface"
+msgstr "User Interface"
+
+msgid "Responsive Design"
+msgstr "Responsive Design"
+
+msgid "Mobile Friendly"
+msgstr "Mobile Friendly"
+
+msgid "Cross Browser"
+msgstr "Cross Browser"
+
+msgid "SEO Optimized"
+msgstr "SEO Optimized"
+
+msgid "Accessibility"
+msgstr "Accessibility"
+
+msgid "Clean Code"
+msgstr "Clean Code"
+
+msgid "Best Practices"
+msgstr "Best Practices"
+
+msgid "Industry Standards"
+msgstr "Industry Standards"
+
+msgid "Quality Assurance"
+msgstr "Quality Assurance"
+
+msgid "Testing"
+msgstr "Testing"
+
+msgid "Debugging"
+msgstr "Debugging"
+
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "Support"
+msgstr "Support"
+
+msgid "Maintenance"
+msgstr "Maintenance"
+
+msgid "Updates"
+msgstr "Updates"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Release Notes"
+msgstr "Release Notes"
+
+msgid "Changelog"
+msgstr "Changelog"
+
+msgid "Roadmap"
+msgstr "Roadmap"
+
+msgid "Future Plans"
+msgstr "Future Plans"
+
+msgid "Coming Soon"
+msgstr "Coming Soon"
+
+msgid "Under Development"
+msgstr "Under Development"
+
+msgid "Beta Version"
+msgstr "Beta Version"
+
+msgid "Alpha Version"
+msgstr "Alpha Version"
+
+msgid "Stable Release"
+msgstr "Stable Release"
+
+msgid "Latest Version"
+msgstr "Latest Version"
+
+msgid "Legacy Version"
+msgstr "Legacy Version"
+
+msgid "Deprecated"
+msgstr "Deprecated"
+
+msgid "End of Life"
+msgstr "End of Life"
+
+msgid "Migration Guide"
+msgstr "Migration Guide"
+
+msgid "Upgrade Instructions"
+msgstr "Upgrade Instructions"
+
+msgid "Installation Guide"
+msgstr "Installation Guide"
+
+msgid "Getting Started"
+msgstr "Getting Started"
+
+msgid "Quick Start"
+msgstr "Quick Start"
+
+msgid "Tutorial"
+msgstr "Tutorial"
+
+msgid "Guide"
+msgstr "Guide"
+
+msgid "Manual"
+msgstr "Manual"
+
+msgid "Reference"
+msgstr "Reference"
+
+msgid "API Documentation"
+msgstr "API Documentation"
+
+msgid "Code Examples"
+msgstr "Code Examples"
+
+msgid "Snippets"
+msgstr "Snippets"
+
+msgid "Templates"
+msgstr "Templates"
+
+msgid "Boilerplate"
+msgstr "Boilerplate"
+
+msgid "Starter Kit"
+msgstr "Starter Kit"
+
+msgid "Framework"
+msgstr "Framework"
+
+msgid "Library"
+msgstr "Library"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "Extension"
+msgstr "Extension"
+
+msgid "Module"
+msgstr "Module"
+
+msgid "Component"
+msgstr "Component"
+
+msgid "Widget"
+msgstr "Widget"
+
+msgid "Theme"
+msgstr "Theme"
+
+msgid "Skin"
+msgstr "Skin"
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Grid"
+msgstr "Grid"
+
+msgid "Flexbox"
+msgstr "Flexbox"
+
+msgid "CSS Grid"
+msgstr "CSS Grid"
+
+msgid "Bootstrap"
+msgstr "Bootstrap"
+
+msgid "Tailwind CSS"
+msgstr "Tailwind CSS"
+
+msgid "Material Design"
+msgstr "Material Design"
+
+msgid "Flat Design"
+msgstr "Flat Design"
+
+msgid "Minimalist"
+msgstr "Minimalist"
+
+msgid "Modern"
+msgstr "Modern"
+
+msgid "Classic"
+msgstr "Classic"
+
+msgid "Elegant"
+msgstr "Elegant"
+
+msgid "Professional"
+msgstr "Professional"
+
+msgid "Creative"
+msgstr "Creative"
+
+msgid "Innovative"
+msgstr "Innovative"
+
+msgid "Cutting Edge"
+msgstr "Cutting Edge"
+
+msgid "State of the Art"
+msgstr "State of the Art"
+
+msgid "Industry Leading"
+msgstr "Industry Leading"
+
+msgid "Award Winning"
+msgstr "Award Winning"
+
+msgid "Certified"
+msgstr "Certified"
+
+msgid "Verified"
+msgstr "Verified"
+
+msgid "Trusted"
+msgstr "Trusted"
+
+msgid "Reliable"
+msgstr "Reliable"
+
+msgid "Secure"
+msgstr "Secure"
+
+msgid "Fast"
+msgstr "Fast"
+
+msgid "Efficient"
+msgstr "Efficient"
+
+msgid "Optimized"
+msgstr "Optimized"
+
+msgid "High Performance"
+msgstr "High Performance"
+
+msgid "Lightweight"
+msgstr "Lightweight"
+
+msgid "Robust"
+msgstr "Robust"
+
+msgid "Flexible"
+msgstr "Flexible"
+
+msgid "Customizable"
+msgstr "Customizable"
+
+msgid "Configurable"
+msgstr "Configurable"
+
+msgid "Extensible"
+msgstr "Extensible"
+
+msgid "Modular"
+msgstr "Modular"
+
+msgid "Reusable"
+msgstr "Reusable"
+
+msgid "Maintainable"
+msgstr "Maintainable"
+
+msgid "Scalable"
+msgstr "Scalable"
+
+msgid "Cross Platform"
+msgstr "Cross Platform"
+
+msgid "Multi Language"
+msgstr "Multi Language"
+
+msgid "Internationalization"
+msgstr "Internationalization"
+
+msgid "Localization"
+msgstr "Localization"
+
+msgid "Right to Left"
+msgstr "Right to Left"
+
+msgid "Left to Right"
+msgstr "Left to Right"
+
+msgid "Bidirectional"
+msgstr "Bidirectional"
+
+msgid "Unicode"
+msgstr "Unicode"
+
+msgid "UTF-8"
+msgstr "UTF-8"
+
+msgid "Character Encoding"
+msgstr "Character Encoding"
+
+msgid "Font"
+msgstr "Font"
+
+msgid "Typography"
+msgstr "Typography"
+
+msgid "Color Scheme"
+msgstr "Color Scheme"
+
+msgid "Palette"
+msgstr "Palette"
+
+msgid "Gradient"
+msgstr "Gradient"
+
+msgid "Shadow"
+msgstr "Shadow"
+
+msgid "Border"
+msgstr "Border"
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "Padding"
+msgstr "Padding"
+
+msgid "Margin"
+msgstr "Margin"
+
+msgid "Spacing"
+msgstr "Spacing"
+
+msgid "Alignment"
+msgstr "Alignment"
+
+msgid "Center"
+msgstr "Center"
+
+msgid "Left"
+msgstr "Left"
+
+msgid "Right"
+msgstr "Right"
+
+msgid "Top"
+msgstr "Top"
+
+msgid "Bottom"
+msgstr "Bottom"
+
+msgid "Middle"
+msgstr "Middle"
+
+msgid "Justify"
+msgstr "Justify"
+
+msgid "Stretch"
+msgstr "Stretch"
+
+msgid "Wrap"
+msgstr "Wrap"
+
+msgid "Nowrap"
+msgstr "Nowrap"
+
+msgid "Overflow"
+msgstr "Overflow"
+
+msgid "Hidden"
+msgstr "Hidden"
+
+msgid "Visible"
+msgstr "Visible"
+
+msgid "Scroll"
+msgstr "Scroll"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Fixed"
+msgstr "Fixed"
+
+msgid "Absolute"
+msgstr "Absolute"
+
+msgid "Relative"
+msgstr "Relative"
+
+msgid "Static"
+msgstr "Static"
+
+msgid "Sticky"
+msgstr "Sticky"
+
+msgid "Float"
+msgstr "Float"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Display"
+msgstr "Display"
+
+msgid "Block"
+msgstr "Block"
+
+msgid "Inline"
+msgstr "Inline"
+
+msgid "Inline Block"
+msgstr "Inline Block"
+
+msgid "Flex"
+msgstr "Flex"
+
+msgid "Table"
+msgstr "Table"
+
+msgid "None"
+msgstr "None"
+
+msgid "Initial"
+msgstr "Initial"
+
+msgid "Inherit"
+msgstr "Inherit"
+
+msgid "Unset"
+msgstr "Unset"
+
+msgid "Important"
+msgstr "Important"
+
+msgid "Priority"
+msgstr "Priority"
+
+msgid "High"
+msgstr "High"
+
+msgid "Medium"
+msgstr "Medium"
+
+msgid "Low"
+msgstr "Low"
+
+msgid "Urgent"
+msgstr "Urgent"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Optional"
+msgstr "Optional"
+
+msgid "Required"
+msgstr "Required"
+
+msgid "Mandatory"
+msgstr "Mandatory"
+
+msgid "Recommended"
+msgstr "Recommended"
+
+msgid "Suggested"
+msgstr "Suggested"
+
+msgid "Preferred"
+msgstr "Preferred"
+
+msgid "Alternative"
+msgstr "Alternative"
+
+msgid "Fallback"
+msgstr "Fallback"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "Custom"
+msgstr "Custom"
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Basic"
+msgstr "Basic"
+
+msgid "Advanced"
+msgstr "Advanced"
+
+msgid "Expert"
+msgstr "Expert"
+
+msgid "Enterprise"
+msgstr "Enterprise"
+
+msgid "Premium"
+msgstr "Premium"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "Lite"
+msgstr "Lite"
+
+msgid "Free"
+msgstr "Free"
+
+msgid "Paid"
+msgstr "Paid"
+
+msgid "Trial"
+msgstr "Trial"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Sample"
+msgstr "Sample"
+
+msgid "Example"
+msgstr "Example"
+
+msgid "Template"
+msgstr "Template"
+
+msgid "Prototype"
+msgstr "Prototype"
+
+msgid "Mockup"
+msgstr "Mockup"
+
+msgid "Wireframe"
+msgstr "Wireframe"
+
+msgid "Sketch"
+msgstr "Sketch"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "Concept"
+msgstr "Concept"
+
+msgid "Idea"
+msgstr "Idea"
+
+msgid "Proposal"
+msgstr "Proposal"
+
+msgid "Plan"
+msgstr "Plan"
+
+msgid "Strategy"
+msgstr "Strategy"
+
+msgid "Approach"
+msgstr "Approach"
+
+msgid "Method"
+msgstr "Method"
+
+msgid "Technique"
+msgstr "Technique"
+
+msgid "Practice"
+msgstr "Practice"
+
+msgid "Implementation"
+msgstr "Implementation"
+
+msgid "Execution"
+msgstr "Execution"
+
+msgid "Deployment"
+msgstr "Deployment"
+
+msgid "Launch"
+msgstr "Launch"
+
+msgid "Release"
+msgstr "Release"
+
+msgid "Publish"
+msgstr "Publish"
+
+msgid "Go Live"
+msgstr "Go Live"
+
+msgid "Production"
+msgstr "Production"
+
+msgid "Staging"
+msgstr "Staging"
+
+msgid "Development"
+msgstr "Development"
+
+msgid "Code Review"
+msgstr "Code Review"
+
+msgid "Peer Review"
+msgstr "Peer Review"
+
+msgid "Approval"
+msgstr "Approval"
+
+msgid "Rejection"
+msgstr "Rejection"
+
+msgid "Feedback"
+msgstr "Feedback"
+
+msgid "Suggestions"
+msgstr "Suggestions"
+
+msgid "Recommendations"
+msgstr "Recommendations"
+
+msgid "Improvements"
+msgstr "Improvements"
+
+msgid "Enhancements"
+msgstr "Enhancements"
+
+msgid "Features"
+msgstr "Features"
+
+msgid "Functionality"
+msgstr "Functionality"
+
+msgid "Capabilities"
+msgstr "Capabilities"
+
+msgid "Specifications"
+msgstr "Specifications"
+
+msgid "Requirements"
+msgstr "Requirements"
+
+msgid "Criteria"
+msgstr "Criteria"
+
+msgid "Standards"
+msgstr "Standards"
+
+msgid "Guidelines"
+msgstr "Guidelines"
+
+msgid "Rules"
+msgstr "Rules"
+
+msgid "Policies"
+msgstr "Policies"
+
+msgid "Procedures"
+msgstr "Procedures"
+
+msgid "Protocols"
+msgstr "Protocols"
+
+msgid "Workflows"
+msgstr "Workflows"
+
+msgid "Processes"
+msgstr "Processes"
+
+msgid "Operations"
+msgstr "Operations"
+
+msgid "Tasks"
+msgstr "Tasks"
+
+msgid "Activities"
+msgstr "Activities"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Steps"
+msgstr "Steps"
+
+msgid "Phases"
+msgstr "Phases"
+
+msgid "Stages"
+msgstr "Stages"
+
+msgid "Milestones"
+msgstr "Milestones"
+
+msgid "Deliverables"
+msgstr "Deliverables"
+
+msgid "Outcomes"
+msgstr "Outcomes"
+
+msgid "Results"
+msgstr "Results"
+
+msgid "Accomplishments"
+msgstr "Accomplishments"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Failure"
+msgstr "Failure"
+
+msgid "Progress"
+msgstr "Progress"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "State"
+msgstr "State"
+
+msgid "Condition"
+msgstr "Condition"
+
+msgid "Situation"
+msgstr "Situation"
+
+msgid "Context"
+msgstr "Context"
+
+msgid "Environment"
+msgstr "Environment"
+
+msgid "Setting"
+msgstr "Setting"
+
+msgid "Configuration"
+msgstr "Configuration"
+
+msgid "Setup"
+msgstr "Setup"
+
+msgid "Installation"
+msgstr "Installation"
+
+msgid "Initialization"
+msgstr "Initialization"
+
+msgid "Startup"
+msgstr "Startup"
+
+msgid "Shutdown"
+msgstr "Shutdown"
+
+msgid "Restart"
+msgstr "Restart"
+
+msgid "Reload"
+msgstr "Reload"
+
+msgid "Refresh"
+msgstr "Refresh"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Upgrade"
+msgstr "Upgrade"
+
+msgid "Downgrade"
+msgstr "Downgrade"
+
+msgid "Rollback"
+msgstr "Rollback"
+
+msgid "Revert"
+msgstr "Revert"
+
+msgid "Undo"
+msgstr "Undo"
+
+msgid "Redo"
+msgstr "Redo"
+
+msgid "Repeat"
+msgstr "Repeat"
+
+msgid "Retry"
+msgstr "Retry"
+
+msgid "Resume"
+msgstr "Resume"
+
+msgid "Pause"
+msgstr "Pause"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Begin"
+msgstr "Begin"
+
+msgid "End"
+msgstr "End"
+
+msgid "Finish"
+msgstr "Finish"
+
+msgid "Complete"
+msgstr "Complete"
+
+msgid "Incomplete"
+msgstr "Incomplete"
+
+msgid "Partial"
+msgstr "Partial"
+
+msgid "Full"
+msgstr "Full"
+
+msgid "Empty"
+msgstr "Empty"
+
+msgid "Blank"
+msgstr "Blank"
+
+msgid "Null"
+msgstr "Null"
+
+msgid "Undefined"
+msgstr "Undefined"
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "Invalid"
+msgstr "Invalid"
+
+msgid "Valid"
+msgstr "Valid"
+
+msgid "Correct"
+msgstr "Correct"
+
+msgid "Incorrect"
+msgstr "Incorrect"
+
+msgid "Wrong"
+msgstr "Wrong"
+
+msgid "True"
+msgstr "True"
+
+msgid "False"
+msgstr "False"
+
+msgid "On"
+msgstr "On"
+
+msgid "Off"
+msgstr "Off"
+
+msgid "Enable"
+msgstr "Enable"
+
+msgid "Disable"
+msgstr "Disable"
+
+msgid "Enabled"
+msgstr "Enabled"
+
+msgid "Disabled"
+msgstr "Disabled"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Offline"
+msgstr "Offline"
+
+msgid "Connected"
+msgstr "Connected"
+
+msgid "Disconnected"
+msgstr "Disconnected"
+
+msgid "Available"
+msgstr "Available"
+
+msgid "Unavailable"
+msgstr "Unavailable"
+
+msgid "Free"
+msgstr "Free"
+
+msgid "Occupied"
+msgstr "Occupied"
+
+msgid "Vacant"
+msgstr "Vacant"
+
+msgid "Reserved"
+msgstr "Reserved"
+
+msgid "Booked"
+msgstr "Booked"
+
+msgid "Scheduled"
+msgstr "Scheduled"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Waiting"
+msgstr "Waiting"
+
+msgid "Queue"
+msgstr "Queue"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Finished"
+msgstr "Finished"
+
+msgid "Cancelled"
+msgstr "Cancelled"
+
+msgid "Aborted"
+msgstr "Aborted"
+
+msgid "Terminated"
+msgstr "Terminated"
+
+msgid "Expired"
+msgstr "Expired"
+
+msgid "Timeout"
+msgstr "Timeout"
+
+msgid "Delay"
+msgstr "Delay"
+
+msgid "Postpone"
+msgstr "Postpone"
+
+msgid "Schedule"
+msgstr "Schedule"
+
+msgid "Reschedule"
+msgstr "Reschedule"
+
+msgid "Deadline"
+msgstr "Deadline"
+
+msgid "Due Date"
+msgstr "Due Date"
+
+msgid "Expiry Date"
+msgstr "Expiry Date"
+
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "Creation Date"
+msgstr "Creation Date"
+
+msgid "Modification Date"
+msgstr "Modification Date"
+
+msgid "Last Modified"
+msgstr "Last Modified"
+
+msgid "Last Updated"
+msgstr "Last Updated"
+
+msgid "Last Accessed"
+msgstr "Last Accessed"
+
+msgid "Last Seen"
+msgstr "Last Seen"
+
+msgid "First Login"
+msgstr "First Login"
+
+msgid "Registration Date"
+msgstr "Registration Date"
+
+msgid "Join Date"
+msgstr "Join Date"
+
+msgid "Birth Date"
+msgstr "Birth Date"
+
+msgid "Age"
+msgstr "Age"
+
+msgid "Gender"
+msgstr "Gender"
+
+msgid "Male"
+msgstr "Male"
+
+msgid "Female"
+msgstr "Female"
+
+msgid "Other"
+msgstr "Other"
+
+msgid "Prefer not to say"
+msgstr "Prefer not to say"
+
+msgid "Nationality"
+msgstr "Nationality"
+
+msgid "Country"
+msgstr "Country"
+
+msgid "City"
+msgstr "City"
+
+msgid "Province"
+msgstr "Province"
+
+msgid "Region"
+msgstr "Region"
+
+msgid "District"
+msgstr "District"
+
+msgid "Neighborhood"
+msgstr "Neighborhood"
+
+msgid "Street"
+msgstr "Street"
+
+msgid "Building"
+msgstr "Building"
+
+msgid "Floor"
+msgstr "Floor"
+
+msgid "Apartment"
+msgstr "Apartment"
+
+msgid "Room"
+msgstr "Room"
+
+msgid "Office"
+msgstr "Office"
+
+msgid "Department"
+msgstr "Department"
+
+msgid "Division"
+msgstr "Division"
+
+msgid "Unit"
+msgstr "Unit"
+
+msgid "Branch"
+msgstr "Branch"
+
+msgid "Headquarters"
+msgstr "Headquarters"
+
+msgid "Subsidiary"
+msgstr "Subsidiary"
+
+msgid "Affiliate"
+msgstr "Affiliate"
+
+msgid "Partner"
+msgstr "Partner"
+
+msgid "Vendor"
+msgstr "Vendor"
+
+msgid "Supplier"
+msgstr "Supplier"
+
+msgid "Customer"
+msgstr "Customer"
+
+msgid "User"
+msgstr "User"
+
+msgid "Member"
+msgstr "Member"
+
+msgid "Guest"
+msgstr "Guest"
+
+msgid "Visitor"
+msgstr "Visitor"
+
+msgid "Subscriber"
+msgstr "Subscriber"
+
+msgid "Follower"
+msgstr "Follower"
+
+msgid "Fan"
+msgstr "Fan"
+
+msgid "Friend"
+msgstr "Friend"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Connection"
+msgstr "Connection"
+
+msgid "Network"
+msgstr "Network"
+
+msgid "Community"
+msgstr "Community"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "Organization"
+msgstr "Organization"
+
+msgid "Company"
+msgstr "Company"
+
+msgid "Business"
+msgstr "Business"
+
+msgid "Corporation"
+msgstr "Corporation"
+
+msgid "Institution"
+msgstr "Institution"
+
+msgid "Agency"
+msgstr "Agency"
+
+msgid "Bureau"
+msgstr "Bureau"
+
+msgid "Studio"
+msgstr "Studio"
+
+msgid "Workshop"
+msgstr "Workshop"
+
+msgid "Laboratory"
+msgstr "Laboratory"
+
+msgid "Factory"
+msgstr "Factory"
+
+msgid "Plant"
+msgstr "Plant"
+
+msgid "Facility"
+msgstr "Facility"
+
+msgid "Center"
+msgstr "Center"
+
+msgid "Hub"
+msgstr "Hub"
+
+msgid "Base"
+msgstr "Base"
+
+msgid "Station"
+msgstr "Station"
+
+msgid "Terminal"
+msgstr "Terminal"
+
+msgid "Platform"
+msgstr "Platform"
+
+msgid "Interface"
+msgstr "Interface"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Console"
+msgstr "Console"
+
+msgid "Control"
+msgstr "Control"
+
+msgid "Management"
+msgstr "Management"
+
+msgid "Administration"
+msgstr "Administration"
+
+msgid "Governance"
+msgstr "Governance"
+
+msgid "Leadership"
+msgstr "Leadership"
+
+msgid "Direction"
+msgstr "Direction"
+
+msgid "Guidance"
+msgstr "Guidance"
+
+msgid "Supervision"
+msgstr "Supervision"
+
+msgid "Oversight"
+msgstr "Oversight"
+
+msgid "Monitoring"
+msgstr "Monitoring"
+
+msgid "Tracking"
+msgstr "Tracking"
+
+msgid "Analytics"
+msgstr "Analytics"
+
+msgid "Statistics"
+msgstr "Statistics"
+
+msgid "Metrics"
+msgstr "Metrics"
+
+msgid "KPI"
+msgstr "KPI"
+
+msgid "Efficiency"
+msgstr "Efficiency"
+
+msgid "Productivity"
+msgstr "Productivity"
+
+msgid "Quality"
+msgstr "Quality"
+
+msgid "Reliability"
+msgstr "Reliability"
+
+msgid "Stability"
+msgstr "Stability"
+
+msgid "Consistency"
+msgstr "Consistency"
+
+msgid "Accuracy"
+msgstr "Accuracy"
+
+msgid "Precision"
+msgstr "Precision"
+
+msgid "Excellence"
+msgstr "Excellence"
+
+msgid "Innovation"
+msgstr "Innovation"
+
+msgid "Creativity"
+msgstr "Creativity"
+
+msgid "Originality"
+msgstr "Originality"
+
+msgid "Uniqueness"
+msgstr "Uniqueness"
+
+msgid "Distinction"
+msgstr "Distinction"
+
+msgid "Recognition"
+msgstr "Recognition"
+
+msgid "Appreciation"
+msgstr "Appreciation"
+
+msgid "Acknowledgment"
+msgstr "Acknowledgment"
+
+msgid "Gratitude"
+msgstr "Gratitude"
+
+msgid "Thanks"
+msgstr "Thanks"
+
+msgid "Thank you"
+msgstr "Thank you"
+
+msgid "You're welcome"
+msgstr "You're welcome"
+
+msgid "Please"
+msgstr "Please"
+
+msgid "Excuse me"
+msgstr "Excuse me"
+
+msgid "Sorry"
+msgstr "Sorry"
+
+msgid "Apologies"
+msgstr "Apologies"
+
+msgid "Congratulations"
+msgstr "Congratulations"
+
+msgid "Good luck"
+msgstr "Good luck"
+
+msgid "Best wishes"
+msgstr "Best wishes"
+
+msgid "Welcome"
+msgstr "Welcome"
+
+msgid "Goodbye"
+msgstr "Goodbye"
+
+msgid "See you later"
+msgstr "See you later"
+
+msgid "Take care"
+msgstr "Take care"
+
+msgid "Have a nice day"
+msgstr "Have a nice day"
+
+msgid "Good morning"
+msgstr "Good morning"
+
+msgid "Good afternoon"
+msgstr "Good afternoon"
+
+msgid "Good evening"
+msgstr "Good evening"
+
+msgid "Good night"
+msgstr "Good night"
+
+msgid "Hello"
+msgstr "Hello"
+
+msgid "Hi"
+msgstr "Hi"
+
+msgid "Hey"
+msgstr "Hey"
+
+msgid "Greetings"
+msgstr "Greetings"
+
+msgid "Salutations"
+msgstr "Salutations"
+
+# About page translations
+msgid "Learn more about Muntazir Hazim, a passionate full-stack developer specializing in Django and React development."
+msgstr "Learn more about Muntazir Hazim, a passionate full-stack developer specializing in Django and React development."
+
+msgid "I'm a passionate full-stack developer with a love for creating innovative digital solutions. With years of experience in web development, I specialize in building scalable applications that make a real impact."
+msgstr "I'm a passionate full-stack developer with a love for creating innovative digital solutions. With years of experience in web development, I specialize in building scalable applications that make a real impact."
+
+msgid "Iraq, Baghdad"
+msgstr "Iraq, Baghdad"
+
+msgid "Basra, Iraq"
+msgstr "Basra, Iraq"
+
+msgid "Located in the beautiful city of Basra, Iraq"
+msgstr "Located in the beautiful city of Basra, Iraq"
+
+msgid "Projects Completed"
+msgstr "Projects Completed"
+
+msgid "Years Experience"
+msgstr "Years Experience"
+
+msgid "Happy Clients"
+msgstr "Happy Clients"
+
+msgid "Code Commits"
+msgstr "Code Commits"
+
+msgid "Technical Skills"
+msgstr "Technical Skills"
+
+msgid "Here are the technologies and tools I work with"
+msgstr "Here are the technologies and tools I work with"
+
+msgid "Frontend"
+msgstr "Frontend"
+
+msgid "Backend"
+msgstr "Backend"
+
+msgid "Tools & DevOps"
+msgstr "Tools & DevOps"
+
+# Blog page translations
+msgid "min read"
+msgstr "min read"
+
+msgid "views"
+msgstr "views"
+
+msgid "comments"
+msgstr "comments"
+
+msgid "No comments yet"
+msgstr "No comments yet"
+
+msgid "Be the first to comment"
+msgstr "Be the first to comment"
+
+msgid "Leave a comment"
+msgstr "Leave a comment"
+
+msgid "Your comment"
+msgstr "Your comment"
+
+msgid "Post comment"
+msgstr "Post comment"
+
+msgid "Recent Posts"
+msgstr "Recent Posts"
+
+msgid "Popular Posts"
+msgstr "Popular Posts"
+
+msgid "All Categories"
+msgstr "All Categories"
+
+msgid "All Tags"
+msgstr "All Tags"
+
+msgid "Filter by category"
+msgstr "Filter by category"
+
+msgid "Filter by tag"
+msgstr "Filter by tag"
+
+msgid "No posts found"
+msgstr "No posts found"
+
+msgid "Back to blog"
+msgstr "Back to blog"
+
+msgid "Share this post"
+msgstr "Share this post"
+
+msgid "Copy link"
+msgstr "Copy link"
+
+msgid "Link copied!"
+msgstr "Link copied!"
+
+# Projects page translations
+msgid "My Projects"
+msgstr "My Projects"
+
+msgid "Explore my latest work and projects"
+msgstr "Explore my latest work and projects"
+
+msgid "View Project"
+msgstr "View Project"
+
+msgid "Live Demo"
+msgstr "Live Demo"
+
+msgid "Source Code"
+msgstr "Source Code"
+
+msgid "Technologies Used"
+msgstr "Technologies Used"
+
+msgid "Project Details"
+msgstr "Project Details"
+
+msgid "Features"
+msgstr "Features"
+
+msgid "Challenges"
+msgstr "Challenges"
+
+msgid "Solutions"
+msgstr "Solutions"
+
+# Dashboard translations
+msgid "Welcome back"
+msgstr "Welcome back"
+
+msgid "Statistics"
+msgstr "Statistics"
+
+msgid "Total Posts"
+msgstr "Total Posts"
+
+msgid "Total Projects"
+msgstr "Total Projects"
+
+msgid "Total Views"
+msgstr "Total Views"
+
+msgid "Total Comments"
+msgstr "Total Comments"
+
+msgid "Recent Activity"
+msgstr "Recent Activity"
+
+msgid "Manage Posts"
+msgstr "Manage Posts"
+
+msgid "Manage Projects"
+msgstr "Manage Projects"
+
+msgid "Add New Post"
+msgstr "Add New Post"
+
+msgid "Add New Project"
+msgstr "Add New Project"
+
+# Books page translations
+msgid "My Books"
+msgstr "My Books"
+
+msgid "Explore my collection of books and publications"
+msgstr "Explore my collection of books and publications"
+
+msgid "Read Book"
+msgstr "Read Book"
+
+msgid "Download PDF"
+msgstr "Download PDF"
+
+msgid "Book Details"
+msgstr "Book Details"
+
+msgid "Publication Date"
+msgstr "Publication Date"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Genre"
+msgstr "Genre"
+
+msgid "ISBN"
+msgstr "ISBN"
+
+msgid "Table of Contents"
+msgstr "Table of Contents"
+
+msgid "About this Book"
+msgstr "About this Book"
+
+msgid "Reviews"
+msgstr "Reviews"
+
+msgid "Related Books"
+msgstr "Related Books"
+
+# Contact page translations
+msgid "Get In Touch"
+msgstr "Get In Touch"
+
+msgid "I'd love to hear from you. Send me a message and I'll respond as soon as possible."
+msgstr "I'd love to hear from you. Send me a message and I'll respond as soon as possible."
+
+msgid "Your Name"
+msgstr "Your Name"
+
+msgid "Your Email"
+msgstr "Your Email"
+
+msgid "Your Message"
+msgstr "Your Message"
+
+msgid "Message sent successfully!"
+msgstr "Message sent successfully!"
+
+msgid "Error sending message. Please try again."
+msgstr "Error sending message. Please try again."
+
+msgid "Follow Me"
+msgstr "Follow Me"

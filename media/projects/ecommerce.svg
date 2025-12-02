@@ -1,0 +1,130 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ecommerceBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#065f46;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#047857;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ecommerceCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f0fdf4;stop-opacity:0.95" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#ecommerceBg)"/>
+  
+  <!-- Shopping pattern background -->
+  <g opacity="0.1">
+    <!-- Shopping cart icons -->
+    <g transform="translate(100, 80)">
+      <rect x="0" y="8" width="20" height="12" rx="2" fill="white"/>
+      <circle cx="5" cy="25" r="2" fill="white"/>
+      <circle cx="15" cy="25" r="2" fill="white"/>
+      <path d="M-5 0 L0 0 L2 8 L18 8" stroke="white" stroke-width="2" fill="none"/>
+    </g>
+    
+    <g transform="translate(650, 300)">
+      <rect x="0" y="8" width="20" height="12" rx="2" fill="white"/>
+      <circle cx="5" cy="25" r="2" fill="white"/>
+      <circle cx="15" cy="25" r="2" fill="white"/>
+      <path d="M-5 0 L0 0 L2 8 L18 8" stroke="white" stroke-width="2" fill="none"/>
+    </g>
+  </g>
+  
+  <!-- Main card -->
+  <rect x="80" y="60" width="640" height="280" rx="20" fill="url(#ecommerceCard)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  
+  <!-- Shopping cart icon -->
+  <g transform="translate(120, 100)">
+    <circle cx="30" cy="30" r="25" fill="#10b981"/>
+    <g transform="translate(18, 18)">
+      <rect x="4" y="12" width="16" height="10" rx="2" fill="white"/>
+      <circle cx="8" cy="28" r="2" fill="white"/>
+      <circle cx="16" cy="28" r="2" fill="white"/>
+      <path d="M0 4 L4 4 L6 12 L20 12" stroke="white" stroke-width="2" fill="none"/>
+    </g>
+  </g>
+  
+  <!-- Title -->
+  <text x="200" y="130" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1e293b">E-commerce Platform</text>
+  <text x="200" y="155" font-family="Arial, sans-serif" font-size="24" fill="#1e293b">منصة التجارة الإلكترونية</text>
+  
+  <!-- Features -->
+  <g transform="translate(200, 180)">
+    <!-- Product Management -->
+    <rect x="0" y="0" width="12" height="12" rx="2" fill="#3b82f6"/>
+    <text x="20" y="10" font-family="Arial, sans-serif" font-size="14" fill="#374151">Product Management</text>
+    
+    <!-- Shopping Cart -->
+    <rect x="0" y="25" width="12" height="12" rx="2" fill="#10b981"/>
+    <text x="20" y="35" font-family="Arial, sans-serif" font-size="14" fill="#374151">Shopping Cart System</text>
+    
+    <!-- Payment Gateway -->
+    <rect x="0" y="50" width="12" height="12" rx="2" fill="#f59e0b"/>
+    <text x="20" y="60" font-family="Arial, sans-serif" font-size="14" fill="#374151">Secure Payment Gateway</text>
+    
+    <!-- Order Management -->
+    <rect x="0" y="75" width="12" height="12" rx="2" fill="#8b5cf6"/>
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="14" fill="#374151">Order Management</text>
+  </g>
+  
+  <!-- E-commerce interface mockup -->
+  <g transform="translate(450, 180)">
+    <rect x="0" y="0" width="240" height="120" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    
+    <!-- Header -->
+    <rect x="10" y="10" width="220" height="20" rx="4" fill="#10b981"/>
+    <text x="120" y="23" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">E-Shop</text>
+    
+    <!-- Product cards -->
+    <rect x="15" y="40" width="60" height="60" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="20" y="45" width="50" height="30" rx="2" fill="#f3f4f6"/>
+    <text x="45" y="85" font-family="Arial, sans-serif" font-size="8" fill="#374151" text-anchor="middle">Product 1</text>
+    <text x="45" y="95" font-family="Arial, sans-serif" font-size="8" fill="#10b981" text-anchor="middle">$99</text>
+    
+    <rect x="85" y="40" width="60" height="60" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="90" y="45" width="50" height="30" rx="2" fill="#f3f4f6"/>
+    <text x="115" y="85" font-family="Arial, sans-serif" font-size="8" fill="#374151" text-anchor="middle">Product 2</text>
+    <text x="115" y="95" font-family="Arial, sans-serif" font-size="8" fill="#10b981" text-anchor="middle">$149</text>
+    
+    <rect x="155" y="40" width="60" height="60" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <rect x="160" y="45" width="50" height="30" rx="2" fill="#f3f4f6"/>
+    <text x="185" y="85" font-family="Arial, sans-serif" font-size="8" fill="#374151" text-anchor="middle">Product 3</text>
+    <text x="185" y="95" font-family="Arial, sans-serif" font-size="8" fill="#10b981" text-anchor="middle">$79</text>
+  </g>
+  
+  <!-- Technology stack -->
+  <g transform="translate(550, 100)">
+    <!-- Django -->
+    <rect x="0" y="0" width="45" height="18" rx="9" fill="#092e20"/>
+    <text x="22" y="12" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Django</text>
+    
+    <!-- PostgreSQL -->
+    <rect x="50" y="0" width="55" height="18" rx="9" fill="#336791"/>
+    <text x="77" y="12" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white" text-anchor="middle">PostgreSQL</text>
+    
+    <!-- Stripe -->
+    <rect x="0" y="25" width="40" height="18" rx="9" fill="#635bff"/>
+    <text x="20" y="37" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Stripe</text>
+    
+    <!-- Redis -->
+    <rect x="45" y="25" width="35" height="18" rx="9" fill="#dc382d"/>
+    <text x="62" y="37" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white" text-anchor="middle">Redis</text>
+  </g>
+  
+  <!-- Shopping elements -->
+  <g transform="translate(100, 250)">
+    <!-- Credit card -->
+    <rect x="0" y="0" width="40" height="25" rx="4" fill="#1f2937"/>
+    <rect x="5" y="5" width="30" height="4" rx="2" fill="#fbbf24"/>
+    <text x="20" y="20" font-family="monospace" font-size="8" fill="white" text-anchor="middle">****</text>
+    
+    <!-- Security badge -->
+    <circle cx="60" cy="12" r="10" fill="#10b981"/>
+    <path d="M55 12 L58 15 L65 8" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Bottom wave -->
+  <path d="M0 320 Q200 300 400 320 T800 320 L800 400 L0 400 Z" fill="rgba(16, 185, 129, 0.1)"/>
+</svg>

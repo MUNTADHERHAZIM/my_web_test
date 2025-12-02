@@ -1,0 +1,570 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load blog_extras %}
+
+{% block title %}{% trans "Blog Categories" %} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block meta_description %}{% trans "Explore all blog categories and topics. Find articles about web development, programming, technology, and more." %}{% endblock %}
+
+{% block extra_meta %}
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% trans 'Blog Categories' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta property="og:description" content="{% trans 'Explore all blog categories and topics. Find articles about web development, programming, technology, and more.' %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="{% trans 'Blog Categories' %} - {{ site_settings.site_name|default:'Muntazir Hazim' }}">
+<meta property="twitter:description" content="{% trans 'Explore all blog categories and topics. Find articles about web development, programming, technology, and more.' %}">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{% trans 'Blog Categories'|escapejs %}",
+  "description": "{% trans 'Explore all blog categories and topics. Find articles about web development, programming, technology, and more.'|escapejs %}",
+  "url": "{{ request.build_absolute_uri }}",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": {{ categories.count }},
+    "itemListElement": [
+      {% for category in categories %}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.counter }},
+        "item": {
+          "@type": "Thing",
+          "name": "{{ category.name|escapejs }}",
+          "description": "{{ category.description|default:'Category description'|escapejs }}",
+          "url": "{{ category.get_absolute_url|build_absolute_uri:request }}"
+        }
+      }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .category-card {
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .category-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover .category-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+    
+    .stats-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .search-container {
+        position: relative;
+    }
+    
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        z-index: 50;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .dark .search-results {
+        background: #1f2937;
+        border-color: #374151;
+    }
+    
+    .search-result-item {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #f3f4f6;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    .dark .search-result-item {
+        border-bottom-color: #374151;
+    }
+    
+    .search-result-item:hover {
+        background-color: #f9fafb;
+    }
+    
+    .dark .search-result-item:hover {
+        background-color: #374151;
+    }
+    
+    .category-gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .category-gradient-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .category-gradient-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .category-gradient-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .category-gradient-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .category-gradient-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+    .category-gradient-7 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+    .category-gradient-8 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+    
+    .floating-stats {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 40;
+    }
+    
+    .rtl .floating-stats {
+        right: auto;
+        left: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .floating-stats {
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-800 dark:to-gray-900 overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23667eea" fill-opacity="0.4"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-aos="fade-up">
+                {% trans "Blog Categories" %}
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                {% trans "Explore different topics and find articles that interest you. From web development to technology trends, discover content organized by categories." %}
+            </p>
+            
+            <!-- Search Bar -->
+            <div class="max-w-md mx-auto search-container" data-aos="fade-up" data-aos-delay="400">
+                <div class="relative">
+                    <input type="text" 
+                           id="category-search" 
+                           placeholder="{% trans 'Search categories...' %}" 
+                           class="w-full px-4 py-3 pl-12 rtl:pr-12 rtl:pl-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200">
+                    <i class="fas fa-search absolute left-4 rtl:right-4 rtl:left-auto top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <div id="search-results" class="search-results hidden"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="stats-card text-center p-6 rounded-xl text-white" data-aos="fade-up">
+                <i class="fas fa-folder text-3xl mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">{{ categories.count }}</h3>
+                <p class="text-sm opacity-90">{% trans "Categories" %}</p>
+            </div>
+            <div class="stats-card text-center p-6 rounded-xl text-white" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-newspaper text-3xl mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">{{ total_posts|default:0 }}</h3>
+                <p class="text-sm opacity-90">{% trans "Total Posts" %}</p>
+            </div>
+            <div class="stats-card text-center p-6 rounded-xl text-white" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-tags text-3xl mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">{{ total_tags|default:0 }}</h3>
+                <p class="text-sm opacity-90">{% trans "Tags" %}</p>
+            </div>
+            <div class="stats-card text-center p-6 rounded-xl text-white" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-eye text-3xl mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">{{ total_views|default:0 }}</h3>
+                <p class="text-sm opacity-90">{% trans "Total Views" %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Grid -->
+<section class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "All Categories" %}
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300" data-aos="fade-up" data-aos-delay="200">
+                {% trans "Browse through our organized content categories" %}
+            </p>
+        </div>
+        
+        {% if categories %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="categories-grid">
+                {% for category in categories %}
+                    <div class="category-card rounded-xl p-6 hover:shadow-xl transition-all duration-300" 
+                         data-aos="fade-up" 
+                         data-aos-delay="{% widthratio forloop.counter0|add:1 1 100 %}"
+                         data-category-name="{{ category.name|lower }}"
+                         data-category-description="{{ category.description|default:''|lower }}">
+                        
+                        <div class="flex items-center mb-4">
+                            <div class="category-icon category-gradient-{{ forloop.counter0|add:1|divisibleby:8|yesno:'8,1,2,3,4,5,6,7' }} w-12 h-12 rounded-lg flex items-center justify-center text-white mr-4 rtl:ml-4 rtl:mr-0">
+                                <i class="fas fa-{{ category.icon|default:'folder' }} text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                                    {{ category.name }}
+                                </h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ category.post_count|default:0 }} {% trans "posts" %}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        {% if category.description %}
+                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+                                {{ category.description }}
+                            </p>
+                        {% endif %}
+                        
+                        <!-- Recent Posts Preview -->
+                        {% if category.recent_posts %}
+                            <div class="mb-4">
+                                <h4 class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
+                                    {% trans "Recent Posts" %}
+                                </h4>
+                                <div class="space-y-1">
+                                    {% for post in category.recent_posts|slice:":2" %}
+                                        <a href="{{ post.get_absolute_url }}" class="block text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 truncate">
+                                            {{ post.title }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="flex items-center justify-between">
+                            <a href="{% url 'blog:category_posts' category.slug %}" 
+                               class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm transition-colors duration-200">
+                                {% trans "View Posts" %}
+                                <i class="fas fa-arrow-right ml-2 rtl:mr-2 rtl:ml-0 text-xs"></i>
+                            </a>
+                            
+                            {% if category.post_count > 0 %}
+                                <div class="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-clock mr-1 rtl:ml-1 rtl:mr-0"></i>
+                                    <span>{{ category.last_post_date|timesince }} {% trans "ago" %}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-16" data-aos="fade-up">
+                <i class="fas fa-folder-open text-6xl text-gray-300 dark:text-gray-600 mb-6"></i>
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                    {% trans "No Categories Found" %}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-8">
+                    {% trans "Categories will appear here once they are created." %}
+                </p>
+                <a href="{% url 'blog:post_list' %}" class="btn-primary">
+                    <i class="fas fa-arrow-left mr-2 rtl:ml-2 rtl:mr-0"></i>
+                    {% trans "Back to Blog" %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Popular Tags Section -->
+{% if popular_tags %}
+<section class="py-16 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up">
+                {% trans "Popular Tags" %}
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300" data-aos="fade-up" data-aos-delay="200">
+                {% trans "Discover content by popular tags" %}
+            </p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-3" data-aos="fade-up" data-aos-delay="400">
+            {% for tag in popular_tags %}
+                <a href="{% url 'blog:tag_posts' tag.slug %}" 
+                   class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 transform hover:scale-105">
+                    #{{ tag.name }}
+                    <span class="ml-2 rtl:mr-2 rtl:ml-0 text-xs bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded-full">
+                        {{ tag.post_count|default:0 }}
+                    </span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action -->
+<section class="py-16 bg-gradient-to-br from-primary-600 to-primary-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4" data-aos="fade-up">
+            {% trans "Stay Updated" %}
+        </h2>
+        <p class="text-xl text-primary-100 mb-8" data-aos="fade-up" data-aos-delay="200">
+            {% trans "Subscribe to our newsletter and never miss a new article" %}
+        </p>
+        
+        <form class="max-w-md mx-auto flex gap-4" data-aos="fade-up" data-aos-delay="400">
+            <input type="email" 
+                   placeholder="{% trans 'Enter your email' %}" 
+                   class="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-white focus:ring-opacity-50">
+            <button type="submit" 
+                    class="px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                {% trans "Subscribe" %}
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- Floating Quick Stats -->
+<div class="floating-stats">
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-4 border border-gray-200 dark:border-gray-700">
+        <h4 class="font-semibold text-gray-900 dark:text-white mb-3 text-sm">
+            {% trans "Quick Stats" %}
+        </h4>
+        <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+                <span class="text-gray-600 dark:text-gray-400">{% trans "Categories:" %}</span>
+                <span class="font-medium text-gray-900 dark:text-white">{{ categories.count }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-600 dark:text-gray-400">{% trans "Posts:" %}</span>
+                <span class="font-medium text-gray-900 dark:text-white">{{ total_posts|default:0 }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-600 dark:text-gray-400">{% trans "Tags:" %}</span>
+                <span class="font-medium text-gray-900 dark:text-white">{{ total_tags|default:0 }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('category-search');
+        const searchResults = document.getElementById('search-results');
+        const categoriesGrid = document.getElementById('categories-grid');
+        const categoryCards = document.querySelectorAll('[data-category-name]');
+        
+        // Search functionality
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const query = this.value.toLowerCase().trim();
+            
+            searchTimeout = setTimeout(() => {
+                if (query.length === 0) {
+                    searchResults.classList.add('hidden');
+                    showAllCategories();
+                    return;
+                }
+                
+                filterCategories(query);
+                showSearchResults(query);
+            }, 300);
+        });
+        
+        // Filter categories
+        function filterCategories(query) {
+            categoryCards.forEach(card => {
+                const name = card.dataset.categoryName;
+                const description = card.dataset.categoryDescription;
+                
+                if (name.includes(query) || description.includes(query)) {
+                    card.style.display = 'block';
+                    card.classList.remove('hidden');
+                } else {
+                    card.style.display = 'none';
+                    card.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Show all categories
+        function showAllCategories() {
+            categoryCards.forEach(card => {
+                card.style.display = 'block';
+                card.classList.remove('hidden');
+            });
+        }
+        
+        // Show search results dropdown
+        function showSearchResults(query) {
+            const matchingCategories = Array.from(categoryCards).filter(card => {
+                const name = card.dataset.categoryName;
+                const description = card.dataset.categoryDescription;
+                return name.includes(query) || description.includes(query);
+            });
+            
+            if (matchingCategories.length > 0) {
+                let resultsHTML = '';
+                matchingCategories.slice(0, 5).forEach(card => {
+                    const name = card.querySelector('h3').textContent;
+                    const postCount = card.querySelector('.text-sm').textContent;
+                    resultsHTML += `
+                        <div class="search-result-item" onclick="scrollToCategory('${card.dataset.categoryName}')">
+                            <div class="font-medium text-gray-900 dark:text-white">${name}</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">${postCount}</div>
+                        </div>
+                    `;
+                });
+                
+                searchResults.innerHTML = resultsHTML;
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.innerHTML = `
+                    <div class="search-result-item text-center text-gray-500 dark:text-gray-400">
+                        {% trans "No categories found" %}
+                    </div>
+                `;
+                searchResults.classList.remove('hidden');
+            }
+        }
+        
+        // Scroll to category
+        window.scrollToCategory = function(categoryName) {
+            const card = document.querySelector(`[data-category-name="${categoryName}"]`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.classList.add('ring-2', 'ring-primary-500');
+                setTimeout(() => {
+                    card.classList.remove('ring-2', 'ring-primary-500');
+                }, 2000);
+            }
+            searchResults.classList.add('hidden');
+            searchInput.value = '';
+            showAllCategories();
+        };
+        
+        // Hide search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+        
+        // Newsletter subscription
+        const newsletterForm = document.querySelector('form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                if (email) {
+                    // Simulate subscription
+                    showToast('{% trans "Thank you for subscribing!" %}');
+                    this.reset();
+                } else {
+                    showToast('{% trans "Please enter a valid email address" %}', 'error');
+                }
+            });
+        }
+        
+        // Animate counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stats-card h3');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 30);
+            });
+        }
+        
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats-card');
+        if (statsSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            observer.observe(statsSection);
+        }
+    });
+    
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const bgColor = type === 'error' ? 'bg-red-500' : 'bg-green-500';
+        toast.className = `fixed bottom-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-y-full transition-transform duration-300`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(full)';
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 300);
+        }, 3000);
+    }
+</script>
+
+<style>
+    .btn-primary {
+        @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200;
+    }
+    
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+{% endblock %}

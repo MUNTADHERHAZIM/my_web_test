@@ -1,0 +1,530 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}{{ site_settings.site_name|default:"منتظر حازم ثامر" }}{% endblock %}</title>
+    <meta name="description"
+        content="{% block description %}{{ site_settings.site_description|default:'الموقع الشخصي والمدونة الخاصة بـ منتظر حازم ثامر - مطور ومصمم مواقع' }}{% endblock %}">
+    <meta name="keywords"
+        content="{% block keywords %}{{ site_settings.site_keywords|default:'تطوير المواقع, محفظة أعمال, مدونة, برمجة, تصميم' }}{% endblock %}">
+    <meta name="author" content="{{ site_settings.site_author|default:'منتظر حازم ثامر' }}">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title"
+        content="{% block og_title %}{{ site_settings.site_name|default:'منتظر حازم ثامر' }}{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}{{ site_settings.site_description|default:'الموقع الشخصي والمدونة الخاصة بـ منتظر حازم ثامر' }}{% endblock %}">
+    <meta property="og:image"
+        content="{% block og_image %}{% if site_settings.site_logo %}{{ site_settings.site_logo.url }}{% else %}{% static 'images/og-image.jpg' %}{% endif %}{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:site_name" content="{{ site_settings.site_name|default:'منتظر حازم ثامر' }}">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title"
+        content="{% block twitter_title %}{{ site_settings.site_name|default:'منتظر حازم ثامر' }}{% endblock %}">
+    <meta name="twitter:description"
+        content="{% block twitter_description %}{{ site_settings.site_description|default:'الموقع الشخصي والمدونة الخاصة بـ منتظر حازم ثامر' }}{% endblock %}">
+    <meta name="twitter:image"
+        content="{% block twitter_image %}{% if site_settings.site_logo %}{{ site_settings.site_logo.url }}{% else %}{% static 'images/og-image.jpg' %}{% endif %}{% endblock %}">
+    {% if site_settings.twitter_username %}
+    <meta name="twitter:site" content="@{{ site_settings.twitter_username }}">
+    <meta name="twitter:creator" content="@{{ site_settings.twitter_username }}">
+    {% endif %}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg"
+        href="{% if site_settings.favicon %}{{ site_settings.favicon.url }}{% else %}{% static 'images/og-image.jpg' %}{% endif %}">
+    <link rel="apple-touch-icon"
+        href="{% if site_settings.favicon %}{{ site_settings.favicon.url }}{% else %}{% static 'images/og-image.jpg' %}{% endif %}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+
+    <!-- CSRF Token for JavaScript -->
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="{{ site_settings.site_name|default:" Blog" }} RSS Feed"
+        href="{% url 'blog:rss_feed' %}">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        'arabic': ['Noto Sans Arabic', 'Arial', 'sans-serif'],
+                        'english': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.5s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rtl-support.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-fixes.css' %}">
+
+    <!-- Blog Post JavaScript -->
+    <script src="{% static 'js/blog-post.js' %}" defer></script>
+
+    <!-- Language Switcher JavaScript -->
+    <script src="{% static 'js/language-switcher.js' %}" defer></script>
+
+    <!-- Custom CSS -->
+    <style>
+        /* Custom styles for RTL/LTR support */
+        [dir="rtl"] .rtl\:text-right {
+            text-align: right;
+        }
+
+        [dir="rtl"] .rtl\:text-left {
+            text-align: left;
+        }
+
+        [dir="ltr"] .ltr\:text-left {
+            text-align: left;
+        }
+
+        [dir="ltr"] .ltr\:text-right {
+            text-align: right;
+        }
+
+        /* RTL specific styles */
+        [dir="rtl"] .rtl\:mr-2 {
+            margin-right: 0.5rem;
+        }
+
+        [dir="rtl"] .rtl\:ml-2 {
+            margin-left: 0.5rem;
+        }
+
+        [dir="rtl"] .rtl\:pr-4 {
+            padding-right: 1rem;
+        }
+
+        [dir="rtl"] .rtl\:pl-4 {
+            padding-left: 1rem;
+        }
+
+        [dir="rtl"] .rtl\:float-right {
+            float: right;
+        }
+
+        [dir="rtl"] .rtl\:float-left {
+            float: left;
+        }
+
+        /* LTR specific styles */
+        [dir="ltr"] .ltr\:mr-2 {
+            margin-right: 0.5rem;
+        }
+
+        [dir="ltr"] .ltr\:ml-2 {
+            margin-left: 0.5rem;
+        }
+
+        [dir="ltr"] .ltr\:pr-4 {
+            padding-right: 1rem;
+        }
+
+        [dir="ltr"] .ltr\:pl-4 {
+            padding-left: 1rem;
+        }
+
+        [dir="ltr"] .ltr\:float-right {
+            float: right;
+        }
+
+        [dir="ltr"] .ltr\:float-left {
+            float: left;
+        }
+
+        /* Font family based on language */
+        [lang="ar"],
+        .font-arabic {
+            font-family: 'Noto Sans Arabic', Arial, sans-serif;
+        }
+
+        [lang="en"],
+        .font-english {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        /* RTL layout adjustments */
+        [dir="rtl"] .space-x-2> :not([hidden])~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+
+        [dir="rtl"] .space-x-4> :not([hidden])~ :not([hidden]) {
+            --tw-space-x-reverse: 1;
+        }
+
+        /* Flex direction for RTL */
+        [dir="rtl"] .flex-row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #374151;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #6b7280;
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body
+    class="{% if LANGUAGE_BIDI %}font-arabic{% else %}font-english{% endif %} bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md z-50">
+        {% trans "Skip to main content" %}
+    </a>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen"
+        class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center transition-opacity duration-500">
+        <div class="text-center">
+            <div class="loading mx-auto mb-4"></div>
+            <p class="text-gray-600 dark:text-gray-400">{% trans "Loading..." %}</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    {% include 'partials/navbar.html' %}
+
+    <!-- Announcements -->
+    {% include 'partials/announcements.html' %}
+
+    <!-- Main Content -->
+    <main id="main-content" class="min-h-screen">
+        <!-- Messages -->
+        {% if messages %}
+        <div class="fixed top-20 right-4 z-40 space-y-2" id="messages-container">
+            {% for message in messages %}
+            <div class="message-alert bg-{% if message.tags == 'error' %}red{% elif message.tags == 'warning' %}yellow{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-100 border border-{% if message.tags == 'error' %}red{% elif message.tags == 'warning' %}yellow{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-400 text-{% if message.tags == 'error' %}red{% elif message.tags == 'warning' %}yellow{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-700 px-4 py-3 rounded-lg shadow-lg max-w-sm animate-slide-down"
+                role="alert">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i
+                            class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% elif message.tags == 'success' %}check-circle{% else %}info-circle{% endif %} mr-2"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                    <button type="button"
+                        class="ml-2 text-{% if message.tags == 'error' %}red{% elif message.tags == 'warning' %}yellow{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-700 hover:text-{% if message.tags == 'error' %}red{% elif message.tags == 'warning' %}yellow{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-900"
+                        onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 bg-primary-600 hover:bg-primary-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible z-30"
+        aria-label="{% trans 'Back to top' %}">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Dark Mode Toggle -->
+    <button id="theme-toggle"
+        class="fixed bottom-8 left-8 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 p-3 rounded-full shadow-lg transition-all duration-300 z-30"
+        aria-label="{% trans 'Toggle dark mode' %}">
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:inline"></i>
+    </button>
+
+    <!-- Language Toggle -->
+    <div class="fixed bottom-24 left-8 z-30">
+        <div class="relative">
+            <button id="language-toggle"
+                class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 p-3 rounded-full shadow-lg transition-all duration-300"
+                aria-label="{% trans 'Change language' %}">
+                <i class="fas fa-globe"></i>
+            </button>
+            <div id="language-menu"
+                style="position: absolute; bottom: 100%; left: 0; margin-bottom: 8px; background: white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; display: none; opacity: 0; transition: all 0.3s ease; min-width: max-content; z-index: 1000;">
+                <a href="#" data-language="en"
+                    style="display: block; padding: 8px 16px; font-size: 14px; color: #374151; text-decoration: none; border-radius: 8px 8px 0 0; transition: background-color 0.2s;"
+                    onmouseover="this.style.backgroundColor='#f3f4f6'"
+                    onmouseout="this.style.backgroundColor='transparent'">
+                    <i class="fas fa-flag-usa" style="margin-right: 8px;"></i> English
+                </a>
+                <a href="#" data-language="ar"
+                    style="display: block; padding: 8px 16px; font-size: 14px; color: #374151; text-decoration: none; border-radius: 0 0 8px 8px; transition: background-color 0.2s;"
+                    onmouseover="this.style.backgroundColor='#f3f4f6'"
+                    onmouseout="this.style.backgroundColor='transparent'">
+                    <i class="fas fa-flag" style="margin-right: 8px;"></i> العربية
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Hide loading screen
+        window.addEventListener('load', function () {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', function () {
+            html.classList.toggle('dark');
+            const theme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', function () {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Language switcher is handled by external JS file
+
+        // Auto-hide messages after 5 seconds
+        setTimeout(function () {
+            const messages = document.querySelectorAll('.message-alert');
+            messages.forEach(function (message) {
+                message.style.opacity = '0';
+                setTimeout(function () {
+                    message.remove();
+                }, 300);
+            });
+        }, 5000);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form validation enhancement
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function (e) {
+                const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    const originalText = submitButton.textContent || submitButton.value;
+                    submitButton.innerHTML = '<span class="loading mr-2"></span>' + '{% trans "Processing..." %}';
+
+                    // Re-enable button after 10 seconds as fallback
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
+                    }, 10000);
+                }
+            });
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+
+    <!-- Google Analytics (if configured) -->
+    {% if site_settings.google_analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site_settings.google_analytics_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', '{{ site_settings.google_analytics_id }}');
+    </script>
+    {% endif %}
+</body>
+
+</html>

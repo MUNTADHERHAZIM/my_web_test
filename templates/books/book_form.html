@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {% if form.instance.pk %}
+        {% trans "Edit Book" %} - {{ form.instance.title }}
+    {% else %}
+        {% trans "Add New Book" %}
+    {% endif %}
+    - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                {% if form.instance.pk %}
+                    {% trans "Edit Book" %}
+                {% else %}
+                    {% trans "Add New Book" %}
+                {% endif %}
+            </h1>
+
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Title -->
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {{ form.title.label }}
+                    </label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.title.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Author -->
+                <div>
+                    <label for="{{ form.author.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {{ form.author.label }}
+                    </label>
+                    {{ form.author }}
+                    {% if form.author.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.author.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {{ form.description.label }}
+                    </label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.description.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Cover Image -->
+                <div>
+                    <label for="{{ form.cover_image.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {{ form.cover_image.label }}
+                    </label>
+                    {{ form.cover_image }}
+                    {% if form.cover_image.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.cover_image.errors.0 }}
+                        </div>
+                    {% endif %}
+                    {% if form.instance.cover_image %}
+                        <div class="mt-2">
+                            <img src="{{ form.instance.cover_image.url }}" alt="Current cover" class="w-32 h-40 object-cover rounded">
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{% trans "Current cover image" %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Category -->
+                    <div>
+                        <label for="{{ form.category.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.category.label }}
+                        </label>
+                        {{ form.category }}
+                        {% if form.category.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.category.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.status.label }}
+                        </label>
+                        {{ form.status }}
+                        {% if form.status.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.status.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- ISBN -->
+                    <div>
+                        <label for="{{ form.isbn.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.isbn.label }}
+                        </label>
+                        {{ form.isbn }}
+                        {% if form.isbn.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.isbn.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Pages -->
+                    <div>
+                        <label for="{{ form.pages.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.pages.label }}
+                        </label>
+                        {{ form.pages }}
+                        {% if form.pages.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.pages.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Current Page -->
+                    <div>
+                        <label for="{{ form.current_page.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.current_page.label }}
+                        </label>
+                        {{ form.current_page }}
+                        {% if form.current_page.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.current_page.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Publication Date -->
+                    <div>
+                        <label for="{{ form.publication_date.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.publication_date.label }}
+                        </label>
+                        {{ form.publication_date }}
+                        {% if form.publication_date.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.publication_date.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Rating -->
+                    <div>
+                        <label for="{{ form.rating.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.rating.label }}
+                        </label>
+                        {{ form.rating }}
+                        {% if form.rating.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.rating.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div>
+                    <label for="{{ form.tags.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {{ form.tags.label }}
+                    </label>
+                    {{ form.tags }}
+                    {% if form.tags.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.tags.errors.0 }}
+                        </div>
+                    {% endif %}
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        {% trans "Separate tags with commas" %}
+                    </p>
+                </div>
+
+                <!-- Is Published -->
+                <div class="flex items-center">
+                    {{ form.is_published }}
+                    <label for="{{ form.is_published.id_for_label }}" class="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {{ form.is_published.label }}
+                    </label>
+                    {% if form.is_published.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.is_published.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex justify-between pt-6">
+                    <a href="{% if form.instance.pk %}{% url 'books:book_detail' form.instance.slug %}{% else %}{% url 'books:book_list' %}{% endif %}" 
+                       class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+                        {% trans "Cancel" %}
+                    </a>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        {% if form.instance.pk %}
+                            {% trans "Update Book" %}
+                        {% else %}
+                            {% trans "Create Book" %}
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-update current page validation based on total pages
+document.addEventListener('DOMContentLoaded', function() {
+    const pagesInput = document.getElementById('{{ form.pages.id_for_label }}');
+    const currentPageInput = document.getElementById('{{ form.current_page.id_for_label }}');
+    
+    if (pagesInput && currentPageInput) {
+        pagesInput.addEventListener('input', function() {
+            const totalPages = parseInt(this.value);
+            if (totalPages > 0) {
+                currentPageInput.setAttribute('max', totalPages);
+            }
+        });
+        
+        currentPageInput.addEventListener('input', function() {
+            const currentPage = parseInt(this.value);
+            const totalPages = parseInt(pagesInput.value);
+            
+            if (totalPages > 0 && currentPage > totalPages) {
+                this.value = totalPages;
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

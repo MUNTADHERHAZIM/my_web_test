@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load blog_extras %}
+
+{% block title %}{% if object %}{% trans "Edit Post" %}{% else %}{% trans "Create Post" %}{% endif %} - {% trans "Blog" %} - {{ site_settings.site_name|default:"Muntazir Hazim" }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/ckeditor-custom.css' %}?v=20250822205800">
+    <link rel="stylesheet" href="{% static 'css/ckeditor-advanced.css' %}?v=20250822205800">
+{% endblock %}
+
+{% block extra_js %}
+    {{ form.media }}
+    <script>
+        // Ensure CKEditor loads properly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for CKEditor to initialize
+            setTimeout(function() {
+                if (typeof CKEDITOR !== 'undefined') {
+                    console.log('CKEditor is available');
+                    
+                    // Load enhancement scripts
+                    var script1 = document.createElement('script');
+                    script1.src = "{% static 'js/ckeditor-enhancements.js' %}";
+                    script1.onerror = function() {
+                        console.error('Failed to load ckeditor-enhancements.js');
+                    };
+                    document.head.appendChild(script1);
+                    
+                    script1.onload = function() {
+                        console.log('ckeditor-enhancements.js loaded');
+                        var script2 = document.createElement('script');
+                        script2.src = "{% static 'js/ckeditor-upload-fix.js' %}";
+                        script2.onerror = function() {
+                            console.error('Failed to load ckeditor-upload-fix.js');
+                        };
+                        script2.onload = function() {
+                            console.log('ckeditor-upload-fix.js loaded');
+                            // تحميل تحسينات الوسائط
+                            var script3 = document.createElement('script');
+                            script3.src = "{% static 'js/ckeditor-media-enhancements.js' %}";
+                            script3.onerror = function() {
+                                console.error('Failed to load ckeditor-media-enhancements.js');
+                            };
+                            script3.onload = function() {
+                                console.log('ckeditor-media-enhancements.js loaded');
+                                
+                                // تحميل مدير الملفات المتقدم
+                                var script4 = document.createElement('script');
+                                script4.src = "{% static 'js/ckeditor-file-manager.js' %}";
+                                script4.onerror = function() {
+                                    console.error('Failed to load ckeditor-file-manager.js');
+                                };
+                                script4.onload = function() {
+                                    console.log('ckeditor-file-manager.js loaded');
+                                    
+                                    // تحميل ملف رفع الصور من الروابط
+                                    var script5 = document.createElement('script');
+                                    script5.src = "{% static 'js/ckeditor-url-upload.js' %}";
+                                    script5.onerror = function() {
+                                        console.error('Failed to load ckeditor-url-upload.js');
+                                    };
+                                    script5.onload = function() {
+                                        console.log('ckeditor-url-upload.js loaded');
+                                        
+                                        // تحميل ملف إصلاح عناصر span و iframe
+                                        var script6 = document.createElement('script');
+                                        script6.src = "{% static 'js/ckeditor-span-iframe-fix.js' %}";
+                                        script6.onerror = function() {
+                                            console.error('Failed to load ckeditor-span-iframe-fix.js');
+                                        };
+                                        script6.onload = function() {
+                                            console.log('ckeditor-span-iframe-fix.js loaded');
+                                        };
+                                        document.head.appendChild(script6);
+                                    };
+                                    document.head.appendChild(script5);
+                                };
+                                document.head.appendChild(script4);
+                            };
+                            document.head.appendChild(script3);
+                        };
+                        document.head.appendChild(script2);
+                    };
+                } else {
+                    console.error('CKEditor is not available');
+                    // Try to reinitialize CKEditor if it's missing
+                    var contentField = document.querySelector('textarea[name="content"]');
+                    if (contentField && contentField.id) {
+                        console.log('Attempting to manually initialize CKEditor for:', contentField.id);
+                    }
+                }
+            }, 1000);
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                {% if object %}
+                    {% trans "Edit Post" %}
+                {% else %}
+                    {% trans "Create New Post" %}
+                {% endif %}
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300">
+                {% if object %}
+                    {% trans "Update your blog post" %}
+                {% else %}
+                    {% trans "Share your thoughts with the world" %}
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Form -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Title -->
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Title" %}
+                    </label>
+                    {{ form.title|add_class:"w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white" }}
+                    {% if form.title.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.title.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Excerpt -->
+                <div>
+                    <label for="{{ form.excerpt.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Excerpt" %}
+                    </label>
+                    {{ form.excerpt|add_class:"w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white" }}
+                    {% if form.excerpt.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.excerpt.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Content -->
+                <div>
+                    <label for="{{ form.content.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Content" %}
+                    </label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.content.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Cover Image -->
+                <div>
+                    <label for="{{ form.cover_image.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {% trans "Cover Image" %}
+                    </label>
+                    {{ form.cover_image|add_class:"w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white" }}
+                    {% if form.cover_image.errors %}
+                        <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            {{ form.cover_image.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Category and Tags -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Category -->
+                    <div>
+                        <label for="{{ form.category.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {% trans "Category" %}
+                        </label>
+                        {{ form.category|add_class:"w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white" }}
+                        {% if form.category.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.category.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Tags -->
+                    <div>
+                        <label for="{{ form.tags.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {% trans "Tags" %}
+                        </label>
+                        {{ form.tags|add_class:"w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white" }}
+                        {% if form.tags.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.tags.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Publishing Options -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Published -->
+                    <div class="flex items-center">
+                        {{ form.is_published }}
+                        <label for="{{ form.is_published.id_for_label }}" class="ml-2 rtl:mr-2 rtl:ml-0 text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {% trans "Published" %}
+                        </label>
+                    </div>
+
+                    <!-- Featured -->
+                    <div class="flex items-center">
+                        {{ form.is_featured }}
+                        <label for="{{ form.is_featured.id_for_label }}" class="ml-2 rtl:mr-2 rtl:ml-0 text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {% trans "Featured" %}
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-between pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <a href="{% url 'accounts:dashboard' %}" class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200">
+                        <i class="fas fa-arrow-left mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% trans "Cancel" %}
+                    </a>
+                    
+                    <button type="submit" class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200">
+                        <i class="fas fa-save mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        {% if object %}
+                            {% trans "Update Post" %}
+                        {% else %}
+                            {% trans "Create Post" %}
+                        {% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
